@@ -18,7 +18,7 @@ public class AutoLoad {
     public static EntryModel entryModel;
 
     public static final int PIN_LENGTH_MINIMUM = 6;
-    public static final int PIN_LENGTH_MAXIMUM = 19;
+    public static final int PIN_LENGTH_MAXIMUM = 38;
 
     public static final int PASSWORD_LENGTH_MINIMUM = 6;
 
@@ -27,7 +27,7 @@ public class AutoLoad {
 
 
 
-    public static final String DATABASE_DIRECTORY = System.getProperty("user.home")+File.separator+"securepass"+File.separator;
+    public static final String DATABASE_DIRECTORY = System.getProperty("user.home")+File.separator+"passloc"+File.separator;
 
 
     public static final Font REGULAR_FONT,BOLD_FONT;
@@ -42,13 +42,24 @@ public class AutoLoad {
     public static final Color THEME_COLOR_DARK = new Color (0x2B9833);
 
 
-    public static final String VERSION = "PassLoc1.0";
+    public static final String VERSION = "PassLoc1.1";
+
+    public static final String GITHUB = "github.com/mubashirtanveerayon/PassLoc";
 
     public static final String INVALID_PIN = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz \t";
 
 
     public static ArrayList<Exception> exceptions=new ArrayList<>();
 
+
+    public static boolean firstLaunch;
+
+    public static final String wordFromTheDev = "<html>Hello, "+System.getProperty("user.name")+".<br>" +
+            "This is to let you know that <b>PassLoc</b> is an <b>open-source</b> password manager app that lets you store anything<br> " +
+            "that is important and confidential to you in <i>text format</i> locally on your device's storage with strong and reliable encryption.<br>" +
+            "Nobody can retrieve the content of the generated database file on your device without the <b>password and pin code</b> that you set when<br>" +
+            "you created the database. So, even if your device storage is <b>compromised, your secrets are safe</b>. Again, this app does not rely on<br>" +
+            "an internet connection, and the source code is available publicly for inspection at "+GITHUB+"</html>";
 
 
     static{
@@ -68,6 +79,7 @@ public class AutoLoad {
                 accessTutorial=true;
                 viewTutorial=true;
                 insertTutorial=true;
+                firstLaunch=true;
             }
 
         } catch (Exception e) {

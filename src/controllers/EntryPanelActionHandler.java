@@ -41,13 +41,19 @@ public class EntryPanelActionHandler implements PanelActionHandler {
             entryPanel.passwordArea.requestFocus();
         }else if(e.getSource() == entryPanel.actionButton){
 
-            if(AutoLoad.entryModel == null)return;
+            if(AutoLoad.entryModel == null){
+                if(JToast.isAvailable())JToast.sendToastMessage(JToast.TYPE.ERROR,"Action unavailable","No database is available right now",JToast.HORIZONTAL_POSITION.RIGHT,JToast.VERTICAL_POSITION.BOTTOM);
+                return;
+            }
 
             String tag=entryPanel.tagField.getText();
             String username = entryPanel.usernameField.getText();
             String password = entryPanel.passwordArea.getText().replaceAll("\n"," ").replaceAll("\t"," ");
 
             if(tag.isEmpty() || username.isEmpty() || password.isEmpty()){
+
+                if(JToast.isAvailable())JToast.sendToastMessage(JToast.TYPE.ERROR,"You cannot leave any field empty",JToast.HORIZONTAL_POSITION.RIGHT,JToast.VERTICAL_POSITION.BOTTOM);
+
                 return;
             }
 

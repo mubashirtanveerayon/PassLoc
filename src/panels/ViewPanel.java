@@ -58,7 +58,7 @@ public class ViewPanel extends RoundedPanel implements ActionListener {
         };
 
 
-        searchButton =new RoundedButton("/res/search_hover.png", "/res/search.png",40);
+        searchButton =new RoundedButton("/res/search_hover.svg", "/res/search.svg",40);
 //        searchButton.defaultColor = AutoLoad.THEME_COLOR_LIGHT;
 //        searchButton.borderColor=AutoLoad.THEME_COLOR_LIGHT;
 //        searchButton.setBackground(AutoLoad.THEME_COLOR_LIGHT);

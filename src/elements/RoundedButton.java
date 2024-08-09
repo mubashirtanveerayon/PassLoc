@@ -1,5 +1,6 @@
 package elements;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import constants.AutoLoad;
 
 import javax.swing.*;
@@ -28,8 +29,8 @@ public class RoundedButton extends JButton implements MouseListener, ActionListe
     public RoundedButton(Color hover,Color pressed,Color normal,Color border,Color hoverText,Color textColor,String text,String hoverImagePath,String normalImagePath,boolean regularFont,int textSize, int radius){
         super(text);
         this.radius=radius;
-        normalIcon = new ImageIcon(normalImagePath);
-        hoverIcon = new ImageIcon(hoverImagePath);
+        normalIcon = normalImagePath.endsWith(".svg")? new FlatSVGIcon(getClass().getResource(normalImagePath)):new ImageIcon(getClass().getResource(normalImagePath));
+        hoverIcon = hoverImagePath.endsWith(".svg")? new FlatSVGIcon(getClass().getResource(hoverImagePath)):new ImageIcon(getClass().getResource(hoverImagePath));
         setIcon(normalIcon);
 
         borderColor=border;
@@ -78,14 +79,14 @@ public class RoundedButton extends JButton implements MouseListener, ActionListe
 
 
 
-    public RoundedButton(Color hoverColor, Color pressedColor, Color defaultColor, Color borderColor, String hoverIcon, String normalIcon, int radius) {
+    public RoundedButton(Color hoverColor, Color pressedColor, Color defaultColor, Color borderColor, String hoverImagePath, String normalImagePath, int radius) {
         this.hoverColor = hoverColor;
         this.defaultColor = defaultColor;
         this.pressedColor = pressedColor;
         this.borderColor = borderColor;
         this.radius = radius;
-        this.normalIcon = new ImageIcon(getClass().getResource(normalIcon));
-        this.hoverIcon = new ImageIcon(getClass().getResource(hoverIcon));
+        normalIcon = normalImagePath.endsWith(".svg")? new FlatSVGIcon(getClass().getResource(normalImagePath)):new ImageIcon(getClass().getResource(normalImagePath));
+        hoverIcon = hoverImagePath.endsWith(".svg")? new FlatSVGIcon(getClass().getResource(hoverImagePath)):new ImageIcon(getClass().getResource(hoverImagePath));
         setIcon(this.normalIcon);
         configure();
 

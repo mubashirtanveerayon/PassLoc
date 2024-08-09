@@ -1,5 +1,6 @@
 package panels;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import elements.Label;
 import elements.PanelActionHandler;
 import elements.RoundedPanel;
@@ -8,6 +9,9 @@ import constants.AutoLoad;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URL;
 
 
 public class SidePanel extends RoundedPanel  {
@@ -26,13 +30,26 @@ public class SidePanel extends RoundedPanel  {
         setPreferredSize(new Dimension(200,AutoLoad.DEFAULT_APP_DIMENSION.height));
 
 
-        JLabel logo = new JLabel(new ImageIcon(getClass().getResource("/res/logo.png")));
+        JLabel logo = new JLabel(new FlatSVGIcon(getClass().getResource("/res/logo.svg")));
         logo.setText(AutoLoad.VERSION);
         logo.setFont(AutoLoad.BOLD_FONT.deriveFont(28.0f));
         logo.setForeground(new Color(0xCAFFBF));
-
+        logo.setToolTipText(AutoLoad.VERSION+" source code is here!");
         logo.setHorizontalTextPosition(JLabel.CENTER);
         logo.setVerticalTextPosition(JLabel.BOTTOM);
+//        logo.addMouseListener(new MouseAdapter(){
+//            public void mouseClicked(MouseEvent e){
+//                Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+//                if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+//                    try {
+//                        desktop.browse(new URL(AutoLoad.GITHUB).toURI());
+//
+//                    } catch (Exception ex) {
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
 
 
 //        logo.setBackground(Color.white);

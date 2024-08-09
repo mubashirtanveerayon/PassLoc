@@ -24,10 +24,10 @@ public class ViewEditPanel extends JPanel {
     private void initComponents() {
 
 
-        copyUsernameButton = new RoundedButton("/res/username_hover.png", "/res/username.png",20);
-        copyPasswordButton = new RoundedButton("/res/password_hover.png", "/res/password.png",20);
-        editButton = new RoundedButton("/res/edit_black.png", "/res/edit_white.png",20);
-        deleteButton = new RoundedButton("/res/delete_black.png", "/res/delete_white.png",20);
+        copyUsernameButton = new RoundedButton("/res/username_hover.svg", "/res/username.svg",20);
+        copyPasswordButton = new RoundedButton("/res/password_hover.svg", "/res/password.svg",20);
+        editButton = new RoundedButton("/res/edit_black.svg", "/res/edit_white.svg",20);
+        deleteButton = new RoundedButton("/res/delete_black.svg", "/res/delete_white.svg",20);
 
 
         copyUsernameButton.setToolTipText("Copy username");

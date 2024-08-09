@@ -18,10 +18,8 @@ import sqlite.SQLiteConnection;
 import toast.JToast;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
@@ -49,6 +47,8 @@ public class Main extends JFrame implements PanelActionHandler, WindowListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setPreferredSize(AutoLoad.DEFAULT_APP_DIMENSION);
+
+        setResizable(false);
 
         RoundedPanel titlePanel = new RoundedPanel(10,AutoLoad.THEME_COLOR);
 
@@ -112,13 +112,27 @@ public class Main extends JFrame implements PanelActionHandler, WindowListener {
 
         AutoLoad.compile();
 
+
+
+
         Thread appThread= new Thread(new Runnable() {
             @Override
             public void run() {
 
 
 
+
+
                 Main window = new Main();
+                if(AutoLoad.firstLaunch){
+
+                    JLabel label = new JLabel(AutoLoad.wordFromTheDev);
+                    label.setFont(AutoLoad.REGULAR_FONT.deriveFont(15.0f));
+
+                    JOptionPane.showMessageDialog(window,label,"A word from the developer",JOptionPane.INFORMATION_MESSAGE);
+
+
+                }
                 window.setVisible(true);
 
                 JToast.setFrame(window);

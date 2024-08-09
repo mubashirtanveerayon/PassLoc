@@ -1,5 +1,6 @@
 package controllers;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import constants.AutoLoad;
 import constants.EntryModel;
 import elements.ContentLayout;
@@ -47,16 +48,16 @@ public class CreatePanelActionHandler implements PanelActionHandler {
         Object source = e.getSource();
         if(source == createPanel.showPassword){
             if(showingPassword){
-                createPanel.showPassword.normalIcon=new ImageIcon(getClass().getResource("/res/hide.png"));
-                createPanel.showPassword.hoverIcon=new ImageIcon(getClass().getResource("/res/hide_hover.png"));
+                createPanel.showPassword.normalIcon=new FlatSVGIcon(getClass().getResource("/res/hide.svg"));
+                createPanel.showPassword.hoverIcon=new FlatSVGIcon(getClass().getResource("/res/hide_hover.svg"));
 
                 showingPassword=false;
 
                 createPanel.passwordField.setEchoChar((char)8226);
 
             }else{
-                createPanel.showPassword.normalIcon=new ImageIcon(getClass().getResource("/res/show.png"));
-                createPanel.showPassword.hoverIcon=new ImageIcon(getClass().getResource("/res/show_hover.png"));
+                createPanel.showPassword.normalIcon=new FlatSVGIcon(getClass().getResource("/res/show.svg"));
+                createPanel.showPassword.hoverIcon=new FlatSVGIcon(getClass().getResource("/res/show_hover.svg"));
                 showingPassword=true;
                 createPanel.passwordField.setEchoChar((char)0);
             }
@@ -64,15 +65,15 @@ public class CreatePanelActionHandler implements PanelActionHandler {
 
         }else if(source == createPanel.showPin){
             if(showingPin){
-                createPanel.showPin.normalIcon=new ImageIcon(getClass().getResource("/res/hide.png"));
-                createPanel.showPin.hoverIcon=new ImageIcon(getClass().getResource("/res/hide_hover.png"));
+                createPanel.showPin.normalIcon= new FlatSVGIcon(getClass().getResource("/res/hide.svg")) ;//new FlatSVGIcon(getClass().getResource("/res/hide.svg"));
+                createPanel.showPin.hoverIcon=new FlatSVGIcon(getClass().getResource("/res/hide_hover.svg"));
 
                 showingPin=false;
                 createPanel.pinField.setEchoChar((char)8226);
 
             }else{
-                createPanel.showPin.normalIcon=new ImageIcon(getClass().getResource("/res/show.png"));
-                createPanel.showPin.hoverIcon=new ImageIcon(getClass().getResource("/res/show_hover.png"));
+                createPanel.showPin.normalIcon=new FlatSVGIcon(getClass().getResource("/res/show.svg"));
+                createPanel.showPin.hoverIcon=new FlatSVGIcon(getClass().getResource("/res/show_hover.svg"));
                 showingPin=true;
                 createPanel.pinField.setEchoChar((char)0);
             }
@@ -108,6 +109,9 @@ public class CreatePanelActionHandler implements PanelActionHandler {
 
                 return;
             }
+
+            int response = JOptionPane.showConfirmDialog(null,"Your password and pin are both crucial. If you forget any of them, your data becomes irretrievable.\nAre you sure?","Confirmation",JOptionPane.YES_NO_OPTION);
+            if(response != JOptionPane.OK_OPTION)return;
 
 
             try{

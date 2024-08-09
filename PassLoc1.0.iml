@@ -11,5 +11,6 @@
     <orderEntry type="library" name="JToast" level="project" />
     <orderEntry type="library" name="flatlaf-3.5" level="project" />
     <orderEntry type="library" name="sqlite-jdbc-3.46.0.0" level="project" />
+    <orderEntry type="library" name="flatlaf-extras-3.5.1" level="project" />
   </component>
 </module>

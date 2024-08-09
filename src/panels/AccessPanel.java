@@ -78,17 +78,17 @@ public class AccessPanel extends RoundedPanel  {
         });
         pinField.setCaretColor(AutoLoad.THEME_COLOR);
 
-//        showIcon=new ImageIcon(getClass().getResource("/res/show.png"));
-//        hideIcon = new ImageIcon(getClass().getResource("/res/hide.png"));
+//        showIcon=new ImageIcon(getClass().getResource("/res/show.svg"));
+//        hideIcon = new ImageIcon(getClass().getResource("/res/hide.svg"));
 
-//        openFile = new JLabel(new ImageIcon(getClass().getResource("/res/open.png")));
+//        openFile = new JLabel(new ImageIcon(getClass().getResource("/res/open.svg")));
 //
 //        showPassword = new JLabel(hideIcon);
 //        showPin = new JLabel(hideIcon);
 
-        showPassword=new RoundedButton("/res/hide_hover.png", "/res/hide.png",50);
-        showPin=new RoundedButton("/res/hide_hover.png", "/res/hide.png",50);
-        openFile=new RoundedButton("/res/open_hover.png", "/res/open.png",50);
+        showPassword=new RoundedButton("/res/hide_hover.svg", "/res/hide.svg",50);
+        showPin=new RoundedButton("/res/hide_hover.svg", "/res/hide.svg",50);
+        openFile=new RoundedButton("/res/open_hover.svg", "/res/open.svg",50);
         showPassword.setPreferredSize(new Dimension(40,40));
         showPin.setPreferredSize(new Dimension(40,40));
         openFile.setPreferredSize(new Dimension(40,40));

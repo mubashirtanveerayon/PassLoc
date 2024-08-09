@@ -1,5 +1,6 @@
 package controllers;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import constants.AutoLoad;
 import constants.EntryModel;
 import elements.ContentLayout;
@@ -51,16 +52,16 @@ public class AccessPanelActionHandler implements PanelActionHandler {
 
         } else if(source == accessPanel.showPassword){
             if(showingPassword){
-                accessPanel.showPassword.normalIcon=new ImageIcon(getClass().getResource("/res/hide.png"));
-                accessPanel.showPassword.hoverIcon=new ImageIcon(getClass().getResource("/res/hide_hover.png"));
+                accessPanel.showPassword.normalIcon=new FlatSVGIcon(getClass().getResource("/res/hide.svg"));
+                accessPanel.showPassword.hoverIcon=new FlatSVGIcon(getClass().getResource("/res/hide_hover.svg"));
 
                 showingPassword=false;
 
                 accessPanel.passwordField.setEchoChar((char)8226);
 
             }else{
-                accessPanel.showPassword.normalIcon=new ImageIcon(getClass().getResource("/res/show.png"));
-                accessPanel.showPassword.hoverIcon=new ImageIcon(getClass().getResource("/res/show_hover.png"));
+                accessPanel.showPassword.normalIcon=new FlatSVGIcon(getClass().getResource("/res/show.svg"));
+                accessPanel.showPassword.hoverIcon=new FlatSVGIcon(getClass().getResource("/res/show_hover.svg"));
                 showingPassword=true;
                 accessPanel.passwordField.setEchoChar((char)0);
             }
@@ -68,15 +69,15 @@ public class AccessPanelActionHandler implements PanelActionHandler {
 
         }else if(source == accessPanel.showPin){
             if(showingPin){
-                accessPanel.showPin.normalIcon=new ImageIcon(getClass().getResource("/res/hide.png"));
-                accessPanel.showPin.hoverIcon=new ImageIcon(getClass().getResource("/res/hide_hover.png"));
+                accessPanel.showPin.normalIcon=new FlatSVGIcon(getClass().getResource("/res/hide.svg"));
+                accessPanel.showPin.hoverIcon=new FlatSVGIcon(getClass().getResource("/res/hide_hover.svg"));
 
                 showingPin=false;
                 accessPanel.pinField.setEchoChar((char)8226);
 
             }else{
-                accessPanel.showPin.normalIcon=new ImageIcon(getClass().getResource("/res/show.png"));
-                accessPanel.showPin.hoverIcon=new ImageIcon(getClass().getResource("/res/show_hover.png"));
+                accessPanel.showPin.normalIcon=new FlatSVGIcon(getClass().getResource("/res/show.svg"));
+                accessPanel.showPin.hoverIcon=new FlatSVGIcon(getClass().getResource("/res/show_hover.svg"));
                 showingPin=true;
                 accessPanel.pinField.setEchoChar((char)0);
             }
@@ -101,7 +102,11 @@ public class AccessPanelActionHandler implements PanelActionHandler {
 
             }catch(Exception ex){
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(null,ex.toString(),"Incorrect password",JOptionPane.ERROR_MESSAGE);
+//                JOptionPane.showMessageDialog(null,ex.toString(),"Incorrect password",JOptionPane.ERROR_MESSAGE);
+
+                if(JToast.isAvailable())
+                    JToast.sendToastMessage(JToast.TYPE.ERROR,"Probably due to incorrect password",ex.getMessage(),JToast.HORIZONTAL_POSITION.RIGHT,JToast.VERTICAL_POSITION.BOTTOM);
+
                 return;
             }
 
