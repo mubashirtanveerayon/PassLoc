@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JToast">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/JToast.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="flatlaf-3.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/flatlaf-3.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/material-theme-jetbrains-9.4.1-instrumented.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
