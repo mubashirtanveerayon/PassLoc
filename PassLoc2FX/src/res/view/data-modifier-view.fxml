@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane styleClass="anchor-pane" stylesheets="@style/default-view-container.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DataModifierView">
+   <padding>
+      <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   <children>
+      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="15.0" styleClass="parent-container" stylesheets="@style/default-view-container.css" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="15.0" left="40.0" right="40.0" top="15.0" />
+               </padding>
+               <children>
+                  <Label text="Entry" textFill="#002f03">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <VBox spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="2.0">
+                           <children>
+                              <MaterialIconView glyphName="LOCAL_OFFER" size="24" />
+                              <Label styleClass="text-field-label" stylesheets="@style/text-container.css" text="Tag">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <TextField fx:id="tagField" stylesheets="@style/text-container.css">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="custom-text-field-with-border" />
+                              <String fx:value="custom-text-field" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="50.0" layoutY="188.0" spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="2.0">
+                           <children>
+                              <MaterialIconView glyphName="PERSON" size="24" />
+                              <Label styleClass="text-field-label" stylesheets="@style/text-container.css" text="Username">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <TextField fx:id="usernameField" stylesheets="@style/text-container.css">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="custom-text-field" />
+                              <String fx:value="custom-text-field-with-border" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="50.0" layoutY="188.0" spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="2.0">
+                           <children>
+                              <MaterialIconView glyphName="LOCK" size="24" />
+                              <Label styleClass="text-field-label" stylesheets="@style/text-container.css" text="Password">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <AnchorPane styleClass="text-field-container" stylesheets="@style/text-container.css">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <JFXTextArea fx:id="passwordField" focusColor="#405aa800" stylesheets="@style/data-modifier-view.css" unFocusColor="#4d4d4d00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </JFXTextArea>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <MFXButton fx:id="actionButton" onAction="#onActionButtonAction" prefWidth="200.0" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Add">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MFXButton>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

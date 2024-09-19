@@ -1,0 +1,27 @@
+
+
+.root{
+    -fx-background-color: #3bbd46;
+}
+
+.label{
+    -fx-text-fill: #002f03;
+
+}
+
+#lock-button{
+    -fx-text-fill:  #002f03;
+    -fx-background-color: transparent;
+
+    -fx-background-radius:10px;
+    -fx-border-radius:10px;
+    -fx-border-width: 2px;
+    -fx-border-color:#002f03;
+}
+
+
+#lock-button:hover{
+    -fx-background-color:derive(red,65%);
+    -fx-border-color:transparent;
+    -fx-effect: innershadow( two-pass-box , rgba(129, 0, 0, 0.68), 8 , 0.2 ,0 , 0);
+}

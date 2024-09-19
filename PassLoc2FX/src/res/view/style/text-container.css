@@ -1,0 +1,36 @@
+.text-field-label{
+
+    -fx-background-radius:5px 5px 0px 0px;
+    -fx-border-radius:5;
+    -fx-text-fill:#002f03;
+    -fx-font-weight: bold;
+}
+
+
+.text-field-container{
+
+    -fx-background-color: rgb(51, 163, 60);
+    -fx-background-radius: 15px;
+    -fx-border-radius:15px;
+    -fx-border-width: 3px;
+    -fx-border-color: transparent;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.4),5,0.0,0.0,0.0);
+}
+
+.custom-text-field{
+    -fx-background-color:transparent;
+
+    -fx-text-fill:#002f03;
+}
+
+.custom-text-field-with-border{
+    -fx-background-radius: 15px;
+    -fx-background-color: rgb(51, 163, 60);
+    -fx-border-radius:15px;
+    -fx-border-width: 3px;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.4),5,0.0,0.0,0.0);
+
+}
+
+
+

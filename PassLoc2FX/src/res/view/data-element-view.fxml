@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" spacing="20.0" styleClass="parent-container" stylesheets="@style/data-element-view.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elements.DataElement">
+   <children>
+      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="usernameLabel" text="Username" textFill="#002f03">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="passwordLabel" layoutX="10.0" layoutY="10.0" text="Password" textFill="#002f03">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" spacing="10.0" styleClass="action-container" stylesheets="@style/data-element-view.css">
+         <children>
+            <MaterialIconView fx:id="editIcon" glyphName="EDIT" size="26">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></MaterialIconView>
+            <MenuButton id="copy-menu" fx:id="copyMenu" mnemonicParsing="false">
+               <graphic>
+                  <MaterialIconView glyphName="CONTENT_COPY" size="26" />
+               </graphic>
+               <items>
+                  <MenuItem fx:id="copyUsernameMenuItem" mnemonicParsing="false" text="Username" />
+                  <MenuItem fx:id="copyPasswordMenuItem" mnemonicParsing="false" text="Password" />
+               </items>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <MaterialIconView fx:id="deleteIcon" glyphName="DELETE" size="26">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></MaterialIconView>
+         </children>
+      </HBox>
+   </children>
+</HBox>

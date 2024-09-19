@@ -1,0 +1,26 @@
+
+
+.label{
+    -fx-text-fill: #002f03;
+
+}
+
+
+
+.my-password-field{
+
+    -fx-background-color: transparent;
+    -fx-text-fill: #002f03;
+
+
+}
+
+.password-card{
+    -fx-background-color: rgb(56, 179, 66);
+    -fx-background-radius: 30;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.5),6,0.0,0.0,0.0);
+}
+
+
+
+

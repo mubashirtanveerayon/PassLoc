@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane styleClass="anchor-pane" stylesheets="@style/default-view-container.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UnlockView">
+   <padding>
+      <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   <children>
+      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="30.0" styleClass="parent-container" stylesheets="@style/default-view-container.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label styleClass="welcome-text" stylesheets="@style/unlock-view.css" text="Welcome back!">
+                     <font>
+                        <Font name="System Bold" size="56.0" />
+                     </font>
+                  </Label>
+                  <Pane VBox.vgrow="ALWAYS" />
+                  <Label styleClass="info-label" stylesheets="@style/unlock-view.css" text="Access a locker with master password:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" styleClass="password-card" stylesheets="@style/unlock-view.css">
+                     <children>
+                        <StackPane HBox.hgrow="ALWAYS">
+                           <children>
+                              <PasswordField fx:id="passwordField" styleClass="my-password-field" stylesheets="@style/unlock-view.css">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </PasswordField>
+                              <TextField fx:id="textField" styleClass="my-password-field" stylesheets="@style/unlock-view.css" visible="false">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </StackPane>
+                        <MaterialIconView fx:id="showPasswordImage" glyphName="VISIBILITY_OFF" onMouseClicked="#onShowPasswordImageClicked" size="32">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MaterialIconView>
+                     </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </HBox>
+                  <Pane layoutX="50.0" layoutY="138.0" VBox.vgrow="ALWAYS" />
+      
+                  
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="40.0" right="40.0" top="15.0" />
+               </padding>
+            </VBox>
+            <MFXButton onAction="#onAccessButtonAction" prefWidth="200.0" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Unlock">
+
+                     <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </MFXButton>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

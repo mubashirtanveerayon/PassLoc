@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="flatlaf-3.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/flatlaf-3.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/flatlaf-extras-3.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jsvg-1.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/JToast.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/material-theme-jetbrains-9.4.1-instrumented.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/slf4j-api-1.7.36.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/sqlite-jdbc-3.46.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

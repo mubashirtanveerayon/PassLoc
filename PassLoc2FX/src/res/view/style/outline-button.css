@@ -1,0 +1,17 @@
+.outline-button{
+    -fx-background-color:transparent;
+    -fx-border-radius: 10;
+
+    -fx-background-radius: 10;
+    -fx-border-width: 3px;
+    -fx-border-color: #002f03;
+    -fx-text-fill: #002f03;
+
+
+}
+
+
+.outline-button:hover{
+    -fx-background-color: #002f03;
+    -fx-text-fill: #2da82b;
+}

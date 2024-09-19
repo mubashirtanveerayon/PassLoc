@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PassLoc" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="colorPrimary">@color/theme_dark</item>
+        <item name="colorOnPrimary">@color/theme_light</item>
+
+
+        <item name="floatingActionButtonStyle">@style/FloatingActionButtonStyle</item>
+        <item name="fontFamily">@font/ubuntu_regular</item>
+
+    </style>
+
+    <style name="FloatingActionButtonStyle" parent="Widget.Design.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/FabShape</item>
+    </style>
+
+
+    <style name="Theme.PassLoc" parent="Base.Theme.PassLoc" />
+
+    <style name="FabShape" parent="ShapeAppearance.Material3.SmallComponent">
+
+        <item name="cornerSize">60%</item>
+
+    </style>
+
+</resources>

@@ -1,0 +1,30 @@
+.parent-container{
+
+    -fx-background-radius: 20px;
+    -fx-padding: 10px;
+    -fx-background-color: #3BBD46;
+    -fx-border-width:2px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #002f03;
+
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0),0,0.0,0.0,0.0);
+}
+
+.action-container{
+    -fx-padding: 10px;
+
+    -fx-background-color: #38b342;
+    -fx-background-radius: 20px;
+    -fx-effect: innershadow( two-pass-box , rgba(43, 136, 50, 0.68), 8 , 0.2 ,0 , 0);
+}
+
+#copy-menu{
+    -fx-background-color: transparent;
+}
+#copy-menu  >. arrow-button> .arrow{
+    -fx-padding: 0;
+}
+
+#copy-menu  >. arrow-button>{
+    -fx-padding: 0;
+}

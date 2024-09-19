@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane styleClass="anchor-pane" stylesheets="@style/default-view-container.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginDBView">
+   <children>
+      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="30.0" styleClass="parent-container" stylesheets="@style/default-view-container.css" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="15.0" left="40.0" right="40.0" top="15.0" />
+               </padding>
+               <children>
+                  <Label text="Database" textFill="#002f03">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="2.0">
+                           <children>
+                              <MaterialIconView glyphName="STORAGE" size="24" />
+                              <Label styleClass="text-field-label" stylesheets="@style/text-container.css" text="Database Name">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <TextField id="database-name-field" fx:id="dbNameField" stylesheets="@style/text-container.css">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="custom-text-field" />
+                              <String fx:value="custom-text-field-with-border" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="2.0">
+                           <children>
+                              <MaterialIconView glyphName="FOLDER" size="24" />
+                              <Label styleClass="text-field-label" stylesheets="@style/text-container.css" text="Location">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" styleClass="text-field-container" stylesheets="@style/text-container.css">
+                           <children>
+                              <TextField fx:id="dbLocationField" styleClass="custom-text-field" stylesheets="@style/text-container.css" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                              <MaterialIconView glyphName="FOLDER_OPEN" onMouseClicked="#onSaveLocationImageClicked" size="32">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </MaterialIconView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="2.0">
+                           <children>
+                              <MaterialIconView glyphName="LOCK" size="24" />
+                              <Label styleClass="text-field-label" stylesheets="@style/text-container.css" text="Password">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" styleClass="text-field-container" stylesheets="@style/text-container.css">
+                           <children>
+                              <StackPane HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <PasswordField fx:id="passwordField" styleClass="custom-text-field" stylesheets="@style/text-container.css">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </PasswordField>
+                                    <TextField fx:id="textField" styleClass="custom-text-field" stylesheets="@style/text-container.css" visible="false">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </StackPane>
+                              <MaterialIconView fx:id="showPasswordImage" glyphName="VISIBILITY_OFF" onMouseClicked="#onShowPasswordImageClicked" size="32">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </MaterialIconView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <MFXButton fx:id="accessButton" prefWidth="200.0" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Create">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MFXButton>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</AnchorPane>

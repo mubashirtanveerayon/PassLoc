@@ -1,0 +1,12 @@
+.jfx-text-area .scroll-bar{
+    -fx-background-radius: 20px;
+    -fx-pref-width: 24px;
+    -fx-opacity: 0.7;
+
+}
+
+.jfx-text-area .scroll-bar .thumb{
+
+    -fx-background-color: rgb(25, 80, 29);
+    -fx-opacity: 0.8;
+}

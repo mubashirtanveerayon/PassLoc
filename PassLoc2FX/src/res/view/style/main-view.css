@@ -1,0 +1,73 @@
+
+.root-pane{
+    -fx-background-radius: 0 0 18 18;
+    -fx-border-radius: 0 0 18 18;
+}
+
+
+.left-panel{
+    -fx-background-color:#046808;
+}
+
+.title-label{
+    -fx-text-fill: #2EAA2BFF;
+
+}
+
+.slogan-label{
+    -fx-text-fill: #d5f3d5;
+
+}
+
+.title-card{
+    -fx-background-radius: 10;
+    -fx-background-color: #002f03;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.5),6,0.0,0.0,0.0);
+}
+
+
+
+
+
+.left-panel-nav-container{
+    -fx-background-color: #104914;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.2),2,0.0,0.0,0.0);
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+
+}
+
+.left-panel-nav-ribbon{
+    -fx-background-color: #349834;
+}
+
+.left-panel-nav-text{
+    -fx-text-fill: #d5f3d5;
+
+
+}
+
+.left-panel-nav-container:hover .left-panel-nav-ribbon{
+
+    -fx-background-color: #27bd23;
+
+}
+
+.left-panel-nav-container:hover .left-panel-nav-text{
+    -fx-text-fill: #ffffff;
+}
+
+
+
+.left-panel-nav-container:hover{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.5),6,0.0,0.0,0.0);
+    -fx-background-color: #024306;
+    -fx-border-width: 0px 0px 3px 0px;
+    -fx-border-color: #d5f3d5;
+
+
+}
+
+
+
+

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccessFragment"
+    android:background="@color/theme_light"
+    android:id="@+id/access_fragment"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_30sdp"
+    android:paddingStart="@dimen/_20sdp"
+    android:paddingEnd="@dimen/_20sdp"
+    >
+
+    <ScrollView
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        android:id="@+id/access_scroll_view"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:fillViewport="true"
+
+        android:fitsSystemWindows="true"
+
+        android:gravity="center"
+
+        android:scrollbarThumbVertical="@null"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_25sdp"
+                android:drawableTint="@color/theme_dark"
+                android:fontFamily="@font/spartan_regular"
+                android:text="@string/app_name"
+                android:textAlignment="center"
+                android:textColor="@color/theme_dark"
+                android:textSize="50sp"
+                app:drawableTopCompat="@drawable/pass_loc91"
+
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/account_name_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:hint="Account"
+                app:boxBackgroundColor="@color/theme_semi_light"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/theme_dark"
+                app:helperText="Enter new account name"
+
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/outline_account_circle_32"
+                app:startIconTint="@color/theme_dark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/account_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textShortMessage|textNoSuggestions"
+                    android:privateImeOptions="nm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:hint="Password"
+                app:boxBackgroundColor="@color/theme_semi_light"
+                app:boxBackgroundMode="outline"
+
+                app:boxStrokeColor="@color/theme_dark"
+
+                app:boxStrokeErrorColor="@color/error"
+                app:counterEnabled="true"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/theme_dark"
+                app:errorIconTint="@color/error"
+                app:errorTextColor="@color/error"
+                app:helperText="Enter password"
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/lock_32"
+                app:startIconTint="@color/theme_dark"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:privateImeOptions="nm" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pin_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_220sdp"
+                android:hint="Pin"
+                app:boxBackgroundColor="@color/theme_semi_light"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/theme_dark"
+
+
+                app:boxStrokeErrorColor="@color/error"
+                app:counterEnabled="true"
+                app:counterMaxLength="@integer/pin_max_length"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/theme_dark"
+                app:errorIconTint="@color/error"
+                app:errorTextColor="@color/error"
+                app:helperText="Enter pin"
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/lock_32"
+                app:startIconTint="@color/theme_dark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pin_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberPassword"
+                    android:maxLength="@integer/pin_max_length"
+                    android:privateImeOptions="nm" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
