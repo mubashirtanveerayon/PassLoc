@@ -75,7 +75,7 @@ public class SyncView extends View implements Initializable {
 
 
     @FXML
-    void onNextIconClicked(MouseEvent event) {
+    void onNextButtonAction(ActionEvent event) {
         if(qrImages.isEmpty())
             return;
         imageIndex = Math.min(imageIndex + 1, qrImages.size()-1);
@@ -84,7 +84,7 @@ public class SyncView extends View implements Initializable {
     }
 
     @FXML
-    void onPrevIconClicked(MouseEvent event) {
+    void onPreviousButtonAction(ActionEvent event) {
         if(qrImages.isEmpty())
             return;
         imageIndex = Math.max(imageIndex - 1, 0);

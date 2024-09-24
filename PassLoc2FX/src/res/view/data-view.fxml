@@ -29,7 +29,7 @@
                         <SearchableComboBox id="tag-combo-box" fx:id="tagComboBox" onAction="#onTagComboBoxAction" stylesheets="@style/data-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
-                  <MFXScrollPane id="data-scroll-view" fx:id="elementScrollPane" hbarPolicy="NEVER" stylesheets="@style/data-view.css" thumbColor="#26722b" thumbHoverColor="#19501d" trackColor="#d5f2d5" VBox.vgrow="ALWAYS">
+                  <MFXScrollPane id="data-scroll-view" fx:id="elementScrollPane" hbarPolicy="NEVER" stylesheets="@style/custom-scroll-pane.css" thumbColor="#26722b" thumbHoverColor="#19501d" trackColor="#d5f2d5" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                      <content>
                         <VBox fx:id="dataElementContainer" alignment="TOP_CENTER" prefWidth="670.0" spacing="20.0">
                            <padding>

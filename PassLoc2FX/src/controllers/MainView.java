@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import helper.State;
 import java.io.IOException;
 import java.net.URL;
@@ -18,11 +19,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Material;
 import javafx.stage.Stage;
+import org.controlsfx.control.PopOver;
 import services.database.Database;
 import services.secure.Credential;
 
@@ -39,7 +44,16 @@ public class MainView extends View implements Initializable {
     
     @FXML
     BorderPane containerPane;
-    
+
+
+    TutorialView tutorialPopOverView;
+
+    @FXML
+    ImageView helpIcon;
+
+    @FXML
+    private Button lockButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
@@ -70,12 +84,30 @@ public class MainView extends View implements Initializable {
             
             UnlockView controller = unlockViewLoader.getController();
             controller.setBorderPane(containerPane);
+            controller.setLockButton(lockButton);
 
         } catch (IOException ex) {
            ex.printStackTrace();
         }
-        
-        
+
+
+
+        FXMLLoader tutorialLoader = new FXMLLoader(getClass().getResource("/res/view/tutorial-view.fxml"));;
+        try{
+            Parent root = tutorialLoader.load();
+            tutorialPopOverView = tutorialLoader.getController()    ;
+
+
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+
+
+
+
+
+
+
     }
     
     public void onAccessDBMouseClicked(MouseEvent mouseEvent) {
@@ -168,14 +200,25 @@ public class MainView extends View implements Initializable {
         Credential.resetInstance();
         FXMLLoader unlockViewLoader = new FXMLLoader(getClass().getResource("/res/view/unlock-view.fxml"));
         try{
+
             containerPane.setCenter(unlockViewLoader.load());
             UnlockView controller = (UnlockView)unlockViewLoader.getController();
-
+            controller.setLockButton(lockButton);
             controller.setBorderPane(containerPane);
+            lockButton.setDisable(true);
+
         }catch(Exception ex){
             ex.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void onHelpButtonClicked(MouseEvent me) {
+        if(tutorialPopOverView.isShowing())
+            tutorialPopOverView.hide();
+        else
+            tutorialPopOverView.show(helpIcon);
     }
     
 }

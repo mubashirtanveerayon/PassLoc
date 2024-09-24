@@ -31,11 +31,11 @@ public class CommandGenerator {
         textEncryptor.setPassword(credential.derivePasswordKey(databasePassword));
 
         keys = new HashMap<>();
-        keys.put(KEY_ID,KEY_ID);
-        keys.put(KEY_TAG,credential.encryptText(KEY_TAG));
-        keys.put(KEY_USERNAME,credential.encryptText(KEY_USERNAME));
-        keys.put(KEY_PASSWORD,credential.encryptText(KEY_PASSWORD));
-        keys.put(DATA_TABLE_NAME,credential.encryptText(DATA_TABLE_NAME));
+        keys.put(KEY_ID,HelperFunctions.sha256(KEY_ID));
+        keys.put(KEY_TAG,HelperFunctions.sha256(KEY_TAG));
+        keys.put(KEY_USERNAME,HelperFunctions.sha256(KEY_USERNAME));
+        keys.put(KEY_PASSWORD,HelperFunctions.sha256(KEY_PASSWORD));
+        keys.put(DATA_TABLE_NAME,credential.derivePasswordKey(DATA_TABLE_NAME));
     }
 
 

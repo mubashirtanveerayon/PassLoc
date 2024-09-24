@@ -9,8 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="io.github.palexdev.materialfx" level="project" />
     <orderEntry type="library" name="jfoenix-9.0.10" level="project" />
-    <orderEntry type="library" name="de.jensd.fontawesomefx.materialicons" level="project" />
     <orderEntry type="library" name="controlsfx" level="project" />
+    <orderEntry type="library" name="de.jensd.fontawesomefx.materialicons" level="project" />
     <orderEntry type="library" name="PassLocService2" level="project" />
   </component>
 </module>

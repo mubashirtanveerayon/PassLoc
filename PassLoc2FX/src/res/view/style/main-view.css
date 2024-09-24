@@ -6,7 +6,7 @@
 
 
 .left-panel{
-    -fx-background-color:#046808;
+    -fx-background-color: #248728;
 }
 
 .title-label{
@@ -31,9 +31,12 @@
 
 .left-panel-nav-container{
     -fx-background-color: #104914;
-    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.2),2,0.0,0.0,0.0);
+
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.4),4,0.0,0.0,0.0);
     -fx-background-radius: 10;
     -fx-cursor: hand;
+
+
 
 }
 
@@ -60,7 +63,7 @@
 
 
 .left-panel-nav-container:hover{
-    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.5),6,0.0,0.0,0.0);
+
     -fx-background-color: #024306;
     -fx-border-width: 0px 0px 3px 0px;
     -fx-border-color: #d5f3d5;

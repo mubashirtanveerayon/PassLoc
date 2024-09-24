@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="rootView" alignment="CENTER" spacing="20.0" stylesheets="@style/tutorial-view.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TutorialView">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label fx:id="pageLabel" text="Unlock">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <MFXScrollPane fx:id="scrollPane" prefHeight="250.0" prefWidth="250.0" stylesheets="@style/custom-scroll-pane.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS" />
+      <HBox alignment="CENTER" spacing="20.0">
+         <children>
+            <MFXButton onAction="#onLeftAction" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#bdbdbd00" stylesheets="@style/navigation-button.css" text="">
+               <graphic>
+                  <MaterialIconView glyphName="ARROW_BACK" size="28" styleClass="glyph-icon" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MFXButton>
+            <MFXButton onAction="#onRightAction" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#bdbdbd00" stylesheets="@style/navigation-button.css" text="">
+               <graphic>
+                  <MaterialIconView glyphName="ARROW_FORWARD" size="28" styleClass="glyph-icon" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MFXButton>
+         </children>
+      </HBox>
+   </children>
+</VBox>

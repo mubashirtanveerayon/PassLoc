@@ -36,22 +36,28 @@
                      <children>
                         <ImageView fx:id="qrImageView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../image/placeholderqr.png" />
+                              <Image url="@../image/github.png" />
                            </image>
                         </ImageView>
                         <HBox alignment="CENTER" stylesheets="@style/sync-view.css">
                            <children>
-                              <MaterialIconView glyphName="ARROW_BACK" onMouseClicked="#onPrevIconClicked" size="42" styleClass="arrow-button" visible="false">
+                              <MFXButton onAction="#onPreviousButtonAction" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#bdbdbd00" styleClass="arrow-button" stylesheets="@style/navigation-button.css" text="" visible="false">
+                                 <graphic>
+                                    <MaterialIconView glyphName="ARROW_BACK" size="28" styleClass="glyph-icon" />
+                                 </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                              </MaterialIconView>
+                              </MFXButton>
                               <Pane HBox.hgrow="ALWAYS" />
-                              <MaterialIconView glyphName="ARROW_FORWARD" onMouseClicked="#onNextIconClicked" size="42" styleClass="arrow-button" visible="false">
+                              <MFXButton onAction="#onNextButtonAction" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#bdbdbd00" styleClass="arrow-button" stylesheets="@style/navigation-button.css" text="" visible="false">
+                                 <graphic>
+                                    <MaterialIconView glyphName="ARROW_FORWARD" size="28" styleClass="glyph-icon" />
+                                 </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                              </MaterialIconView>
+                              </MFXButton>
                            </children>
                         </HBox>
                      </children>

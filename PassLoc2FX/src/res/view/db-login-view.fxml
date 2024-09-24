@@ -2,7 +2,6 @@
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -43,14 +42,10 @@
                               </Label>
                            </children>
                         </HBox>
-                        <TextField id="database-name-field" fx:id="dbNameField" stylesheets="@style/text-container.css">
+                        <TextField id="database-name-field" fx:id="dbNameField" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
                            <font>
                               <Font size="24.0" />
                            </font>
-                           <styleClass>
-                              <String fx:value="custom-text-field" />
-                              <String fx:value="custom-text-field-with-border" />
-                           </styleClass>
                         </TextField>
                      </children>
                   </VBox>
@@ -66,7 +61,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" styleClass="text-field-container" stylesheets="@style/text-container.css">
+                        <HBox alignment="CENTER" styleClass="depth-text-field-container" stylesheets="@style/text-container.css">
                            <children>
                               <TextField fx:id="dbLocationField" styleClass="custom-text-field" stylesheets="@style/text-container.css" HBox.hgrow="ALWAYS">
                                  <font>
@@ -79,6 +74,9 @@
                                  </cursor>
                               </MaterialIconView>
                            </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </VBox>
@@ -94,7 +92,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" styleClass="text-field-container" stylesheets="@style/text-container.css">
+                        <HBox alignment="CENTER" styleClass="depth-text-field-container" stylesheets="@style/text-container.css">
                            <children>
                               <StackPane HBox.hgrow="ALWAYS">
                                  <children>
@@ -116,6 +114,9 @@
                                  </cursor>
                               </MaterialIconView>
                            </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </VBox>

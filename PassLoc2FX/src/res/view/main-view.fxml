@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -63,6 +64,7 @@
                            <HBox.margin>
                               <Insets />
                            </HBox.margin></Pane>
+                        <MaterialIconView fill="#d5f3d5" glyphName="STORAGE" size="32" />
                         <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="Create or Access DB">
 
                            <padding>
@@ -81,6 +83,7 @@
                               <Insets />
                            </HBox.margin>
                         </Pane>
+                        <MaterialIconView fill="#d5f3d5" glyphName="VISIBILITY" size="32" />
                         <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="View Passwords">
 
                            <padding>
@@ -99,6 +102,7 @@
                               <Insets />
                            </HBox.margin>
                         </Pane>
+                        <MaterialIconView fill="#d5f3d5" glyphName="SETTINGS" size="32" />
                         <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="Password Generator">
 
                            <padding>
@@ -117,6 +121,7 @@
                               <Insets />
                            </HBox.margin>
                         </Pane>
+                        <MaterialIconView fill="#d5f3d5" glyphName="SYNC" size="32" />
                         <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="Sync DB">
 
                            <padding>
@@ -135,6 +140,7 @@
                               <Insets />
                            </HBox.margin>
                         </Pane>
+                        <MaterialIconView fill="#d5f3d5" glyphName="LOCK" size="32" />
                         <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="Logout">
 
                            <padding>
@@ -180,7 +186,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button id="lock-button" mnemonicParsing="false" onAction="#onLockButtonAction" stylesheets="@style/top-bar.css" text="Lock App">
+                        <Button id="lock-button" fx:id="lockButton" disable="true" mnemonicParsing="false" onAction="#onLockButtonAction" stylesheets="@style/top-bar.css" text="Lock">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -195,7 +201,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="helpIcon" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="12.0" onMouseClicked="#onHelpButtonClicked" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../image/question.png" />
                            </image>

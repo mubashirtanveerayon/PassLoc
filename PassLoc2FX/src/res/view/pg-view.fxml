@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXProgressBar?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -28,7 +27,7 @@
                         <Font name="System Bold" size="48.0" />
                      </font>
                   </Label>
-                  <AnchorPane id="password-container" styleClass="parent-container">
+                  <AnchorPane id="password-container" stylesheets="@style/pg-view.css">
                      <children>
                         <Label fx:id="passwordLabel" text="Password" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="0.0">
                            <font>
@@ -48,10 +47,6 @@
                      <padding>
                         <Insets top="10.0" />
                      </padding>
-                     <stylesheets>
-                        <URL value="@style/text-container.css" />
-                        <URL value="@style/pg-view.css" />
-                     </stylesheets>
                      <VBox.margin>
                         <Insets bottom="40.0" />
                      </VBox.margin>

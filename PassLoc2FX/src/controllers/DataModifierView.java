@@ -55,12 +55,17 @@ public class DataModifierView extends View implements Initializable {
 
     @FXML
     void onActionButtonAction(ActionEvent event) {
-        Database db = Database.getInstance();
-        if(db == null)
-            return;
         String username = usernameField.getText();
         String password = passwordField.getText();
         String tag = tagField.getText();
+
+        if(username.isEmpty() || password.isEmpty() || tag.isEmpty())
+            return;
+
+        Database db = Database.getInstance();
+        if(db == null)
+            return;
+
 
         if(entry == null) {
 

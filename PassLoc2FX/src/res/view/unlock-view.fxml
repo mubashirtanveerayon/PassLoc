@@ -31,14 +31,14 @@
                   <Pane VBox.vgrow="ALWAYS" />
                   <Label styleClass="info-label" stylesheets="@style/unlock-view.css" text="Access a locker with master password:">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER" styleClass="password-card" stylesheets="@style/unlock-view.css">
+                  <HBox alignment="CENTER" styleClass="depth-text-field-container" stylesheets="@style/text-container.css">
                      <children>
                         <StackPane HBox.hgrow="ALWAYS">
                            <children>
-                              <PasswordField fx:id="passwordField" styleClass="my-password-field" stylesheets="@style/unlock-view.css">
+                              <PasswordField fx:id="passwordField" styleClass="custom-text-field" stylesheets="@style/text-container.css">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

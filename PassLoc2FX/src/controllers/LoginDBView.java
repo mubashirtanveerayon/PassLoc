@@ -76,6 +76,9 @@ public class LoginDBView extends View implements Initializable {
                 String name = dbNameField.getText();
                 String password = passwordField.isVisible()?passwordField.getText():textField.getText();
 
+                if(name.isEmpty() || password.isEmpty())
+                    return;
+
                 try{
                     PasswordValidator.validate(password);
                     if(Database.online())

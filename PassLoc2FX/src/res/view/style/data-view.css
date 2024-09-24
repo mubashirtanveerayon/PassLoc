@@ -58,24 +58,7 @@
     -fx-padding: 10px;
 }
 
-#data-scroll-view{
-    -fx-background-color: transparent;
-}
-#data-scroll-view .viewport{
-    -fx-background-color:transparent;
-}
 
-#data-scroll-view .scroll-bar:vertical .thumb{
-    -fx-background-color:#26722b;
-}
-
-#data-scroll-view .scroll-bar:vertical .thumb:hover{
-    -fx-background-color:#19501d;
-}
-
-#data-scroll-view .scroll-bar:vertical .track{
-    -fx-background-color:#d5f2d5;
-}
 
 .grid-pane{
     -fx-background-color: transparent;

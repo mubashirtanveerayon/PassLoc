@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -42,14 +41,10 @@
                               </Label>
                            </children>
                         </HBox>
-                        <TextField fx:id="tagField" stylesheets="@style/text-container.css">
+                        <TextField fx:id="tagField" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
                            <font>
                               <Font size="24.0" />
                            </font>
-                           <styleClass>
-                              <String fx:value="custom-text-field-with-border" />
-                              <String fx:value="custom-text-field" />
-                           </styleClass>
                         </TextField>
                      </children>
                   </VBox>
@@ -65,14 +60,10 @@
                               </Label>
                            </children>
                         </HBox>
-                        <TextField fx:id="usernameField" stylesheets="@style/text-container.css">
+                        <TextField fx:id="usernameField" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
                            <font>
                               <Font size="24.0" />
                            </font>
-                           <styleClass>
-                              <String fx:value="custom-text-field" />
-                              <String fx:value="custom-text-field-with-border" />
-                           </styleClass>
                         </TextField>
                      </children>
                   </VBox>
@@ -88,7 +79,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <AnchorPane styleClass="text-field-container" stylesheets="@style/text-container.css">
+                        <AnchorPane styleClass="depth-text-field-container" stylesheets="@style/text-container.css">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>

@@ -5,7 +5,6 @@
       <root url="jar://$PROJECT_DIR$/lib/jasypt-1.9.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/javase-3.5.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/org-json-20240303.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/SecureEncryption2.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.36.jar!/" />
     </CLASSES>
     <JAVADOC />

@@ -42,6 +42,10 @@ public class HelperFunctions {
     }
 
     public static String sha256(String text){
+        return sha256(text.getBytes());
+    }
+
+    public static String sha256(byte[] data){
 
 
         MessageDigest messageDigest = null;
@@ -51,7 +55,7 @@ public class HelperFunctions {
             throw new RuntimeException(e);
         }
 
-        byte[] digest = messageDigest.digest(text.getBytes());
+        byte[] digest = messageDigest.digest(data);
 
 
         BigInteger bigInt = new BigInteger(1,digest);

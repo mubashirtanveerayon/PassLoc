@@ -2,7 +2,6 @@ package controllers;
 
 
 import com.jfoenix.controls.JFXComboBox;
-import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import elements.DataElement;
 import helper.Info;
@@ -32,6 +31,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.PopOver;
 import services.database.Database;
 import services.model.EntryModel;
 
