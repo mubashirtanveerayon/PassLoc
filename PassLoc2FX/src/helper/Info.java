@@ -33,7 +33,7 @@ public class Info {
             "You can sync your data to other devices using QRCodes here.",
             "Based on the amount of saved user credentials in the database table you are logged into, the number of QRCodes will vary.",
             "You can load (load all the saved user data from the database table and converts them to QRCodes), export (save the QRCodes into a folder) and import (load QRCodes from device) QRCodes.",
-            "Use the app on your phone to scan the QRCodes one by one.",
+            "Use the app (has not come out yet) on your phone to scan the QRCodes one by one.",
             "The QRCodes encode encrypted data, so there is no chance of any data leak."
             
     };

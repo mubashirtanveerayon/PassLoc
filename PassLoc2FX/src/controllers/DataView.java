@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import elements.DataElement;
 import helper.Info;
+import helper.NotificationCenter;
 import helper.State;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXListView;
@@ -190,8 +191,10 @@ public class DataView extends View implements Initializable {
                         Object source = event.getSource();
                         if(source == copyUsernameMenuItem) {
                             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(entry.getUsername()), null);
+                            NotificationCenter.sendSuccessNotification("Username copied to clipboard");
                         }else if(source == copyPasswordMenuItem) {
                             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(entry.getPassword()), null);
+                            NotificationCenter.sendSuccessNotification("Password copied to clipboard");
                         }
                     }
                 };
