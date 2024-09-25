@@ -9,7 +9,7 @@
 **Android support is yet to come**
 
 ## Screenshot of the desktop app
-![image1](/screenshots2/1.PNG)<br>
+![image1](/screenshots2/1.png)<br>
 ![image1](/screenshots2/2.png)<br>
 ![image1](/screenshots2/3.png)<br>
 ![image1](/screenshots2/4.png)<br>
