@@ -6,6 +6,8 @@
 
 **Currently available on windows (~~standalone exe~~), (jar), mac (jar) and linux (jar)**
 
+***The jar was compiled using Azul Zulu 22.32+15 JDK.***
+
 **Android support is yet to come**
 
 ## Screenshot of the desktop app
