@@ -17,5 +17,7 @@ public class State {
     }
     
     public static AppState currentState=AppState.MASTER_LOGIN;
-    
+
+
+    public static boolean showAllNotifications = true;
 }

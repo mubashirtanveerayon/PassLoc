@@ -42,7 +42,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <TextField id="database-name-field" fx:id="dbNameField" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
+                        <TextField id="database-name-field" fx:id="dbNameField" onAction="#onDatabaseNameAction" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -63,7 +63,7 @@
                         </HBox>
                         <HBox alignment="CENTER" styleClass="depth-text-field-container" stylesheets="@style/text-container.css">
                            <children>
-                              <TextField fx:id="dbLocationField" styleClass="custom-text-field" stylesheets="@style/text-container.css" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="dbLocationField" onAction="#onDatabaseLocationAction" styleClass="custom-text-field" stylesheets="@style/text-container.css" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -96,12 +96,12 @@
                            <children>
                               <StackPane HBox.hgrow="ALWAYS">
                                  <children>
-                                    <PasswordField fx:id="passwordField" styleClass="custom-text-field" stylesheets="@style/text-container.css">
+                                    <PasswordField fx:id="passwordField" onAction="#onPasswordAction" styleClass="custom-text-field" stylesheets="@style/text-container.css">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
                                     </PasswordField>
-                                    <TextField fx:id="textField" styleClass="custom-text-field" stylesheets="@style/text-container.css" visible="false">
+                                    <TextField fx:id="textField" onAction="#onPasswordAction" styleClass="custom-text-field" stylesheets="@style/text-container.css" visible="false">
                                        <font>
                                           <Font size="24.0" />
                                        </font>

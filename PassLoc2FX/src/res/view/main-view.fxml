@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
@@ -186,6 +187,20 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Notifications:    Error only">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <JFXToggleButton fx:id="notificationToggleButton" onAction="#onNotificationToggle" selected="true" size="8.0" text="All" textFill="#002f03" toggleColor="#1378dd" toggleLineColor="#4792dd" unToggleColor="#0b6510">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </JFXToggleButton>
+                           </children>
+                        </HBox>
                         <Button id="lock-button" fx:id="lockButton" disable="true" mnemonicParsing="false" onAction="#onLockButtonAction" stylesheets="@style/top-bar.css" text="Lock">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">

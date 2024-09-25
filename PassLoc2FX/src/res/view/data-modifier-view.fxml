@@ -41,7 +41,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <TextField fx:id="tagField" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
+                        <TextField fx:id="tagField" onAction="#onTagAction" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -60,7 +60,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <TextField fx:id="usernameField" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
+                        <TextField fx:id="usernameField" onAction="#onUsernameAction" styleClass="depth-text-field-with-border" stylesheets="@style/text-container.css">
                            <font>
                               <Font size="24.0" />
                            </font>

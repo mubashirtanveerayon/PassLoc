@@ -38,12 +38,12 @@
                      <children>
                         <StackPane HBox.hgrow="ALWAYS">
                            <children>
-                              <PasswordField fx:id="passwordField" styleClass="custom-text-field" stylesheets="@style/text-container.css">
+                              <PasswordField fx:id="passwordField" onAction="#onPasswordAction" styleClass="custom-text-field" stylesheets="@style/text-container.css">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </PasswordField>
-                              <TextField fx:id="textField" styleClass="my-password-field" stylesheets="@style/unlock-view.css" visible="false">
+                              <TextField fx:id="textField" onAction="#onPasswordAction" styleClass="my-password-field" stylesheets="@style/unlock-view.css" visible="false">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

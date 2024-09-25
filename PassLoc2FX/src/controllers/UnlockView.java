@@ -6,6 +6,7 @@ package controllers;
 
 
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
+import helper.NotificationCenter;
 import helper.State;
 import java.io.IOException;
 import java.net.URL;
@@ -87,17 +88,26 @@ public class UnlockView extends View implements Initializable{
     }
     
     public void onAccessButtonAction(ActionEvent actionEvent) {
+        unlock();
+    }
 
+    @FXML
+    void onPasswordAction(ActionEvent event) {
+        unlock();
+    }
+
+    private void unlock() {
         String password = passwordField.isVisible() ? passwordField.getText() : textField.getText();
 
         if(password.isEmpty())
             return;
 
-        Credential.getInstance(password);
-        
-        
+
+
+
         FXMLLoader dbLoginLoader = new FXMLLoader(UnlockView.class.getResource("/res/view/db-login-view.fxml"));
         try {
+            Credential.getInstance(password);
             Parent root = dbLoginLoader.load();
 
             borderPane.setCenter(root);
@@ -110,14 +120,10 @@ public class UnlockView extends View implements Initializable{
 
             if(lockButton != null)
                 lockButton.setDisable(false);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
+            NotificationCenter.sendFailureNotification(ex.getMessage());
         }
-        
-        
-
-        
-        
     }
 
 

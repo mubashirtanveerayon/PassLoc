@@ -3,6 +3,7 @@ package controllers;
 import com.jfoenix.controls.JFXTextArea;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import helper.Info;
+import helper.NotificationCenter;
 import helper.State;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
@@ -59,20 +60,26 @@ public class DataModifierView extends View implements Initializable {
         String password = passwordField.getText();
         String tag = tagField.getText();
 
-        if(username.isEmpty() || password.isEmpty() || tag.isEmpty())
+        if(username.isEmpty() || password.isEmpty() || tag.isEmpty()) {
+            NotificationCenter.sendFailureNotification("You cannot leave any field empty.");
             return;
+        }
+
+
+        if(!Database.online()) {
+            NotificationCenter.sendFailureNotification("Database is offline.");
+            return;
+        }
 
         Database db = Database.getInstance();
-        if(db == null)
-            return;
-
-
         if(entry == null) {
 
             db.insert(new EntryModel(tag, username, password));
 
             usernameField.setText("");
             passwordField.setText("");
+
+            usernameField.requestFocus();
 
         }else {
             db.update(new EntryModel(entry.getId(), tag, username, password));
@@ -85,9 +92,26 @@ public class DataModifierView extends View implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
         }
 
 
 
+
+
+    }
+
+    @FXML
+    void onTagAction(ActionEvent event) {
+
+        usernameField.requestFocus();
+        usernameField.positionCaret(usernameField.getText().length());
+    }
+
+    @FXML
+    void onUsernameAction(ActionEvent event) {
+        passwordField.requestFocus();
+        passwordField.positionCaret(passwordField.getText().length());
     }
 }

@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import com.jfoenix.controls.JFXToggleButton;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import helper.State;
 import java.io.IOException;
@@ -53,6 +54,9 @@ public class MainView extends View implements Initializable {
 
     @FXML
     private Button lockButton;
+
+    @FXML
+    private JFXToggleButton notificationToggleButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -220,5 +224,9 @@ public class MainView extends View implements Initializable {
         else
             tutorialPopOverView.show(helpIcon);
     }
-    
+
+    @FXML
+    void onNotificationToggle(ActionEvent event) {
+        State.showAllNotifications = notificationToggleButton.isSelected();
+    }
 }

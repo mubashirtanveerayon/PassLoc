@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
+import helper.NotificationCenter;
 import helper.State;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -147,8 +148,10 @@ public class SyncView extends View implements Initializable {
     @FXML
     void onLoadAction(ActionEvent event) {
 
-        if(!Database.online())
+        if(!Database.online()) {
+            NotificationCenter.sendFailureNotification("Database is offline.");
             return;
+        }
 
         String json = HelperFunctions.convertToJsonString(Database.getInstance().getAllData());
         Database db = Database.getInstance();
