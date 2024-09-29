@@ -2,6 +2,7 @@ package controllers;
 
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
+import helper.NotificationCenter;
 import helper.PasswordStrengthEvaluator;
 import helper.State;
 import io.github.palexdev.materialfx.beans.NumberRange;
@@ -153,6 +154,7 @@ public class PasswordGeneratorView extends View implements Initializable {
     @FXML
     public void onCopyPasswordImageClicked(MouseEvent me){
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(passwordLabel.getText()), null);
+        NotificationCenter.sendSuccessNotification("Password copied to clipboard");
     }
 
     @FXML
