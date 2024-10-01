@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="password_min_length">6</integer>
+    <integer name="pin_min_length">6</integer>
+    <integer name="pin_max_length">38</integer>
+
+
+</resources>
