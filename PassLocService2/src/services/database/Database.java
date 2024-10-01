@@ -13,16 +13,16 @@ import java.util.ArrayList;
 
 public class Database implements DatabaseInterface {
 
-    private DatabaseListener listener;
 
-    private static Database instance;
     private Connection sqlConnection;
-
+    private DatabaseListener listener;
+    private final String databaseName;
+    private static Database instance;
     private CommandGenerator commandGenerator;
 
     private static boolean classFound=false;
 
-    private final String databaseName;
+
 
     public static void establishConnection(Credential credential,String dbName, String dbPath, String databasePassword) throws Exception {
 

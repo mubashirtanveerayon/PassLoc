@@ -1,6 +1,6 @@
 package services.database;
 
-import org.jasypt.util.text.AES256TextEncryptor;
+import services.secure.AES256WithPassword;
 import services.secure.Credential;
 import utils.HelperFunctions;
 import utils.Identifier;
@@ -13,7 +13,7 @@ public class CommandGenerator {
     Credential credential;
 
 
-    AES256TextEncryptor textEncryptor;
+    AES256WithPassword textEncryptor;
 
 
     static final String DATA_TABLE_NAME = "data";
@@ -27,8 +27,7 @@ public class CommandGenerator {
     public CommandGenerator(Credential credential,String databasePassword) {
         this.credential = credential;
 
-        textEncryptor = new AES256TextEncryptor();
-        textEncryptor.setPassword(credential.derivePasswordKey(databasePassword));
+        textEncryptor = new AES256WithPassword(credential.derivePasswordKey(databasePassword));
 
         keys = new HashMap<>();
         keys.put(KEY_ID,HelperFunctions.sha256(KEY_ID));
@@ -39,18 +38,7 @@ public class CommandGenerator {
     }
 
 
-    public boolean verifyDatabasePassword(String password){
-        AES256TextEncryptor testTextEncryptor = new AES256TextEncryptor();
-        testTextEncryptor.setPassword(HelperFunctions.sha256( password));
-        String sample = Identifier.VERSIONS[Identifier.VERSIONS.length-1];
-        try{
 
-            textEncryptor.decrypt(testTextEncryptor.encrypt(sample)).equals(sample);
-            return true;
-        }catch(Exception ex){
-            return false;
-        }
-    }
 
 
     public String encryptText(String text){

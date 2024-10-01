@@ -14,7 +14,7 @@ public class Credential {
 //    private byte[] randArray;
 //    private int randArrayIndex=0;
 //
-//    private char pinPaddingCharacter;
+    private final char pinPaddingCharacter = '~';
 
     private final String hashedMasterPassword;
 
@@ -124,6 +124,8 @@ public class Credential {
         for(char c:hashedMasterPassword.toCharArray())
             if(Character.isDigit(c))
                 key.append(c);
+
+        key.append(hashedMasterPassword.substring(text.length() % hashedMasterPassword.length()));
 
         return HelperFunctions.sha256(key.toString());
     }
