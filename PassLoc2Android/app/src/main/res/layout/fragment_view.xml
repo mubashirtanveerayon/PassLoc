@@ -8,7 +8,7 @@
     android:background="@color/theme_light"
     android:id="@+id/view_fragment"
 
-    android:paddingTop="@dimen/_40sdp"
+    android:paddingTop="@dimen/_45sdp"
     android:paddingStart="@dimen/_25sdp"
     android:paddingEnd="@dimen/_25sdp"
     android:paddingBottom="@dimen/_150sdp"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.loc.passloc2android.PassLoc2;
 import com.loc.service.passloc.model.EntryModel;
 import com.loc.service.passloc.secure.Credential;
 import com.loc.service.utils.HelperFunctions;
@@ -27,12 +28,14 @@ public class Database extends SQLiteOpenHelper implements DatabaseInterface {
     private static Database instance;
     private CommandGenerator commandGenerator;
 
-    private Database(Credential credential,Context context,String dbName,String password){
-        super(context,dbName+"."+ Identifier.DATABASE_EXTENSION, HelperFunctions.sha256(password),null,VERSION,VERSION,null,null,false);
 
+
+
+    private Database(String dbName,String password){
+        super(PassLoc2.getContext(),dbName+"."+ Identifier.DATABASE_EXTENSION, HelperFunctions.sha256(password),null,VERSION,VERSION,null,null,false);
         databaseName = dbName;
 
-        commandGenerator = new CommandGenerator(credential,password);
+        commandGenerator = new CommandGenerator(password);
 
 
     }
@@ -48,11 +51,11 @@ public class Database extends SQLiteOpenHelper implements DatabaseInterface {
 
     }
 
-    public static void establishConnection( Credential credential,Context context, String dbName,  String databasePassword){
+    public static void establishConnection( String dbName,  String databasePassword){
         if(online())
             disconnect();
 
-        instance = new Database (credential,context, dbName, databasePassword);
+        instance = new Database (dbName, databasePassword);
         SQLiteDatabase db = instance.getWritableDatabase();
         if(instance.requireInitialization())
             instance.initialize();
@@ -85,11 +88,12 @@ public class Database extends SQLiteOpenHelper implements DatabaseInterface {
         SQLiteDatabase db = getWritableDatabase();
 
 
+        Credential credential = Credential.getInstance();
         try (SQLiteStatement statement = db.compileStatement(commandGenerator.insertIntoDataTable())){
 
-            statement.bindString(1, commandGenerator.encryptText( entry.getTag()));
-            statement.bindString(2, commandGenerator.encryptText(entry.getUsername()));
-            statement.bindString(3, commandGenerator.encryptText(entry.getPassword()));
+            statement.bindString(1, credential.encrypt( entry.getTag()));
+            statement.bindString(2, credential.encrypt(entry.getUsername()));
+            statement.bindString(3, credential.encrypt(entry.getPassword()));
 
             statement.execute();
             statement.close();
@@ -104,16 +108,16 @@ public class Database extends SQLiteOpenHelper implements DatabaseInterface {
     @Override
     public ArrayList<EntryModel> getAllData() {
         ArrayList<EntryModel> data = new ArrayList<>();
-
+        Credential credential = Credential.getInstance();
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = db.rawQuery(commandGenerator.getAllData(),null);
         while(c.moveToNext()){
             String id = c.getString(0);
 
 
-            String tag = commandGenerator.decryptText(c.getString(1));
-            String username = commandGenerator.decryptText( c.getString(2));
-            String password = commandGenerator.decryptText( c.getString(3));
+            String tag = credential.decrypt(c.getString(1));
+            String username = credential.decrypt( c.getString(2));
+            String password = credential.decrypt( c.getString(3));
 
             data.add(new EntryModel(id,tag,username,password));
 
@@ -135,11 +139,11 @@ public class Database extends SQLiteOpenHelper implements DatabaseInterface {
 
         SQLiteDatabase db = getWritableDatabase();
 
-
+        Credential credential = Credential.getInstance();
 
         try (SQLiteStatement statement = db.compileStatement(commandGenerator.updateEntry())){
-            statement.bindString(1, commandGenerator.encryptText(entry.getUsername()));
-            statement.bindString(2, commandGenerator.encryptText(entry.getPassword()));
+            statement.bindString(1, credential.encrypt(entry.getUsername()));
+            statement.bindString(2, credential.encrypt(entry.getPassword()));
 
             statement.bindString(3,id);
 
@@ -179,11 +183,12 @@ public class Database extends SQLiteOpenHelper implements DatabaseInterface {
         SQLiteDatabase db = getWritableDatabase();
 
 
-        Cursor c = db.rawQuery(commandGenerator.getTags(), null);;
+        Cursor c = db.rawQuery(commandGenerator.getTags(), null);
 
+        Credential credential = Credential.getInstance();
 
         while(c.moveToNext()) {
-            String tag = commandGenerator.decryptText( c.getString(0));
+            String tag = credential.decrypt( c.getString(0));
             tags.add(tag);
         }
 
@@ -215,28 +220,26 @@ public class Database extends SQLiteOpenHelper implements DatabaseInterface {
     }
 
     @Override
-    public String encryptText(String text) {
-        return commandGenerator.encryptText(text);
-    }
-
-    @Override
-    public String decryptText(String encryptedText) {
-        return commandGenerator.decryptText(encryptedText);
-    }
-
-    @Override
-    public String getName() {
-        return databaseName;
+    public String getTableName() {
+        return commandGenerator.getTableName();
     }
 
     @Override
     public boolean alreadyExists(String id) {
         SQLiteDatabase db = getWritableDatabase();
-        Cursor c = db.rawQuery(commandGenerator.checkIfEntryExists());
 
-        //TODO
 
-        return false;
+
+
+
+        Cursor c=db.rawQuery(commandGenerator.checkIfEntryExists(),id);
+        boolean exists = c.moveToNext();
+        c.close();
+
+
+
+
+        return exists;
     }
 
     @Override

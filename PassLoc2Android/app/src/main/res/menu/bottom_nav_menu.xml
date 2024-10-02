@@ -19,7 +19,7 @@
         android:id="@+id/sync_button"
         android:title="Sync"
 
-        android:icon="@drawable/outline_import_export_24"/>
+        android:icon="@drawable/sync24"/>
 
 
 

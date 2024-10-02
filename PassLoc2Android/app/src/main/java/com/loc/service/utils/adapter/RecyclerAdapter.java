@@ -131,9 +131,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
     private void sendForEdit(int position){
-       EntryModel.staticEntry = entries.get(position);
-
         mainActivity.loadFragment(mainActivity.editFragment,true);
+        mainActivity.editFragment.setEntry(entries.get(position));
     }
 
     private void sendForDelete(int position){
@@ -174,12 +173,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position == getItemCount() - 1) {
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
-            params.bottomMargin =300; // last item bottom margin
+            params.bottomMargin = 300; // last item bottom margin
             holder.itemView.setLayoutParams(params);
 
         } else {
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
-            params.bottomMargin = 10; // other items bottom margin
+            params.bottomMargin = 20; // other items bottom margin
             holder.itemView.setLayoutParams(params);
         }
         EntryModel entry = entries.get(position);
@@ -269,31 +268,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             deleteButton.setOnClickListener(listener);
             copyButton.setOnClickListener(listener);
 
-//        ImageButton menuButton = itemView.findViewById(R.id.more_option_button);
-//        menuButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                PopupMenu menu = new PopupMenu(v.getContext(),v);
-//                menu.inflate(R.menu.entry_row_popup);
-//                onMenuButtonClick(getAdapterPosition(),menu);
-//                menu.show();
-//            }
-//        });
 
-//        itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onItemClick(getAdapterPosition());
-//            }
-//        });
-
-//        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                onItemLongClick(getAdapterPosition());
-//                return false;
-//            }
-//        });
 
 
             }

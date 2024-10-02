@@ -14,13 +14,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import org.jasypt.util.binary.AES256BinaryEncryptor;
-import org.jasypt.util.text.AES256TextEncryptor;
+
 import org.json.JSONArray;
+import services.database.CommandGenerator;
 import services.database.Database;
 import services.generator.qr.QRCodeGenerator;
 import services.generator.qr.QRCodeReader;
 import services.model.EntryModel;
+import services.secure.AES256WithPassword;
 import services.secure.Credential;
 import utils.HelperFunctions;
 
@@ -96,7 +97,10 @@ public class SyncView extends View implements Initializable {
 
     @FXML
     void onExportAction(ActionEvent event) {
-
+        if(!Database.online()) {
+            NotificationCenter.sendFailureNotification("Database is offline.");
+            return;
+        }
 
         DirectoryChooser folderChooser = new DirectoryChooser();
         folderChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -116,6 +120,11 @@ public class SyncView extends View implements Initializable {
     @FXML
     void onImportAction(ActionEvent event) {
 
+        if(!Database.online()) {
+            NotificationCenter.sendFailureNotification("Database is offline.");
+            return;
+        }
+
         FileChooser imageChooser = new FileChooser();
         imageChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         imageChooser.setTitle("Select QR Codes");
@@ -126,7 +135,7 @@ public class SyncView extends View implements Initializable {
             ArrayList<String>partitions = QRCodeReader.createPartitionFromQRImages(imageFileList.toArray(new File[0]));
             byte[] encryptedData = QRCodeReader.loadByteArrayFromPartition(partitions);
             Database db = Database.getInstance();
-            String json = db.decryptText(new String(encryptedData));
+            String json = Credential.getInstance().decrypt(new String(encryptedData));
 
             ArrayList<EntryModel> entries = EntryModel.fromJSONArray(new JSONArray(json));
 
@@ -155,12 +164,10 @@ public class SyncView extends View implements Initializable {
 
         String json = HelperFunctions.convertToJsonString(Database.getInstance().getAllData());
         Database db = Database.getInstance();
+        String signature = db.getTableName();
 
-        AES256TextEncryptor encryptor = new AES256TextEncryptor();
-        encryptor.setPassword(Credential.getInstance().getHashedMasterPassword());
-        String sign = HelperFunctions.sha256(db.getName());
-        String encryptedData = db.encryptText(json);
-        ArrayList<String>partitions = QRCodeGenerator.createPartitionFromData(encryptedData.getBytes(),2000,sign);
+        String encryptedData = Credential.getInstance().encrypt(json);
+        ArrayList<String>partitions = QRCodeGenerator.createPartitionFromData(encryptedData.getBytes(),2000,signature);
         qrImages.clear();
         try {
             qrImages.addAll(QRCodeGenerator.generateQRImages(partitions,400,400));

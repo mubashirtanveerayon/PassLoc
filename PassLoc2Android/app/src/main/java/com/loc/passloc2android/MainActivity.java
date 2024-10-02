@@ -1,15 +1,21 @@
 package com.loc.passloc2android;
 
+import android.app.Dialog;
+import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,17 +23,25 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
 import com.loc.service.passloc.database.Database;
+import com.loc.service.passloc.generator.qr.QRCodeReader;
 import com.loc.service.passloc.model.EntryModel;
 import com.loc.service.passloc.secure.AES256WithPassword;
 import com.loc.service.passloc.secure.Credential;
 import com.loc.service.utils.Identifier;
 import com.loc.service.utils.dbInterface.DatabaseListener;
 
+import org.json.JSONArray;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DatabaseListener {
+public class MainActivity extends AppCompatActivity implements DatabaseListener, View.OnClickListener {
     LoginFragment loginFragment;
     public EditFragment editFragment;
     LogoutFragment logoutFragment;
@@ -39,9 +53,11 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener 
 
     Fragment currentFragment;
 
-
+    QRScanFragment qrScanFragment;
 
     public ExtendedFloatingActionButton actionButton;
+
+    Dialog syncActionDialog;
 
     public BottomNavigationView navigationView;
     @Override
@@ -58,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener 
 
 
 
+        qrScanFragment = new QRScanFragment();
 
         loginFragment = new LoginFragment();
         editFragment = new EditFragment();
@@ -70,13 +87,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener 
         actionButton = findViewById(R.id.action_button);
 
         actionButton.shrink();
-        actionButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                onActionButtonClick();
-            }
-        });
+        actionButton.setOnClickListener(this);
         navigationView = findViewById(R.id.nav_bar);
         navigationView.setBackground(null);
 
@@ -93,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener 
                     loadFragment(loginFragment,false);
                 }else if(itemId == R.id.view_button){
                     loadFragment(viewFragment,currentFragment == loginFragment);
-                    EntryModel.staticEntry=null;
                 }else if(itemId == R.id.logout_button){
                     loadFragment(logoutFragment,true);
                 }else if(itemId == R.id.sync_button){
@@ -107,160 +117,24 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener 
         });
         loadFragment(loginFragment,true);
 
+
+        syncActionDialog = new Dialog(this);
+        syncActionDialog.setContentView(R.layout.qr_import_action_menu);
+        Window window = syncActionDialog.getWindow();
+        window.setBackgroundDrawableResource(R.drawable.qr_import_action_menu_background);
+//                window.setGravity(Gravity.BOTTOM);
+        syncActionDialog.getWindow().getAttributes().y = 600;
+
+        AppCompatButton cameraButton = syncActionDialog.findViewById(R.id.from_camera_button);
+        AppCompatButton galleryButton = syncActionDialog.findViewById(R.id.from_gallery_button);
+
+        cameraButton.setOnClickListener(this);
+        galleryButton.setOnClickListener(this);
+
+
     }
 
 
-    public void onActionButtonClick(){
-        if(actionButton.isExtended()){
-
-            if(currentFragment == loginFragment){
-
-                String dbName = loginFragment.getDatabaseName();
-                String dbPassword = loginFragment.getDatabasePassword();
-                String masterPassword = loginFragment.getMasterPassword();
-
-                if(dbName.isEmpty () || dbPassword.isEmpty() || masterPassword.isEmpty()){
-                    Toast.makeText(this,"You cannot leave any field empty",Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-
-
-                if(Database.online()){
-                    if(Database.getInstance().getDatabaseName().equals(dbName)) {
-                        Toast.makeText(this, "You are already logged in", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    Database.disconnect();
-                }
-
-                Credential.resetInstance();
-
-                try {
-                    Credential credential = Credential.getInstance(masterPassword);
-                    Database.establishConnection(credential,this,dbName,dbPassword);
-                }catch(Exception ex){
-                    Log.e("exception",ex.getMessage());
-
-                    Toast.makeText(this,ex.getMessage(),Toast.LENGTH_LONG).show();
-                }
-
-                if(Database.online()) {
-                    Database.getInstance().setListener(this);
-                    loadFragment(viewFragment,true);
-                }else{
-                    Toast.makeText(this,"Login failed",Toast.LENGTH_SHORT).show();
-                }
-
-
-
-
-
-            }else if(currentFragment == viewFragment){
-
-
-                EntryModel.staticEntry=null;
-                loadFragment(editFragment,true);
-
-            }else if(currentFragment == editFragment){
-                String tag = editFragment.getEntryTag();
-                String username = editFragment.getEntryUsername();
-                String password = editFragment.getEntryPassword();
-
-
-                if(tag.isEmpty() || username.isEmpty() || password.isEmpty()){
-                    Toast.makeText(this,"You cannot leave any field empty",Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-
-
-
-                // upload the data
-                if(!Database.online()){
-                    Toast.makeText(this,"Database is offline",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-                boolean inserting = EntryModel.staticEntry==null;
-
-                if (inserting) {
-                    Database.getInstance().insert(new EntryModel(tag,username,password));
-                } else {
-                    EntryModel.staticEntry = new EntryModel(EntryModel.staticEntry.getId(),tag,username,password);
-                    Database.getInstance().update(EntryModel.staticEntry);
-                }
-
-
-                // remove entryModel
-
-                EntryModel.staticEntry = null;
-
-                if(!inserting)editFragment.clearTag();
-                editFragment.clearUsername();
-                editFragment.clearPassword();
-
-                editFragment.setTagEditTextEnabled(true);
-
-                if(!inserting)loadFragment(viewFragment,true);
-
-            }else if(currentFragment == logoutFragment){
-                if(Database.online()){
-                    Database.disconnect();
-                    actionButton.setText("Login");
-                    actionButton.setIcon(this.getResources().getDrawable(R.drawable.lock364));
-                    logoutFragment.logoutTextView.setText(getResources().getString(R.string.logged_out_text));
-                }
-                else loadFragment(loginFragment,false);
-
-
-
-            }else if(currentFragment == generateFragment){
-
-
-
-                generateFragment.generatePassword();
-
-
-            }else if(currentFragment == helpFragment){
-                loadFragment(loginFragment,false);
-            }
-
-
-        }else{
-
-            if(currentFragment == loginFragment){
-
-
-
-
-                if(getExternalFilesDir("databases"+ File.separator+loginFragment.getDatabaseName()+"."+ Identifier.DATABASE_EXTENSION).exists())actionButton.setText("Login");
-                else actionButton.setText("Create");
-
-            }else if(currentFragment == viewFragment){
-                actionButton.setText("Add");
-            }else if(currentFragment == editFragment){
-                actionButton.setText("Done");
-            }else if(currentFragment == logoutFragment){
-                if(Database.online()){
-                    actionButton.setText("Logout");
-                }else{
-                    actionButton.setText("Login");
-                }
-
-            }else if(currentFragment == generateFragment){
-                actionButton.setText("Generate");
-            }else if(currentFragment == helpFragment){
-                actionButton.setText("Go back");
-            }
-
-
-
-            actionButton.extend();
-        }
-    }
 
 
 
@@ -299,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener 
             navigationView.getMenu().getItem(4).setChecked(true);
 
         }else if(fragment == editFragment){
-            if(EntryModel.staticEntry!=null)
+            if(!editFragment.isInserting())
                 actionButton.setIcon(this.getResources().getDrawable(R.drawable.done64));
 
         }else if(fragment == generateFragment){
@@ -308,8 +182,10 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener 
             actionButton.setIcon(getResources().getDrawable(R.drawable.back91));
         }else if(fragment == syncFragment){
             navigationView.getMenu().getItem(3).setChecked(true);
+            actionButton.setIcon(this.getResources().getDrawable(R.drawable.qr64));
+        }else if(fragment == qrScanFragment) {
+            actionButton.setIcon(this.getResources().getDrawable(R.drawable.done64));
         }
-
 
 
         currentFragment = fragment;
@@ -333,6 +209,238 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener 
     }
 
 
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.action_button){
+            if(actionButton.isExtended()){
+                actionButton.shrink();
+                if(currentFragment == loginFragment){
+
+                    String dbName = loginFragment.getDatabaseName();
+                    String dbPassword = loginFragment.getDatabasePassword();
+                    String masterPassword = loginFragment.getMasterPassword();
+
+                    if(dbName.isEmpty () || dbPassword.isEmpty() || masterPassword.isEmpty()){
+                        Toast.makeText(this,"You cannot leave any field empty",Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
 
+
+                    if(Database.online()){
+                        if(Database.getInstance().getDatabaseName().equals(dbName)) {
+                            Toast.makeText(this, "You are already logged in", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        Database.disconnect();
+                    }
+
+                    Credential.resetInstance();
+
+                    try {
+                        Credential.getInstance(masterPassword);
+
+
+
+                        Database.establishConnection(dbName,dbPassword);
+                    }catch(Exception ex){
+                        Log.e("exception",ex.getMessage());
+
+                        Toast.makeText(this,ex.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+
+                    if(Database.online()) {
+                        Database.getInstance().setListener(this);
+                        loadFragment(viewFragment,true);
+                    }else{
+                        Toast.makeText(this,"Login failed",Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
+
+                }else if(currentFragment == viewFragment){
+
+
+                    loadFragment(editFragment,true);
+
+                }else if(currentFragment == editFragment){
+                    String tag = editFragment.getEntryTag();
+                    String username = editFragment.getEntryUsername();
+                    String password = editFragment.getEntryPassword();
+
+
+                    if(tag.isEmpty() || username.isEmpty() || password.isEmpty()){
+                        Toast.makeText(this,"You cannot leave any field empty",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+
+
+
+                    // upload the data
+                    if(!Database.online()){
+                        Toast.makeText(this,"Database is offline",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    boolean inserting = editFragment.isInserting();
+
+
+                    editFragment.insertOrUpdate();
+
+                    if(!inserting)editFragment.clearTag();
+                    editFragment.clearUsername();
+                    editFragment.clearPassword();
+
+                    editFragment.setTagEditTextEnabled(true);
+
+                    if(!inserting)loadFragment(viewFragment,true);
+
+                }else if(currentFragment == logoutFragment){
+                    Credential.resetInstance();
+                    if(Database.online()){
+                        Database.disconnect();
+                        actionButton.setText("Login");
+                        actionButton.setIcon(this.getResources().getDrawable(R.drawable.lock364));
+                        logoutFragment.logoutTextView.setText(getResources().getString(R.string.logged_out_text));
+                    }
+                    else loadFragment(loginFragment,false);
+
+
+
+                }else if(currentFragment == generateFragment){
+
+
+
+                    generateFragment.generatePassword();
+
+
+                }else if(currentFragment == helpFragment){
+                    loadFragment(loginFragment,false);
+                }else if(currentFragment == syncFragment){
+
+                    if(Database.online())
+
+                        syncActionDialog.show();
+                    else
+                        Toast.makeText(this,"Database is offline",Toast.LENGTH_SHORT).show();
+
+                }else if(currentFragment == qrScanFragment){
+//                    loadFragment(syncFragment,false);
+
+
+                    if(!Database.online()){
+                        Toast.makeText(this,"Database is offline",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    ArrayList<String> partitions = qrScanFragment.getChunks();
+
+                    try {
+                        syncFragment.sync(partitions);
+                        loadFragment(viewFragment,false);
+                    }catch(Exception ex){
+                        Log.e("exception",ex.getMessage());
+                        Toast.makeText(this,ex.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+
+
+
+                }
+
+
+            }else{
+
+                if(currentFragment == loginFragment){
+
+
+
+
+                    if(getExternalFilesDir("databases"+ File.separator+loginFragment.getDatabaseName()+"."+ Identifier.DATABASE_EXTENSION).exists())actionButton.setText("Login");
+                    else actionButton.setText("Create");
+
+                }else if(currentFragment == viewFragment){
+                    actionButton.setText("Add");
+                }else if(currentFragment == editFragment){
+                    actionButton.setText("Done");
+                }else if(currentFragment == logoutFragment){
+                    if(Database.online()){
+                        actionButton.setText("Logout");
+                    }else{
+                        actionButton.setText("Login");
+                    }
+
+                }else if(currentFragment == generateFragment){
+                    actionButton.setText("Generate");
+                }else if(currentFragment == helpFragment){
+                    actionButton.setText("Go back");
+                }else if(currentFragment == syncFragment){
+                    actionButton.setText("Import");
+                }else if(currentFragment == qrScanFragment){
+                    actionButton.setText("Done");
+                }
+
+
+
+                actionButton.extend();
+            }
+        }else if(view.getId() == R.id.from_camera_button){
+            loadFragment(qrScanFragment,true);
+            syncActionDialog.cancel();
+        }else if(view.getId() == R.id.from_gallery_button){
+            syncActionDialog.cancel();
+
+
+            Intent intent = new Intent();
+
+            // setting type to select to be image
+            intent.setType("image/*");
+
+            // allowing multiple image to be selected
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select QR Codes, no need to select in order"), 1);
+        }
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode,resultCode,data);
+
+        if(requestCode == 1 && resultCode== RESULT_OK && data != null)
+        {
+            ClipData mClipData = data.getClipData();
+
+            if (mClipData != null) {
+
+                ArrayList<InputStream> images = new ArrayList<>();
+                int count = mClipData.getItemCount();
+                try{
+                    for (int i = 0; i < count; i++) {
+
+
+                        images.add(getContentResolver().openInputStream(mClipData.getItemAt(i).getUri()));
+
+                    }
+
+                    ArrayList<String> partitions = QRCodeReader.createPartitionFromQRImages(images);
+                    syncFragment.sync(partitions);
+                    loadFragment(viewFragment,false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+
+
+
+            }
+
+        }
+    }
 }

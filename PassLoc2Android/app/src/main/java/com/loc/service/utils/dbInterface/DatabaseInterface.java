@@ -15,10 +15,7 @@ public interface DatabaseInterface {
     public ArrayList<String> getAllTags();
     public ArrayList<EntryModel> getEntries(String tag);
     public boolean requireInitialization();
-    public String encryptText(String text);
-
-    public String decryptText(String encryptedText);
-    public String getName();
+    public String getTableName();
 
     public boolean alreadyExists(String id);
 

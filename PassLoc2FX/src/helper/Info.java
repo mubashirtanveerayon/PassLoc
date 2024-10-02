@@ -12,10 +12,10 @@ public class Info {
 
     public static final String[] UNLOCK_VIEW_TUTORIAL = {
 
-            "A master password is required to unlock any database file in your device.",
+            "A master password is required to unlock any database file on your device.",
             "Master password is used to determine which data should be fetched and decrypted from the database.",
             "This password is used to uniquely identify a database table, in which the entries are stored.",
-            "Therefore, it allows you to use a singe database file with multiple master password to store different kinds of data (text).",
+            "Therefore, it allows you to use different data tables in a single database file with multiple master passwords.",
             "However, it is appreciated to use one database file with a single master password.",
             "The lock button in the top bar locks you out of database (if a connection had been established) and brings you back to this page.",
             "See password policy for master password on the last page."

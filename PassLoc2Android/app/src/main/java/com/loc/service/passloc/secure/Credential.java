@@ -10,24 +10,24 @@ import com.loc.service.utils.exception.InvalidPasswordException;
 
 public class Credential {
 
-    private static Credential credential;
+    private static Credential instance;
 
 //    private byte[] randArray;
 //    private int randArrayIndex=0;
 //
-    private final char pinPaddingCharacter = '~';
+//    private final char pinPaddingCharacter = '~';
 
-    private final String hashedMasterPassword;
+    private final char[] hashedMasterPassword,masterPassword;
 
+    private AES256WithPassword encryptor;
 
-
-    public String getHashedMasterPassword() {
-        return hashedMasterPassword;
-    }
+    boolean initialized = false;
 
     private Credential (String masterPassword) throws InvalidPasswordException {
         PasswordValidator.validate(masterPassword);
-        hashedMasterPassword = HelperFunctions.sha256(masterPassword);
+        hashedMasterPassword = HelperFunctions.sha256(masterPassword).toCharArray();
+        this.masterPassword = masterPassword.toCharArray();
+
 //        int hashCode = hashedMasterPassword.hashCode();
 //        Random rng = new Random(hashCode);
 //        randArray = new byte[256];
@@ -39,16 +39,38 @@ public class Credential {
     }
 
 
+    public void initializeEncryptor(String password){
+        if(initialized)
+            throw new CredentialAlreadyExistsException("Attempt to re-initialize AES256 encryptor");
+
+        encryptor = new AES256WithPassword(derivePasswordKey(masterPassword,password));
+        initialized = true;
+    }
+
+    public void resetEncryptor(){
+        encryptor = null;
+        initialized=false;
+    }
+
+    public String encrypt(String text){
+        return encryptor.encrypt(text);
+    }
+
+    public String decrypt(String text){
+        return encryptor.decrypt(text);
+    }
+
+
     public static Credential getInstance(String newMasterPassword) throws CredentialAlreadyExistsException{
-        if(credential == null){
-            credential = new Credential(newMasterPassword);
-            return credential;
+        if(instance == null){
+            instance = new Credential(newMasterPassword);
+            return instance;
         }
         throw new CredentialAlreadyExistsException();
     }
 
     public static Credential getInstance(){
-        return credential;
+        return instance;
     }
 
 
@@ -59,20 +81,24 @@ public class Credential {
 //    }
 
     public static void resetInstance(){
-//        if(credential != null)
-//            credential.nullify();
-        credential = null;
+        if(instance != null)
+            instance.nullify();
+
+
+        instance = null;
     }
 
 
-//    public void nullify(){
-//        for(int i=0;i<randArray.length;i++)
-//            randArray[i] = 0;
-//        randArray = null;
-//        pinPaddingCharacter = ' ';
-//        hashedMasterPassword = "";
-//        randArrayIndex = 0;
-//    }
+    public void nullify(){
+
+        for(int i=0;i<hashedMasterPassword.length;i++)
+            hashedMasterPassword[i] = 0;
+        for(int i=0;i<masterPassword.length;i++)
+            masterPassword[i] = 0;
+        encryptor = null;
+        initialized=false;
+
+    }
 
 //    public String derivePasswordKey(String password) throws InvalidPasswordException{
 //
@@ -121,15 +147,26 @@ public class Credential {
 //    }
 
     public String derivePasswordKey(String text){
-        StringBuilder key = new StringBuilder(text);
-        for(char c:hashedMasterPassword.toCharArray())
-            if(Character.isDigit(c))
-                key.append(c);
+        return derivePasswordKey(hashedMasterPassword, text);
+    }
 
-        key.append(hashedMasterPassword.substring(text.length() % hashedMasterPassword.length()));
+    public static String derivePasswordKey(char[] passwordArray,String text){
+        StringBuilder key = new StringBuilder(text);
+        StringBuilder password = new StringBuilder();
+        for(char c:passwordArray) {
+            if (Character.isDigit(c))
+                key.append(c);
+            password.append(c);
+        }
+
+
+        key.append(password.substring(text.length() % passwordArray.length));
+
+
 
         return HelperFunctions.sha256(key.toString());
     }
+
 
 
 }

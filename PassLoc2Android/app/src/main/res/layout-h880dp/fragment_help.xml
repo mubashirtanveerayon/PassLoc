@@ -7,7 +7,7 @@
     android:background="@color/theme_light"
 
     android:paddingStart="@dimen/_20sdp"
-    android:paddingTop="@dimen/_45sdp"
+    android:paddingTop="@dimen/_64sdp"
     android:paddingEnd="@dimen/_20sdp"
     >
 

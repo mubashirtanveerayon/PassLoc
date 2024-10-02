@@ -66,7 +66,7 @@
                               <Insets />
                            </HBox.margin></Pane>
                         <MaterialIconView fill="#d5f3d5" glyphName="STORAGE" size="32" />
-                        <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="Create or Access DB">
+                        <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="Login">
 
                            <padding>
                               <Insets bottom="20.0" top="20.0" />
@@ -123,7 +123,7 @@
                            </HBox.margin>
                         </Pane>
                         <MaterialIconView fill="#d5f3d5" glyphName="SYNC" size="32" />
-                        <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="Sync DB">
+                        <Label styleClass="left-panel-nav-text" stylesheets="@style/main-view.css" text="Sync">
 
                            <padding>
                               <Insets bottom="20.0" top="20.0" />

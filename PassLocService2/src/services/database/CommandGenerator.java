@@ -10,10 +10,8 @@ import java.util.HashMap;
 public class CommandGenerator {
 
 
-    Credential credential;
 
 
-    AES256WithPassword textEncryptor;
 
 
     static final String DATA_TABLE_NAME = "data";
@@ -24,10 +22,10 @@ public class CommandGenerator {
 
     HashMap<String,String> keys;
 
-    public CommandGenerator(Credential credential,String databasePassword) {
-        this.credential = credential;
+    public CommandGenerator(String databasePassword) {
+        Credential credential = Credential.getInstance();
 
-        textEncryptor = new AES256WithPassword(credential.derivePasswordKey(databasePassword));
+        credential.initializeEncryptor(databasePassword);
 
         keys = new HashMap<>();
         keys.put(KEY_ID,HelperFunctions.sha256(KEY_ID));
@@ -41,16 +39,9 @@ public class CommandGenerator {
 
 
 
-    public String encryptText(String text){
 
-        return textEncryptor.encrypt(text);
-    }
 
-    public String decryptText(String encryptedText){
-        return textEncryptor.decrypt(encryptedText);
-    }
 
-    
     public String getTags(){
         return "select distinct ["+keys.get (KEY_TAG)+"] from ["+keys.get (DATA_TABLE_NAME)+"];";
     }
@@ -98,8 +89,7 @@ public class CommandGenerator {
     }
 
 
-
-
-
-
+    public String getTableName() {
+        return keys.get(DATA_TABLE_NAME);
+    }
 }

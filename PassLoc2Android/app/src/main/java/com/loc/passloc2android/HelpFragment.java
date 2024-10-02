@@ -103,7 +103,7 @@ public class HelpFragment extends Fragment {
 
 
 
-//                currentCardIndex = newCardIndex;
+
 
 
 

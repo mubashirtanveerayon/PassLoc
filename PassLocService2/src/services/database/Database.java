@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Database implements DatabaseInterface {
 
 
-    private Connection sqlConnection;
+    private final Connection sqlConnection;
     private DatabaseListener listener;
     private final String databaseName;
     private static Database instance;
@@ -24,7 +24,7 @@ public class Database implements DatabaseInterface {
 
 
 
-    public static void establishConnection(Credential credential,String dbName, String dbPath, String databasePassword) throws Exception {
+    public static void establishConnection(String dbName, String dbPath, String databasePassword) throws Exception {
 
         if(!classFound) {
             Class.forName("org.sqlite.JDBC");
@@ -34,17 +34,17 @@ public class Database implements DatabaseInterface {
         if(online())
             disconnect();
 
-        instance = new Database(credential,dbName, dbPath, databasePassword);
+        instance = new Database(dbName, dbPath, databasePassword);
     }
 
-    private Database(Credential credential,String dbName,String dbPath,String dbPassword) throws SQLException {
+    private Database(String dbName,String dbPath,String dbPassword) throws SQLException {
         String extension = "."+ Identifier.DATABASE_EXTENSION;
         if(!dbName.endsWith(extension))
             dbName += extension;
         databaseName = dbName.substring(0,dbName.lastIndexOf('.'));
         String fullPath = dbPath.endsWith(File.separator)?dbPath+dbName:dbPath+File.separator + dbName;
         sqlConnection= DriverManager.getConnection("jdbc:sqlite:"+fullPath+"?cipher=sqlcipher&key="+ HelperFunctions.sha256(dbPassword)+"&legacy=4");
-        commandGenerator = new CommandGenerator(credential,dbPassword);
+        commandGenerator = new CommandGenerator(dbPassword);
     }
 
     public static boolean online(){
@@ -62,13 +62,6 @@ public class Database implements DatabaseInterface {
         return instance;
     }
 
-    public String encryptText(String text){
-        return commandGenerator.encryptText(text);
-    }
-
-    public String decryptText(String encryptedText){
-        return commandGenerator.decryptText(encryptedText);
-    }
 
 
     public boolean requireInitialization(){
@@ -112,6 +105,8 @@ public class Database implements DatabaseInterface {
             try {
                 sqlConnection.close();
             } catch (SQLException e) {
+                if(listener != null)
+                    listener.onFailure(e.getMessage());
                 throw new RuntimeException(e);
             }
         }
@@ -125,11 +120,13 @@ public class Database implements DatabaseInterface {
     public void insert(EntryModel entryModel) {
         PreparedStatement statement = null;
         Exception e=null;
+        Credential c = Credential.getInstance();
+        
         try{
             statement = sqlConnection.prepareStatement(commandGenerator.insertIntoDataTable());
-            statement.setString(1,commandGenerator.encryptText(entryModel.getTag()));
-            statement.setString(2,commandGenerator.encryptText(entryModel.getUsername()));
-            statement.setString(3,commandGenerator.encryptText(entryModel.getPassword()));
+            statement.setString(1,c.encrypt(entryModel.getTag()));
+            statement.setString(2,c.encrypt(entryModel.getUsername()));
+            statement.setString(3,c.encrypt(entryModel.getPassword()));
             statement.execute();
             statement.close();
         } catch (Exception ex) {
@@ -152,15 +149,16 @@ public class Database implements DatabaseInterface {
         Exception e=null;
         PreparedStatement statement = null;
         ResultSet rs = null;
+        Credential c = Credential.getInstance();
         try{
             statement = sqlConnection.prepareStatement(commandGenerator.getAllData());
             rs = statement.executeQuery();
             while(rs.next()) {
                 String id = rs.getString(1);
-                String tag = commandGenerator.decryptText( rs.getString(2));
+                String tag = c.decrypt( rs.getString(2));
 
-                String username = commandGenerator.decryptText( rs.getString(3));
-                String password = commandGenerator.decryptText( rs.getString(4));
+                String username = c.decrypt( rs.getString(3));
+                String password = c.decrypt( rs.getString(4));
 
                 EntryModel entryModel = new EntryModel(id,tag,username,password);
                 entries.add(entryModel);
@@ -183,10 +181,11 @@ public class Database implements DatabaseInterface {
     public void update(EntryModel entryModel) {
         PreparedStatement statement = null;
         Exception e=null;
+        Credential c = Credential.getInstance();
         try{
             statement = sqlConnection.prepareStatement(commandGenerator.updateEntry());
-            statement.setString(1,commandGenerator.encryptText(entryModel.getUsername()));
-            statement.setString(2,commandGenerator.encryptText(entryModel.getPassword()));
+            statement.setString(1,c.encrypt(entryModel.getUsername()));
+            statement.setString(2,c.encrypt(entryModel.getPassword()));
             statement.setString(3,entryModel.getId());
             statement.execute();
             statement.close();
@@ -240,11 +239,13 @@ public class Database implements DatabaseInterface {
         PreparedStatement statement = null;
         ResultSet rs = null;
         Exception e=null;
+        Credential c = Credential.getInstance();
         try{
             statement = sqlConnection.prepareStatement(sqlCommand);
             rs = statement.executeQuery();
+
             while (rs.next()) {
-                String tag = commandGenerator.decryptText(rs.getString(1));
+                String tag = c.decrypt(rs.getString(1));
                 if (!tags.contains(tag))
                     tags.add(tag);
 
@@ -278,8 +279,8 @@ public class Database implements DatabaseInterface {
         return filteredEntries;
     }
 
-    public String getName(){
-        return databaseName;
+    public String getTableName(){
+        return commandGenerator.getTableName();
     }
 
 

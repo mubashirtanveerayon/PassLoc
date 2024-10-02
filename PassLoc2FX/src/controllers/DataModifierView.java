@@ -42,6 +42,7 @@ public class DataModifierView extends View implements Initializable {
         State.currentState = State.AppState.EDIT;
         actionButton.setText("Add");
         tagField.setEditable(true);
+
     }
 
     public void setData(EntryModel entry){

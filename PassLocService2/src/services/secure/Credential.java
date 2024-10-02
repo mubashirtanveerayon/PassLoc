@@ -14,19 +14,19 @@ public class Credential {
 //    private byte[] randArray;
 //    private int randArrayIndex=0;
 //
-    private final char pinPaddingCharacter = '~';
+//    private final char pinPaddingCharacter = '~';
 
-    private final String hashedMasterPassword;
+    private final char[] hashedMasterPassword,masterPassword;
 
+    private AES256WithPassword encryptor;
 
-
-    public String getHashedMasterPassword() {
-        return hashedMasterPassword;
-    }
+    boolean initialized = false;
 
     private Credential (String masterPassword) throws InvalidPasswordException {
         PasswordValidator.validate(masterPassword);
-        hashedMasterPassword = HelperFunctions.sha256(masterPassword);
+        hashedMasterPassword = HelperFunctions.sha256(masterPassword).toCharArray();
+        this.masterPassword = masterPassword.toCharArray();
+
 //        int hashCode = hashedMasterPassword.hashCode();
 //        Random rng = new Random(hashCode);
 //        randArray = new byte[256];
@@ -35,6 +35,23 @@ public class Credential {
 //        pinPaddingCharacter = (char)( rng.nextInt(26)+65);
 
 
+    }
+
+
+    public void initializeEncryptor(String password){
+        if(initialized)
+            throw new CredentialAlreadyExistsException("Attempt to re-initialize AES256 encryptor");
+
+        encryptor = new AES256WithPassword(derivePasswordKey(masterPassword,password));
+        initialized = true;
+    }
+
+    public String encrypt(String text){
+        return encryptor.encrypt(text);
+    }
+
+    public String decrypt(String text){
+        return encryptor.decrypt(text);
     }
 
 
@@ -58,20 +75,28 @@ public class Credential {
 //    }
 
     public static void resetInstance(){
-//        if(credential != null)
-//            credential.nullify();
+        if(credential != null)
+            credential.nullify();
+
+
         credential = null;
     }
 
 
-//    public void nullify(){
-//        for(int i=0;i<randArray.length;i++)
-//            randArray[i] = 0;
-//        randArray = null;
-//        pinPaddingCharacter = ' ';
-//        hashedMasterPassword = "";
-//        randArrayIndex = 0;
-//    }
+    public void resetEncryptor(){
+        encryptor = null;
+        initialized=false;
+    }
+
+    public void nullify(){
+
+        for(int i=0;i<hashedMasterPassword.length;i++)
+            hashedMasterPassword[i] = 0;
+        for(int i=0;i<masterPassword.length;i++)
+            masterPassword[i] = 0;
+        encryptor = null;
+
+    }
 
 //    public String derivePasswordKey(String password) throws InvalidPasswordException{
 //
@@ -120,12 +145,22 @@ public class Credential {
 //    }
 
     public String derivePasswordKey(String text){
-        StringBuilder key = new StringBuilder(text);
-        for(char c:hashedMasterPassword.toCharArray())
-            if(Character.isDigit(c))
-                key.append(c);
+        return derivePasswordKey(hashedMasterPassword, text);
+    }
 
-        key.append(hashedMasterPassword.substring(text.length() % hashedMasterPassword.length()));
+    public static String derivePasswordKey(char[] passwordArray,String text){
+        StringBuilder key = new StringBuilder(text);
+        StringBuilder password = new StringBuilder();
+        for(char c:passwordArray) {
+            if (Character.isDigit(c))
+                key.append(c);
+            password.append(c);
+        }
+
+
+        key.append(password.substring(text.length() % passwordArray.length));
+
+
 
         return HelperFunctions.sha256(key.toString());
     }

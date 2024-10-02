@@ -8,6 +8,7 @@
     android:background="@color/theme_light"
     android:paddingStart="@dimen/_20sdp"
     android:paddingEnd="@dimen/_20sdp"
+    android:paddingTop="@dimen/_64sdp"
     >
 
     <androidx.cardview.widget.CardView
@@ -18,7 +19,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_64sdp"
         android:backgroundTint="@color/theme_semi_light"
         android:elevation="2dp"
         >
@@ -26,6 +26,8 @@
 
 
         <TextView
+
+            android:layout_margin="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -63,7 +65,8 @@
             android:layout_marginBottom="@dimen/_15sdp"
             app:startIconDrawable="@drawable/tag3232"
             app:startIconTint="@color/theme_dark"
-
+            android:textColorHint="@color/theme_dark"
+            app:helperTextTextColor="@color/theme_dark"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -92,6 +95,8 @@
             app:startIconTint="@color/theme_dark"
             app:helperTextEnabled="true"
             app:helperText="Enter username"
+            android:textColorHint="@color/theme_dark"
+            app:helperTextTextColor="@color/theme_dark"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -117,7 +122,8 @@
             app:boxStrokeColor="@color/theme_dark"
             app:boxBackgroundMode="outline"
             app:boxBackgroundColor="@color/theme_semi_light"
-
+            android:textColorHint="@color/theme_dark"
+            app:helperTextTextColor="@color/theme_dark"
             app:helperTextEnabled="true"
             app:helperText="Supports multiline text content"
             android:hint="Password"

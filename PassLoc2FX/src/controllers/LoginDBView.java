@@ -82,6 +82,8 @@ public class LoginDBView extends View implements Initializable {
         });
 
 
+
+
     }
 
     private void login(){
@@ -93,9 +95,12 @@ public class LoginDBView extends View implements Initializable {
 
         try{
             PasswordValidator.validate(password);
-            if(Database.online())
+            if(Database.online()) {
                 Database.disconnect();
-            Database.establishConnection(Credential.getInstance(),name,dbLocationField.getText(),password);
+                Credential.getInstance().resetEncryptor();
+            }
+            Database.establishConnection(name,dbLocationField.getText(),password);
+
             Database db = Database.getInstance();
             db.setListener(listener);
             if(db.requireInitialization())

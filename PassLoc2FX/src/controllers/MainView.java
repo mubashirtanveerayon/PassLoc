@@ -166,9 +166,11 @@ public class MainView extends View implements Initializable {
     
     public void onLogoutMouseClicked(MouseEvent mouseEvent) {
         if(State.currentState == State.AppState.MASTER_LOGIN || State.currentState == State.AppState.DB_LOGIN)return;
-        if(Database.online())
+        if(Database.online()) {
             Database.disconnect();
 
+            Credential.getInstance().resetEncryptor();
+        }
         FXMLLoader loginViewLoader = new FXMLLoader(getClass().getResource("/res/view/db-login-view.fxml"));
         try{
             containerPane.setCenter(loginViewLoader.load());

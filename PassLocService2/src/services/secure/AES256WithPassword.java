@@ -21,6 +21,7 @@ public class AES256WithPassword {
             throw new RuntimeException(e);
         }
 
+
     }
     // Derive a 256-bit AES key from the password without salt
     public static SecretKey getKeyFromPassword(String password) throws Exception {

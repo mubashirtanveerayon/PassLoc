@@ -11,19 +11,19 @@
     <string-array name="about">
 
         <item>PassLoc is an open-source password manager application that uses sql-cipher to store data on your device.</item>
-        <item>Needless to say that all the data stored in the database are encrypted with strong and reliable encryption.</item>
+        <item>Needless to say that all the data stored in the database are encrypted with strong and reliable encryption (AES256).</item>
         <item>PassLoc does not store any data on the cloud. Hence, this app does not require an internet connection to function.</item>
-        <item>The source code can be found github.com/mubashirtanveerayon/PassLoc .</item>
+        <item>The source code can be found at github.com/mubashirtanveerayon/PassLoc .</item>
     </string-array>
 
     <string-array name="encryption">
 
-        <item>The account name is the name that is used to create the database with a unique extension(.pl) on your device.</item>
-        <item >The database is first secured with a password you choose. After that, you provide a secret key which is used to encrypt the data.</item>
+        <item>The database name is the name that is used to create the database with a unique extension(.loc) on your device.</item>
+        <item>The database is first secured with a password you choose. After that, .</item>
         <item>Though the encryption algorithm uses several keys to encrypt your data the secret key is considered to be the mother key.</item>
         <item>Even if someone gains access to the password-protected database file they will not be able to decrypt your data without this key.</item>
-        <item >This also means that if you happen to forget your secret key the database file becomes unusable.</item>
-        <item >So, it is recommended to use a secret key that is actually secret(not like your contact number or date of birth) and that you can remember.</item>
+        <item>This also means that if you happen to forget your secret key the database file becomes unusable.</item>
+        <item>So, it is recommended to use a secret key that is actually secret(not like your contact number or date of birth) and that you can remember.</item>
 
 
     </string-array>
@@ -37,5 +37,8 @@
         <item>The view panel is for viewing the your saved password.</item>
         <item>The logout panel is used to logout/disconnect from database.</item>
     </string-array>
+
+
+
 
 </resources>

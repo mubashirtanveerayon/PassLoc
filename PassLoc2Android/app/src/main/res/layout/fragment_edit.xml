@@ -8,6 +8,8 @@
     android:background="@color/theme_light"
     android:paddingStart="@dimen/_20sdp"
     android:paddingEnd="@dimen/_20sdp"
+
+    android:paddingTop="@dimen/_45sdp"
     >
 
     <androidx.cardview.widget.CardView
@@ -18,9 +20,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_45sdp"
         android:backgroundTint="@color/theme_semi_light"
         android:elevation="2dp"
+
         >
 
 
@@ -29,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_margin="@dimen/_5sdp"
             android:fontFamily="@font/ubuntu_bold"
             android:text="Entry"
             android:layout_gravity="center"
@@ -67,7 +69,8 @@
             android:layout_marginBottom="@dimen/_8sdp"
             app:startIconDrawable="@drawable/tag3232"
             app:startIconTint="@color/theme_dark"
-
+            android:textColorHint="@color/theme_dark"
+            app:helperTextTextColor="@color/theme_dark"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -96,6 +99,8 @@
             app:startIconTint="@color/theme_dark"
             app:helperTextEnabled="true"
             app:helperText="Enter username"
+            android:textColorHint="@color/theme_dark"
+            app:helperTextTextColor="@color/theme_dark"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -117,7 +122,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:textColorHint="@color/theme_dark"
+            app:helperTextTextColor="@color/theme_dark"
             app:boxStrokeColor="@color/theme_dark"
             app:boxBackgroundMode="outline"
             app:boxBackgroundColor="@color/theme_semi_light"

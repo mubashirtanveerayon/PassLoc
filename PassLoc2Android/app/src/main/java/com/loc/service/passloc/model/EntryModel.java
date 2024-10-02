@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class EntryModel {
 
 
-    public static EntryModel staticEntry;
 
     private String id = null;
     private final String tag,username,password;
