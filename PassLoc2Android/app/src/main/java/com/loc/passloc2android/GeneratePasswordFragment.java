@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.loc.service.passloc.model.PasswordUnit;
-import com.loc.service.passloc.model.PasswordElements;
+
 import java.util.ArrayList;
-import com.loc.service.passloc.generator.password.UniquePasswordGenerator;
-import com.loc.service.utils.PasswordStrengthTextWatcher;
+
+import services.generator.password.UniquePasswordGenerator;
+import services.model.PasswordElements;
+import services.model.PasswordUnit;
+
 
 public class GeneratePasswordFragment extends Fragment {
 

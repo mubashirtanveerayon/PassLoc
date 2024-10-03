@@ -17,7 +17,6 @@ public class QRCodeGenerator {
 
 
 
-    // signature = Base64Encoder(AES256TextEncryptor(databasePassword).encrypt(databaseName))
     public static ArrayList<String> createPartitionFromData(byte[] data, int chunkSize, String signature){
 
         String b64EncodedString = Base64.getEncoder().encodeToString(data);

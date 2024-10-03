@@ -3,19 +3,10 @@ package com.loc.passloc2android;
 
 
 
-import static android.content.Context.STORAGE_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
-
-import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.storage.StorageManager;
-import android.os.storage.StorageVolume;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,29 +19,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.zxing.WriterException;
 import com.loc.service.passloc.database.Database;
 import com.loc.service.passloc.generator.qr.QRCodeGenerator;
-import com.loc.service.passloc.generator.qr.QRCodeReader;
-import com.loc.service.passloc.model.EntryModel;
-import com.loc.service.passloc.secure.Credential;
-import com.loc.service.utils.HelperFunctions;
-import com.loc.service.utils.SwipeDetector;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.loc.service.apputils.SwipeDetector;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import services.model.EntryModel;
+import services.secure.Credential;
 
 public class SyncFragment extends Fragment {
 
@@ -109,7 +93,7 @@ public class SyncFragment extends Fragment {
 
 
 
-        loadQRButton.setText("Load QR Codes");
+        loadQRButton.setText("Generate QR Codes");
 
 
 
@@ -187,12 +171,12 @@ public class SyncFragment extends Fragment {
 
         if(images.isEmpty()) {
 
-            String json = HelperFunctions.convertToJsonString(Database.getInstance().getAllData());
+            String json = EntryModel.convertToJsonString(Database.getInstance().getAllData());
             Database db = Database.getInstance();
             String signature = db.getTableName();
 
             String encryptedData = Credential.getInstance().encrypt(json);
-            ArrayList<String> partitions = QRCodeGenerator.createPartitionFromData(encryptedData.getBytes(), 2000, signature);
+            ArrayList<String> partitions = QRCodeGenerator.createPartitionFromData(encryptedData.getBytes(), 2000 , signature);
             images.clear();
             try {
                 images.addAll(QRCodeGenerator.generateQRImages(partitions, 400, 400));
@@ -208,12 +192,18 @@ public class SyncFragment extends Fragment {
                 Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
             }
         }else{
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddsshhmmss", Locale.getDefault());
+            String date = sdf.format(new Date());
+
+            String tableName = Database.getInstance().getTableName();
+            String signature = tableName.substring(tableName.length()-4);
+
             try{
                 for(int i=0;i<images.size();i++){
 
                     Bitmap image = images.get(i);
                     ContentValues metaData = new ContentValues();
-                    metaData.put(MediaStore.Images.Media.DISPLAY_NAME,String.valueOf(i)+".png");
+                    metaData.put(MediaStore.Images.Media.DISPLAY_NAME,String.format("%s_%s_%s.png",String.valueOf(i),signature,date));
                     metaData.put(MediaStore.Images.Media.WIDTH,image.getWidth());
                     metaData.put(MediaStore.Images.Media.HEIGHT,image.getHeight());
 
@@ -275,35 +265,6 @@ public class SyncFragment extends Fragment {
             imageView.setImageBitmap(images.get(imageIndex));
     }
 
-    public void sync(ArrayList<String> partitions) throws JSONException {
 
-            byte[] encryptedData = QRCodeReader.loadByteArrayFromPartition(partitions);
-            Database db = Database.getInstance();
-            String json = Credential.getInstance().decrypt(new String(encryptedData));
-
-            ArrayList<EntryModel> entries = EntryModel.fromJSONArray(new JSONArray(json));
-
-            for (EntryModel entry : entries) {
-                String id = entry.getId();
-                if (id == null || !db.alreadyExists(id))
-                    db.insert(entry);
-                else
-                    db.update(entry);
-            }
-
-
-
-    }
-
-
-    public String generateUniqueName(String imageName) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddsshhmmss", Locale.getDefault());
-        String date = sdf.format(new Date());
-
-        String fileName = String.format("%s_%s.png", imageName, date);
-
-        return fileName;
-
-    }
 
 }

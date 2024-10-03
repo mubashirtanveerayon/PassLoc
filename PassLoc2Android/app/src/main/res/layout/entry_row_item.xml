@@ -53,8 +53,9 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:elevation="10dp"
         android:padding="5dp"
+
+        android:background="@drawable/entry_action_background"
 
         >
 

@@ -267,6 +267,77 @@
 
         </androidx.cardview.widget.CardView>
 
+
+    <androidx.cardview.widget.CardView
+
+
+        android:id="@+id/sync_card"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_330sdp"
+        android:backgroundTint="@color/theme_semi_light"
+        android:elevation="2dp"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/help_title_card"
+        android:visibility="invisible"
+
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_10sdp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="45sp"
+                android:text="Sync"
+                android:textColor="@color/theme_dark"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/sync_title_text_view"
+
+                />
+
+            <com.google.android.material.divider.MaterialDivider
+                app:layout_constraintTop_toBottomOf="@id/sync_title_text_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:dividerColor="@color/theme_dark"
+
+                app:dividerThickness="@dimen/_2sdp"
+                android:id="@+id/sync_title_divider"
+                />
+
+            <ListView
+                android:layout_marginTop="@dimen/_5sdp"
+                android:id="@+id/sync_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sync_title_divider"
+
+
+                android:paddingBottom="@dimen/_80sdp"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -277,7 +348,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        android:layout_marginBottom="@dimen/_150sdp"
+        android:layout_marginBottom="@dimen/_160sdp"
         />
 
 

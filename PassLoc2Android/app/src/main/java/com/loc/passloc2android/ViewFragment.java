@@ -16,10 +16,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loc.service.passloc.database.Database;
-import com.loc.service.passloc.model.EntryModel;
-import com.loc.service.utils.adapter.RecyclerAdapter;
+import com.loc.service.apputils.adapter.RecyclerAdapter;
 
 import java.util.ArrayList;
+
+import services.model.EntryModel;
 
 public class ViewFragment extends Fragment {
 

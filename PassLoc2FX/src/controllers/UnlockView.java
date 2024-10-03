@@ -31,7 +31,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import org.controlsfx.control.PopOver;
 import services.secure.Credential;
-import utils.PasswordValidator;
 
 /**
  *

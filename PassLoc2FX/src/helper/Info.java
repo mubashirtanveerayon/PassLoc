@@ -3,6 +3,7 @@ package helper;
 import services.model.EntryModel;
 
 import java.io.File;
+import java.util.Stack;
 
 public class Info {
 
@@ -69,4 +70,23 @@ public class Info {
     };
 
     public static final String[] VIEW_TITLES = {"Access Locker","Database Login","Data","Entry","Sync","Password Generator","Password Policy"};
+
+
+    public static String prepareForJSONParser(String jsonArrayStr) {
+        StringBuilder sb = new StringBuilder();
+
+
+        Stack<Character> quoteStack = new Stack<>();
+
+        for(char c:jsonArrayStr.toCharArray()){
+            if(c == '\n')
+                sb.append("\\n");
+
+            else
+                sb.append(c);
+        }
+
+
+        return sb.toString();
+    }
 }

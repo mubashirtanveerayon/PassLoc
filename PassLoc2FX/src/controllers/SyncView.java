@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
+import helper.Info;
 import helper.NotificationCenter;
 import helper.State;
 import javafx.embed.swing.SwingFXUtils;
@@ -27,13 +28,14 @@ import utils.HelperFunctions;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 public class SyncView extends View implements Initializable {
 
@@ -45,31 +47,48 @@ public class SyncView extends View implements Initializable {
 
     ArrayList<BufferedImage> qrImages;
     int imageIndex = 0;
+
+    private BufferedImage placeHolderQRCode;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         State.currentState = State.AppState.SYNC;
         qrImages = new ArrayList<>();
-        try {
-            qrImages.add(ImageIO.read(getClass().getResource("/res/image/placeholderqr.png")));
-        } catch (IOException e) {
+
+
+        try{
+            placeHolderQRCode = ImageIO.read(getClass().getResource("/res/image/github.png"));
+        }catch(Exception e){
+            NotificationCenter.sendFailureNotification(e.getMessage());
             e.printStackTrace();
         }
 
+        loadImageView();
         placeFooter();
+
     }
 
     private void placeFooter() {
 
 
-        if(qrImages.isEmpty())
+        if(qrImages.isEmpty()){
+            if(placeHolderQRCode != null)
+                qrCounterLabel.setText("Scan the QR code for project GitHub link!");
             return;
+        }
+
         qrCounterLabel.setText((imageIndex+1)+"/"+qrImages.size());
 
     }
 
     private void loadImageView(){
-        if(qrImages.isEmpty())
+        if(qrImages.isEmpty()) {
+
+            if(placeHolderQRCode != null)
+                qrImageView.setImage(SwingFXUtils.toFXImage(placeHolderQRCode,null));
+
             return;
+        }
         qrImageView.setImage(SwingFXUtils.toFXImage(qrImages.get(imageIndex), null));
     }
 
@@ -97,7 +116,7 @@ public class SyncView extends View implements Initializable {
 
     @FXML
     void onExportAction(ActionEvent event) {
-        if(!Database.online()) {
+        if(!Database.online() || qrImages.isEmpty()) {
             NotificationCenter.sendFailureNotification("Database is offline.");
             return;
         }
@@ -137,7 +156,9 @@ public class SyncView extends View implements Initializable {
             Database db = Database.getInstance();
             String json = Credential.getInstance().decrypt(new String(encryptedData));
 
-            ArrayList<EntryModel> entries = EntryModel.fromJSONArray(new JSONArray(json));
+
+
+            ArrayList<EntryModel> entries = EntryModel.fromJSONArray(json);
 
             for(EntryModel entry : entries){
                 String id = entry.getId();
@@ -154,6 +175,7 @@ public class SyncView extends View implements Initializable {
 
     }
 
+
     @FXML
     void onLoadAction(ActionEvent event) {
 
@@ -162,8 +184,13 @@ public class SyncView extends View implements Initializable {
             return;
         }
 
-        String json = HelperFunctions.convertToJsonString(Database.getInstance().getAllData());
+
         Database db = Database.getInstance();
+
+        ArrayList<EntryModel> entries = db.getAllData();
+
+        String json = EntryModel.convertToJsonString(entries);
+
         String signature = db.getTableName();
 
         String encryptedData = Credential.getInstance().encrypt(json);

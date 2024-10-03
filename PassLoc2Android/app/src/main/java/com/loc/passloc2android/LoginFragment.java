@@ -70,5 +70,11 @@ public class LoginFragment extends Fragment {
 
 
 
+    public void onPause(){
+        super.onPause();
+        dbNameEditText.setText("");
+        passwordEditText.setText("");
+        masterPasswordEditText.setText("");
+    }
 
 }

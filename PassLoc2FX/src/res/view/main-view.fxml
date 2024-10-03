@@ -179,7 +179,7 @@
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font></Label>
-                        <Label styleClass="version-text" stylesheets="@style/top-bar.css" text="Version 2.0.2">
+                        <Label styleClass="version-text" stylesheets="@style/top-bar.css" text="Version 2.1.0">
                            <font>
                               <Font size="14.0" />
                            </font></Label>

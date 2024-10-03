@@ -14,8 +14,7 @@ import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.loc.service.utils.exception.InvalidChunkException;
-import com.loc.service.utils.exception.MissingChunkException;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +23,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Hashtable;
+
+import utils.exception.InvalidChunkException;
+import utils.exception.MissingChunkException;
+
 public class QRCodeReader {
 
 

@@ -11,14 +11,16 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 
 import com.loc.service.passloc.database.Database;
-import com.loc.service.passloc.model.EntryModel;
+
+import services.model.EntryModel;
 
 public class EditFragment extends Fragment {
 
     private EditText tagEditText,usernameEditText,passwordEditText;
 
     Button generatePasswordButton;
-    private String updateId = null;
+
+    private EntryModel entryModel=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,14 +74,35 @@ public class EditFragment extends Fragment {
 
             }
         });
+
+        boolean inserting = isInserting();
+
+        if(!inserting){
+
+
+            tagEditText.setText(entryModel.getTag());
+            usernameEditText.setText(entryModel.getUsername());
+            passwordEditText.setText(entryModel.getPassword());
+
+
+
+        }
+
+        tagEditText.setEnabled(inserting);
+    }
+
+    public void clearTexts(){
+        if(tagEditText == null || usernameEditText == null || passwordEditText == null)
+            return;
+
+        tagEditText.setText("");
+        usernameEditText.setText("");
+        passwordEditText.setText("");
     }
 
     public void setEntry(EntryModel entry){
-        updateId = entry.getId();
-        tagEditText.setText(entry.getTag());
-        usernameEditText.setText(entry.getUsername());
-        passwordEditText.setText(entry.getPassword());
-        tagEditText.setEnabled(false);
+
+        this.entryModel = new EntryModel(entry);
 
     }
 
@@ -87,12 +110,18 @@ public class EditFragment extends Fragment {
         if(isInserting()){
             Database.getInstance().insert(new EntryModel(tagEditText.getText().toString(),usernameEditText.getText().toString(),passwordEditText.getText().toString()));
         }else{
-            Database.getInstance().update(new EntryModel(updateId,tagEditText.getText().toString(),usernameEditText.getText().toString(),passwordEditText.getText().toString()));
+            Database.getInstance().update(entryModel);
         }
-        updateId = null;
+        entryModel = null;
     }
 
     public boolean isInserting() {
-        return updateId == null;
+        return entryModel == null;
+    }
+
+
+    public void onPause(){
+        super.onPause();
+        entryModel = null;
     }
 }

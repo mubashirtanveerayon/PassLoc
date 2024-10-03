@@ -12,7 +12,7 @@ import android.widget.ListView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.loc.service.utils.SwipeDetector;
+import com.loc.service.apputils.SwipeDetector;
 
 public class HelpFragment extends Fragment {
 
@@ -51,9 +51,15 @@ public class HelpFragment extends Fragment {
         ListView uiListView = view.findViewById(R.id.ui_list_view);
         uiListView.setAdapter(uiArrayAdapter);
 
+        String[] syncText = getActivity().getResources().getStringArray(R.array.sync);
+        ArrayAdapter<String>syncArrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,syncText);
+
+        ListView syncListView = view.findViewById(R.id.sync_list_view);
+        syncListView.setAdapter(syncArrayAdapter);
 
 
-        cards = new CardView[]{view.findViewById(R.id.about_card),view.findViewById(R.id.encryption_card),view.findViewById(R.id.ui_card)};
+
+        cards = new CardView[]{view.findViewById(R.id.about_card),view.findViewById(R.id.encryption_card),view.findViewById(R.id.ui_card),view.findViewById(R.id.sync_card)};
 
 
 

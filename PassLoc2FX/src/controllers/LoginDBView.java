@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
-import helper.DatabaseListener;
+import helper.DatabaseEventListener;
 import helper.Info;
 import helper.NotificationCenter;
 import helper.State;
@@ -28,9 +28,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import services.database.Database;
+import services.generator.password.PasswordValidator;
 import services.secure.Credential;
 import utils.Identifier;
-import utils.PasswordValidator;
+import utils.dbInterface.DatabaseListener;
 
 
 public class LoginDBView extends View implements Initializable {
@@ -48,7 +49,7 @@ public class LoginDBView extends View implements Initializable {
     @FXML
     MFXButton accessButton;
 
-    DatabaseListener listener = new DatabaseListener();
+    DatabaseEventListener listener = new DatabaseEventListener();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         State.currentState = State.AppState.DB_LOGIN;

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -25,7 +26,7 @@ import com.loc.service.passloc.generator.qr.QRCodeGenerator;
 import java.util.ArrayList;
 
 
-public class QRScanFragment extends Fragment implements DecodeCallback,View.OnClickListener {
+public class QRScanFragment extends Fragment implements DecodeCallback,View.OnClickListener,Runnable {
     CodeScanner codeScanner;
 
     CodeScannerView scannerView;
@@ -39,6 +40,8 @@ public class QRScanFragment extends Fragment implements DecodeCallback,View.OnCl
 
     TextView scannedTextView;
     ArrayList<String> data;
+
+    String text;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +67,7 @@ public class QRScanFragment extends Fragment implements DecodeCallback,View.OnCl
         super.onResume();
 
         data.clear();
-        scannedTextView.setText("Scanned: "+data.size());
+        scannedTextView.setText("Chunk scanned: "+data.size());
         scanNextButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
 
@@ -74,29 +77,30 @@ public class QRScanFragment extends Fragment implements DecodeCallback,View.OnCl
     public void onDecoded(@NonNull Result result) {
 
 
-        String text = result.getText();
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                processResult(text);
-            }
-        });
+        text = result.getText();
+        getActivity().runOnUiThread(this);
 
 
 
     }
+    @Override
+    public void run() {
 
-    private void processResult(String result) {
-        if(isChunk(result)){
-            
+        if(text == null)
+            return;
+        if(isChunk(text)){
+
             codeScanner.stopPreview();
-            data.add(result);
+            data.add(text);
 
-            scannedTextView.setText("Scanned: "+data.size());
+            scannedTextView.setText("Chunk scanned: "+data.size());
+
+            Toast.makeText(getActivity(),"Proceed to the next QR code.",Toast.LENGTH_LONG).show();
         }else{
             restartCodeScanner();
         }
     }
+
 
     public ArrayList<String> getChunks(){
         return new ArrayList<>(data);
@@ -104,7 +108,8 @@ public class QRScanFragment extends Fragment implements DecodeCallback,View.OnCl
 
 
     public static boolean isChunk(String text){
-
+        if(text == null)
+            return false;
 
         String[] parts = text.split(QRCodeGenerator.CHUNK_DATA_SEPARATOR);
 
@@ -131,7 +136,7 @@ public class QRScanFragment extends Fragment implements DecodeCallback,View.OnCl
 
             if(!prompted){
                 prompted=true;
-                Snackbar.make(view, "Don't see the camera? Give camera access and scan again.", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Don't see the camera? Give permission and scan again.", Snackbar.LENGTH_LONG)
                         .setAction("Give permission", this)
                         .show();
             }
@@ -151,7 +156,7 @@ public class QRScanFragment extends Fragment implements DecodeCallback,View.OnCl
 
         }else if(view.getId() == R.id.resetButton){
             data.clear();
-            scannedTextView.setText("Scanned: 0");
+            scannedTextView.setText("Chunk scanned: 0");
         }else{
             Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                     Uri.fromParts("package",getActivity(). getPackageName(), null));

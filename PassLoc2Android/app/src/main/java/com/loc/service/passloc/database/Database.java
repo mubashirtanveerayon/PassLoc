@@ -1,22 +1,24 @@
 package com.loc.service.passloc.database;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
 import com.loc.passloc2android.PassLoc2;
-import com.loc.service.passloc.model.EntryModel;
-import com.loc.service.passloc.secure.Credential;
-import com.loc.service.utils.HelperFunctions;
-import com.loc.service.utils.Identifier;
-import com.loc.service.utils.dbInterface.DatabaseInterface;
-import com.loc.service.utils.dbInterface.DatabaseListener;
+
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 import net.zetetic.database.sqlcipher.SQLiteOpenHelper;
 import net.zetetic.database.sqlcipher.SQLiteStatement;
 
 import java.util.ArrayList;
+
+import services.database.CommandGenerator;
+import services.model.EntryModel;
+import services.secure.Credential;
+import utils.HelperFunctions;
+import utils.Identifier;
+import utils.dbInterface.DatabaseInterface;
+import utils.dbInterface.DatabaseListener;
 
 
 public class Database extends SQLiteOpenHelper implements DatabaseInterface {

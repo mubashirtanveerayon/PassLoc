@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
 
 
         app:cardCornerRadius="20dp"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cameraCardLayout"
         android:textSize="20sp"
         android:textColor="@color/theme_dark"
-        android:text="Scanned: 0"
+        android:text="Chunk scanned: 0"
         android:layout_marginTop="@dimen/_15sdp"
         android:id="@+id/scannedTextView"
         />
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/scannedTextView"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         >
 
     <Button
@@ -70,7 +70,7 @@
         android:id="@+id/scanNextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start camera"
+        android:text="Start Scanner"
         android:textAllCaps="false"
         android:textSize="28sp"
 
