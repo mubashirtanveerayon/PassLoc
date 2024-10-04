@@ -2,12 +2,14 @@ package controllers;
 
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
+import helper.DatabaseEventListener;
 import helper.Info;
 import helper.NotificationCenter;
 import helper.State;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -25,17 +27,16 @@ import services.model.EntryModel;
 import services.secure.AES256WithPassword;
 import services.secure.Credential;
 import utils.HelperFunctions;
+import utils.StringCompressor;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.zip.DeflaterOutputStream;
-import java.util.zip.InflaterInputStream;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.*;
+
 
 public class SyncView extends View implements Initializable {
 
@@ -116,8 +117,11 @@ public class SyncView extends View implements Initializable {
 
     @FXML
     void onExportAction(ActionEvent event) {
-        if(!Database.online() || qrImages.isEmpty()) {
+        if(!Database.online()) {
             NotificationCenter.sendFailureNotification("Database is offline.");
+            return;
+        }else if( qrImages.isEmpty()){
+            NotificationCenter.sendFailureNotification("No QR code has been generated.");
             return;
         }
 
@@ -125,10 +129,20 @@ public class SyncView extends View implements Initializable {
         folderChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         folderChooser.setTitle("Select folder to save the QR Codes in");
         String saveDirectory = folderChooser.showDialog(null).getAbsolutePath();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddsshhmmss", Locale.getDefault());
+        String time = sdf.format(new Date());
+        String tableName = Database.getInstance().getTableName();
+        String signature = tableName.substring(tableName.length()-4);
         try {
-            for (int i = 0; i < qrImages.size(); i++) {
-                ImageIO.write(qrImages.get(i), "png", new File(saveDirectory + File.separator + i + ".png"));
-            }
+            for (int i = 0; i < qrImages.size(); i++)
+                ImageIO.write(qrImages.get(i), "png", new File(saveDirectory + File.separator +String.format("%s_%s_%s.png",i,signature,time)));
+
+
+
+
+            NotificationCenter.sendSuccessNotification("QR codes saved.");
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -152,25 +166,31 @@ public class SyncView extends View implements Initializable {
 
         try {
             ArrayList<String>partitions = QRCodeReader.createPartitionFromQRImages(imageFileList.toArray(new File[0]));
-            byte[] encryptedData = QRCodeReader.loadByteArrayFromPartition(partitions);
+            String encryptedData = StringCompressor.decompress( QRCodeReader.loadByteArrayFromPartition(partitions));
             Database db = Database.getInstance();
-            String json = Credential.getInstance().decrypt(new String(encryptedData));
+            String json = Credential.getInstance().decrypt(encryptedData);
 
 
 
             ArrayList<EntryModel> entries = EntryModel.fromJSONArray(json);
 
-            for(EntryModel entry : entries){
-                String id = entry.getId();
-                if(id == null || !db.alreadyExists(id))
-                    db.insert(entry);
-                else
-                    db.update(entry);
-            }
+
+
+
+            for(EntryModel newEntry:entries)
+                db.insert(newEntry);
+
+
+            FXMLLoader dataViewLoader = new FXMLLoader(getClass().getResource("/res/view/data-view.fxml"));
+            borderPane.setCenter(dataViewLoader.load());
+            DataView controller = dataViewLoader.getController();
+            controller.setBorderPane(borderPane);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
 
 
     }
@@ -191,10 +211,17 @@ public class SyncView extends View implements Initializable {
 
         String json = EntryModel.convertToJsonString(entries);
 
+
+
         String signature = db.getTableName();
 
         String encryptedData = Credential.getInstance().encrypt(json);
-        ArrayList<String>partitions = QRCodeGenerator.createPartitionFromData(encryptedData.getBytes(),2000,signature);
+
+        byte[] compressed = StringCompressor.compress( encryptedData);
+
+
+
+        ArrayList<String>partitions = QRCodeGenerator.createPartitionFromData(compressed,2000,signature);
         qrImages.clear();
         try {
             qrImages.addAll(QRCodeGenerator.generateQRImages(partitions,400,400));

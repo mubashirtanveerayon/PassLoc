@@ -35,6 +35,7 @@ import java.util.Locale;
 
 import services.model.EntryModel;
 import services.secure.Credential;
+import utils.StringCompressor;
 
 public class SyncFragment extends Fragment {
 
@@ -176,7 +177,13 @@ public class SyncFragment extends Fragment {
             String signature = db.getTableName();
 
             String encryptedData = Credential.getInstance().encrypt(json);
-            ArrayList<String> partitions = QRCodeGenerator.createPartitionFromData(encryptedData.getBytes(), 2000 , signature);
+
+
+            byte[] compressed = StringCompressor.compress( encryptedData);
+
+
+
+            ArrayList<String>partitions = QRCodeGenerator.createPartitionFromData(compressed,2000,signature);
             images.clear();
             try {
                 images.addAll(QRCodeGenerator.generateQRImages(partitions, 400, 400));

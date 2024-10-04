@@ -99,7 +99,7 @@ public class MainView extends View implements Initializable {
         FXMLLoader tutorialLoader = new FXMLLoader(getClass().getResource("/res/view/tutorial-view.fxml"));;
         try{
             Parent root = tutorialLoader.load();
-            tutorialPopOverView = tutorialLoader.getController()    ;
+            tutorialPopOverView = tutorialLoader.getController();
 
 
         }catch(IOException ex){

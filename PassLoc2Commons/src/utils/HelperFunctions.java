@@ -4,6 +4,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
@@ -64,19 +65,44 @@ public class HelperFunctions {
         return hashtext ;
     }
 
-    public static byte[] compress(String text) {
+    public static byte[] compress(byte[] data) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             OutputStream out = new DeflaterOutputStream(baos);
-            out.write(text.getBytes("UTF-8"));
+            out.write(data);
             out.close();
         } catch (IOException e) {
             throw new AssertionError(e);
+        }finally{
+            try {
+                baos.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return baos.toByteArray();
     }
 
-    public static String decompress(byte[] bytes) {
+    public static byte[] compress2(byte[] data) {
+        Deflater deflater = new Deflater();
+        deflater.setInput(data);
+        deflater.finish();
+
+        byte[] buffer = new byte[1024];
+        int compressedDataLength;
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            while (!deflater.finished()) {
+                compressedDataLength = deflater.deflate(buffer);
+                outputStream.write(buffer, 0, compressedDataLength);
+            }
+            return outputStream.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static byte[] decompress(byte[] bytes) {
         InputStream in = new InflaterInputStream(new ByteArrayInputStream(bytes));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
@@ -84,9 +110,15 @@ public class HelperFunctions {
             int len;
             while((len = in.read(buffer))>0)
                 baos.write(buffer, 0, len);
-            return new String(baos.toByteArray(), "UTF-8");
+            return baos.toByteArray();
         } catch (IOException e) {
             throw new AssertionError(e);
+        }finally{
+            try {
+                baos.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

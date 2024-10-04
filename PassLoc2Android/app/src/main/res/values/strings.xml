@@ -43,7 +43,7 @@
 
     <string-array name="sync">
         <item>Syncing(importing or exporting data) is done primarily using QR codes.</item>
-        <item>A QR code is not designed to hold large amounts of data. Hence, your data is split into multiple QR codes when the amount exceeds the limit.</item>
+        <item>Based on the amount of saved user credentials in the database table you are logged into, the number of QRCodes will vary.</item>
         <item>To import or export data you are needed to log in.</item>
         <item>You can import QR codes in two ways: from your gallery or scan using the device camera.</item>
         <item>You can generate QR codes for your current database and save it into the Download folder of your device.</item>

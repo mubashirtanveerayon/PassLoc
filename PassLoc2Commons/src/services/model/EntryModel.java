@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import utils.HelperFunctions;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -63,7 +64,6 @@ public class EntryModel {
 
     public static ArrayList<EntryModel> fromJSONArray(String jsonArrayStr){
 
-        Base64.Decoder decoder = Base64.getDecoder();
 
         JSONArray jsonArray = new JSONArray(jsonArrayStr);
 
@@ -80,8 +80,7 @@ public class EntryModel {
 //                entries.add(new EntryModel(id,tag,username,password));
 
 
-            byte[] decoded = decoder.decode(jsonArray.get(i).toString());
-            entries.add(decode(decoded));
+            entries.add(decode(jsonArray.get(i).toString()));
 
 
         }
@@ -101,7 +100,7 @@ public class EntryModel {
 //                json.append(",\"id\":\"").append(entry.getId()).append("\"");
 //            json.append("}");
 
-            String arrayElement = String.format("\"%s\"",encoder.encodeToString(entry.encode()));
+            String arrayElement = String.format("\"%s\"",entry.encode());
 
             json.append(arrayElement);
 
@@ -122,7 +121,7 @@ public class EntryModel {
         return builder.toString();
     }
 
-    public byte[] encode(){
+    public String encode(){
         Base64.Encoder b64 = Base64.getEncoder();
         StringBuilder builder = new StringBuilder();
         if(id != null)
@@ -132,13 +131,12 @@ public class EntryModel {
         builder.append(b64.encodeToString(username.getBytes())).append(PROPERTY_SEPARATOR);
         builder.append(b64.encodeToString(password.getBytes()));
 
-        return HelperFunctions.compress(builder.toString());
+        return builder.toString();
     }
 
-    public static EntryModel decode(byte[] compressed){
-        String b64Encoded = HelperFunctions.decompress(compressed);
+    public static EntryModel decode(String encoded){
         Base64.Decoder b64 = Base64.getDecoder();
-        String[] parts = b64Encoded.split(Character.toString(PROPERTY_SEPARATOR));
+        String[] parts = encoded.split(Character.toString(PROPERTY_SEPARATOR));
         String id = null;
         String tag, username, password;
         int index = 0;
@@ -154,6 +152,16 @@ public class EntryModel {
 
     }
 
+    public int hashCode(){
+        return tag.hashCode() ^ username.hashCode() ^ password.hashCode();
+    }
 
+
+    public boolean equals(Object o){
+        if(o instanceof EntryModel){
+            return hashCode() == ((EntryModel)o).hashCode();
+        }
+        return false;
+    }
 
 }

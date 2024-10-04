@@ -72,7 +72,7 @@
             </VBox>
             <HBox alignment="CENTER" spacing="20.0">
                <children>
-                  <MFXButton onAction="#onLoadAction" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Load QR Codes">
+                  <MFXButton onAction="#onLoadAction" prefWidth="130.0" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Generate">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -80,7 +80,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MFXButton>
-                  <MFXButton layoutX="223.0" layoutY="10.0" onAction="#onExportAction" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Export QR Codes">
+                  <MFXButton layoutX="223.0" layoutY="10.0" onAction="#onExportAction" prefWidth="130.0" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Export">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -88,7 +88,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MFXButton>
-                  <MFXButton layoutX="250.0" layoutY="10.0" onAction="#onImportAction" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Import QR Codes">
+                  <MFXButton layoutX="250.0" layoutY="10.0" onAction="#onImportAction" prefWidth="130.0" rippleAnimationSpeed="1.5" rippleBackgroundOpacity="0.0" rippleColor="#2da82b" styleClass="outline-button" stylesheets="@style/outline-button.css" text="Import">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>

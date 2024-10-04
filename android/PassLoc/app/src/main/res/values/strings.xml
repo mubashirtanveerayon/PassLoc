@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">PassLoc</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="to_be_logged_out">You are about to log out. Press the action button to confirm logout and disconnect from the database.\n You will be able to log in again via the login page.</string>
-    <string name="logged_out_text">You have been logged out. Database connection interrupted.\nPress the action button to login again.</string>
-    <string name="not_logged_in">You have not logged in. Press the action button to login.</string>
-</resources>

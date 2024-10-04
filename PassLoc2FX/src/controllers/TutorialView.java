@@ -1,12 +1,14 @@
 package controllers;
 
 import helper.Info;
+import helper.State;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -14,6 +16,7 @@ import org.controlsfx.control.PopOver;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class TutorialView extends PopOver implements Initializable {
@@ -33,6 +36,7 @@ public class TutorialView extends PopOver implements Initializable {
 
     ArrayList<VBox> tutorials = new ArrayList<>();
     int index = 0;
+
 
     @FXML
     void onLeftAction(ActionEvent event) {
@@ -56,18 +60,6 @@ public class TutorialView extends PopOver implements Initializable {
         setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
         setContentNode(rootView);
 
-//        ArrayList<String> lines = new ArrayList<>();
-//        lines.add("Password must be at least 8 characters long.");
-//        lines.add("Password must be at least 8 characters long.");
-//        lines.add("Password must be at least 8 characters long.");
-//        lines.add("Password must be at least 8 characters long.");
-//        lines.add("Password must be at least 8 characters long.");
-//        lines.add("Password must be at least 8 characters long.");
-//        lines.add("Password must be at least 8 characters long.");
-//        lines.add("Password must be at least 8 characters long.");
-//        lines.add("Password must be at least 8 characters long.");
-//
-//        scrollPane.setContent(getTutorialBox(lines));
 
         tutorials.clear();
         for(String[] tutorialText:Info.TUTORIALS)

@@ -16,7 +16,6 @@ public class Database implements DatabaseInterface {
 
     private final Connection sqlConnection;
     private DatabaseListener listener;
-    private final String databaseName;
     private static Database instance;
     private CommandGenerator commandGenerator;
 
@@ -41,7 +40,6 @@ public class Database implements DatabaseInterface {
         String extension = "."+ Identifier.DATABASE_EXTENSION;
         if(!dbName.endsWith(extension))
             dbName += extension;
-        databaseName = dbName.substring(0,dbName.lastIndexOf('.'));
         String fullPath = dbPath.endsWith(File.separator)?dbPath+dbName:dbPath+File.separator + dbName;
         sqlConnection= DriverManager.getConnection("jdbc:sqlite:"+fullPath+"?cipher=sqlcipher&key="+ HelperFunctions.sha256(dbPassword)+"&legacy=4");
         commandGenerator = new CommandGenerator(dbPassword);

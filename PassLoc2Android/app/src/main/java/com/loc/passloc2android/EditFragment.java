@@ -106,12 +106,15 @@ public class EditFragment extends Fragment {
 
     }
 
-    public void insertOrUpdate() {
-        if(isInserting()){
+    public void insert(){
+        if(Database.online())
+
             Database.getInstance().insert(new EntryModel(tagEditText.getText().toString(),usernameEditText.getText().toString(),passwordEditText.getText().toString()));
-        }else{
-            Database.getInstance().update(entryModel);
-        }
+    }
+
+    public void update(){
+        if(Database.online())
+            Database.getInstance().update(new EntryModel(entryModel.getId(), tagEditText.getText().toString(),usernameEditText.getText().toString(),passwordEditText.getText().toString()));
         entryModel = null;
     }
 
@@ -123,5 +126,7 @@ public class EditFragment extends Fragment {
     public void onPause(){
         super.onPause();
         entryModel = null;
+
+        clearTexts();
     }
 }

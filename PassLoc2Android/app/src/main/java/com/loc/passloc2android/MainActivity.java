@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import services.model.EntryModel;
 import services.secure.Credential;
 import utils.Identifier;
+import utils.StringCompressor;
 import utils.dbInterface.DatabaseListener;
 
 public class MainActivity extends AppCompatActivity implements DatabaseListener, View.OnClickListener {
@@ -53,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener,
 
     public ExtendedFloatingActionButton actionButton;
 
-    Dialog syncActionDialog, syncMergeConfirmationDialog;
+    Dialog syncActionDialog;
+//    Dialog syncMergeConfirmationDialog;
 
     public BottomNavigationView navigationView;
-    ArrayList<String> partitions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener,
 
 
 
-        partitions = new ArrayList<>();
         qrScanFragment = new QRScanFragment();
 
         loginFragment = new LoginFragment();
@@ -137,15 +137,15 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener,
 
 
 
-        syncMergeConfirmationDialog = new Dialog(this);
-        syncMergeConfirmationDialog.setContentView(R.layout.sync_data_merge_confirmation);
-        syncMergeConfirmationDialog.getWindow().setBackgroundDrawableResource(R.drawable.qr_import_action_menu_background);
-        syncMergeConfirmationDialog.setCancelable(false);
-        AppCompatButton updateEntryButton = syncMergeConfirmationDialog.findViewById(R.id.sync_confirmation_update);
-        AppCompatButton createEntryButton = syncMergeConfirmationDialog.findViewById(R.id.sync_confirmation_create);
-
-        updateEntryButton.setOnClickListener(this);
-        createEntryButton.setOnClickListener(this);
+//        syncMergeConfirmationDialog = new Dialog(this);
+//        syncMergeConfirmationDialog.setContentView(R.layout.sync_data_merge_confirmation);
+//        syncMergeConfirmationDialog.getWindow().setBackgroundDrawableResource(R.drawable.qr_import_action_menu_background);
+//        syncMergeConfirmationDialog.setCancelable(false);
+//        AppCompatButton updateEntryButton = syncMergeConfirmationDialog.findViewById(R.id.sync_confirmation_update);
+//        AppCompatButton createEntryButton = syncMergeConfirmationDialog.findViewById(R.id.sync_confirmation_create);
+//
+//        updateEntryButton.setOnClickListener(this);
+//        createEntryButton.setOnClickListener(this);
 
 
     }
@@ -305,12 +305,21 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener,
                     }
 
 
+
+
                     boolean inserting = editFragment.isInserting();
 
 
-                    editFragment.insertOrUpdate();
+                    if(inserting)
+                        editFragment.insert();
+                    else{
+                        editFragment.update();
+                        editFragment.clearTag();
+                    }
 
-                    if(!inserting)editFragment.clearTag();
+
+
+
                     editFragment.clearUsername();
                     editFragment.clearPassword();
 
@@ -360,11 +369,13 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener,
                     }
 
 
-                    partitions.addAll(qrScanFragment.getChunks());
-
-                    syncMergeConfirmationDialog.show();
+                    ArrayList<String>partitions = qrScanFragment.getChunks();
+//
+//                    syncMergeConfirmationDialog.show();
 
                     try {
+
+                        sync(partitions);
 
                     }catch(Exception ex){
                         Log.e("exception",ex.getMessage());
@@ -427,25 +438,26 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener,
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(Intent.createChooser(intent, "Select QR Codes, no need to select in order"), 1);
-        }else if(view.getId() == R.id.sync_confirmation_update){
-
-            try {
-                sync(false);
-            }catch (Exception ex){
-                Log.e("exception",ex.getMessage());
-                Toast.makeText(this,ex.getMessage(),Toast.LENGTH_LONG).show();
-            }
-
-            syncMergeConfirmationDialog.cancel();
-        }else if(view.getId() == R.id.sync_confirmation_create){
-            try {
-                sync(true);
-            }catch (Exception ex){
-                Log.e("exception",ex.getMessage());
-                Toast.makeText(this,ex.getMessage(),Toast.LENGTH_LONG).show();
-            }
-            syncMergeConfirmationDialog.cancel();
         }
+//        else if(view.getId() == R.id.sync_confirmation_update){
+//
+//            try {
+//                sync(false);
+//            }catch (Exception ex){
+//                Log.e("exception",ex.getMessage());
+//                Toast.makeText(this,ex.getMessage(),Toast.LENGTH_LONG).show();
+//            }
+//
+//            syncMergeConfirmationDialog.cancel();
+//        }else if(view.getId() == R.id.sync_confirmation_create){
+//            try {
+//                sync(true);
+//            }catch (Exception ex){
+//                Log.e("exception",ex.getMessage());
+//                Toast.makeText(this,ex.getMessage(),Toast.LENGTH_LONG).show();
+//            }
+//            syncMergeConfirmationDialog.cancel();
+//        }
     }
 
 
@@ -469,10 +481,12 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener,
 
                     }
 
-                    partitions.addAll(QRCodeReader.createPartitionFromQRImages(images));
+                    ArrayList<String> partitions = QRCodeReader.createPartitionFromQRImages(images);
+
+                    sync(partitions);
 
 
-                    syncMergeConfirmationDialog.show();
+//                    syncMergeConfirmationDialog.show();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -486,27 +500,23 @@ public class MainActivity extends AppCompatActivity implements DatabaseListener,
         }
     }
 
-    public void sync( boolean insertAll) throws Exception {
+    public void sync(ArrayList<String>partitions) throws Exception {
 
 
 
-        byte[] encryptedData = QRCodeReader.loadByteArrayFromPartition(partitions);
+        String encryptedData = StringCompressor.decompress( QRCodeReader.loadByteArrayFromPartition(partitions));
         Database db = Database.getInstance();
         String json = Credential.getInstance().decrypt(new String(encryptedData));
 
         ArrayList<EntryModel> entries = EntryModel.fromJSONArray(json);
 
-        Log.i("json",json);
 
-        for (EntryModel entry : entries) {
-            String id = entry.getId();
-            if (id == null || insertAll || !db.alreadyExists(id))
-                db.insert(entry);
-            else
-                db.update(entry);
-        }
 
-        partitions.clear();
+        for(EntryModel newEntry:entries)
+            db.insert(newEntry);
+
+
+
         loadFragment(viewFragment,false);
 
     }

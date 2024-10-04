@@ -19,23 +19,39 @@ public class Info {
             "Therefore, it allows you to use different data tables in a single database file with multiple master passwords.",
             "However, it is appreciated to use one database file with a single master password.",
             "The lock button in the top bar locks you out of database (if a connection had been established) and brings you back to this page.",
-            "See password policy for master password on the last page."
+            "Master password must contain at least 8 characters including 4 digits."
     };
 
     public static final String[] DB_LOGIN_VIEW_TUTORIAL = {
             "You are required to enter a name and password for the database file.",
             "The save location is the path to the directory in which the database file (will be created)/(is stored).",
             "The database password is used to encrypt the database file using AES256.",
-            "This password along with your master password is then used to encrypt your data using AES256.",
-            "See password policy for database password on the last page."
+
+            "Database password must contain at least 8 characters including 4 digits."
+    };
+
+    public static final String[] ABOUT = {
+            "PassLoc is an open-source password manager application that uses sql-cipher to store data on your device.",
+            "Needless to say that all the data stored in the database are encrypted with strong and reliable encryption.",
+            "PassLoc does not store any data on the cloud. Hence, this app does not require an internet connection to function.",
+            "The source code can be found at github.com/mubashirtanveerayon/PassLoc ."
+    };
+
+    public static final String[] ENCRYPTION = {
+            "PassLoc uses AES256 as the encryption algorithm. The sql-cipher library also relies on AES256.",
+            "Your data is first encrypted using a special combination of the master and database password. Next, sql-cipher uses just the database password to encrypt the whole database file.",
+            "When you add a new entry, the tag, username and password are encrypted individually using that special combination of passwords and then the data is pushed into the database along with a  unique id that is kept hidden from the user.",
+            "If someone gains access to the password-protected database file, they will not be able to decrypt your data without your master password.",
+            "This also means that if you happen to forget any of your passwords the database file becomes unusable."
     };
     
     public static final String[] SYNC_VIEW_TUTORIAL = {
-            "You can sync your data to other devices using QRCodes here.",
+            "Syncing(importing or exporting data) is done primarily using QR codes.",
             "Based on the amount of saved user credentials in the database table you are logged into, the number of QRCodes will vary.",
-            "You can load (load all the saved user data from the database table and converts them to QRCodes), export (save the QRCodes into a folder) and import (load QRCodes from device) QRCodes.",
-            "Use the app (has not come out yet) on your phone to scan the QRCodes one by one.",
+            "You can generate (load all the saved user data from the database table and converts them to QRCodes), export (save the QRCodes into a folder) and import (import QR code images) QRCodes.",
+            "To import or export data you are needed to log in.",
             "The QRCodes encode encrypted data, so there is no chance of any data leak."
+
             
     };
 
@@ -59,34 +75,12 @@ public class Info {
             "Strength of a password is evaluated considering the following aspects: length, entropy and diversity."
     };
 
-    public static final String[] PASSWORD_POLICY = {
-            "A master password or database password must contain at least 8 characters.",
-            "The password must contain at least 4 digits."
-
-    };
 
     public static final String[][] TUTORIALS = {
-            UNLOCK_VIEW_TUTORIAL, DB_LOGIN_VIEW_TUTORIAL, DATA_VIEW_TUTORIAL,ENTRY_VIEW_TUTORIAL ,SYNC_VIEW_TUTORIAL,PG_VIEW_TUTORIAL,PASSWORD_POLICY
+            UNLOCK_VIEW_TUTORIAL, DB_LOGIN_VIEW_TUTORIAL, DATA_VIEW_TUTORIAL,ENTRY_VIEW_TUTORIAL ,SYNC_VIEW_TUTORIAL,PG_VIEW_TUTORIAL,ABOUT,ENCRYPTION
     };
 
-    public static final String[] VIEW_TITLES = {"Access Locker","Database Login","Data","Entry","Sync","Password Generator","Password Policy"};
+    public static final String[] VIEW_TITLES = {"Access Locker","Database Login","Data","Entry","Sync","Password Generator","About","Encryption"};
 
 
-    public static String prepareForJSONParser(String jsonArrayStr) {
-        StringBuilder sb = new StringBuilder();
-
-
-        Stack<Character> quoteStack = new Stack<>();
-
-        for(char c:jsonArrayStr.toCharArray()){
-            if(c == '\n')
-                sb.append("\\n");
-
-            else
-                sb.append(c);
-        }
-
-
-        return sb.toString();
-    }
 }
