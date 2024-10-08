@@ -30,6 +30,11 @@ public class Database implements DatabaseInterface {
             classFound=true;
         }
 
+        File directory = new File(dbPath);
+        if(!directory.exists() || !directory.isDirectory())
+            directory.mkdir();
+
+
         if(online())
             disconnect();
 

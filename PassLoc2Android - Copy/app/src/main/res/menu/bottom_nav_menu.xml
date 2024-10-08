@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:id="@+id/login_button"
+        android:title="Login"
+        android:icon="@drawable/outline_key_24"/>
+
+    <item android:id="@+id/view_button"
+        android:title="View"
+        android:icon="@drawable/database24"/>
+
+    <item android:title=""
+        android:id="@+id/dummy"
+
+        />
+
+
+    <item
+        android:id="@+id/sync_button"
+        android:title="Sync"
+
+        android:icon="@drawable/sync24"/>
+
+
+
+    <item
+        android:id="@+id/help_button"
+        android:title="Help"
+        android:icon="@drawable/help24"
+
+
+        />
+
+</menu>
