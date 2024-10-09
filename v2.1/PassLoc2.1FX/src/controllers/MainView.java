@@ -31,19 +31,23 @@ public class MainView implements Initializable {
     @FXML
     private JFXToggleButton notificationToggleButton;
 
-    public  void setView(String pathToResource){
+    public View setView(String pathToResource){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToResource));
+        View controller=null;
         try{
             borderPane.setCenter(loader.load());
-            View controller = (View) loader.getController();
-            controller.setBorderPane(borderPane);
+            controller = loader.getController();
+
+//            controller.setBorderPane(borderPane);
         }catch (Exception e){
             e.printStackTrace();
         }
+        return controller;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        State.root = borderPane;
         topBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -65,7 +69,8 @@ public class MainView implements Initializable {
         });
 
 
-        setView("/res/view/login_view.fxml");
+        LoginView loginView = (LoginView) setView("/res/view/login_view.fxml");
+//        loginView.setBorderPane(borderPane);
 
     }
     @FXML
@@ -84,7 +89,8 @@ public class MainView implements Initializable {
 
     @FXML
     void onLoginClicked(MouseEvent event) {
-        setView("/res/view/login_view.fxml");
+        LoginView loginView = (LoginView) setView("/res/view/login_view.fxml");
+//        loginView.setBorderPane(borderPane);
 
     }
 
@@ -93,7 +99,8 @@ public class MainView implements Initializable {
 
         CommandGenerator.disconnect();
         Database.disconnect();
-        setView("/res/view/login_view.fxml");
+        LoginView loginView = (LoginView) setView("/res/view/login_view.fxml");
+//        loginView.setBorderPane(borderPane);
 
     }
 
@@ -107,17 +114,21 @@ public class MainView implements Initializable {
     @FXML
     void onPGClicked(MouseEvent event) {
 
-        setView("/res/view/pg_view.fxml");
+        PasswordGeneratorView pgView = (PasswordGeneratorView) setView("/res/view/pg_view.fxml");
+//        pgView.setBorderPane(borderPane);
     }
 
     @FXML
     void onSyncClicked(MouseEvent event) {
-        setView("/res/view/sync_view.fxml");
+
+        SyncView syncView = (SyncView) setView("/res/view/sync_view.fxml");
+//        syncView.setBorderPane(borderPane);
     }
 
     @FXML
     void onViewClicked(MouseEvent event) {
-        setView("/res/view/data_view.fxml");
+        DataView dataView = (DataView) setView("/res/view/data_view.fxml");
+//        dataView.setBorderPane(borderPane);
     }
 
     @FXML

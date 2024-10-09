@@ -195,9 +195,9 @@ public class SyncView extends View implements Initializable {
 
 
             FXMLLoader dataViewLoader = new FXMLLoader(getClass().getResource("/res/view/data-view.fxml"));
-            borderPane.setCenter(dataViewLoader.load());
-            DataView controller = dataViewLoader.getController();
-            controller.setBorderPane(borderPane);
+            State.root.setCenter(dataViewLoader.load());
+//            DataView controller = dataViewLoader.getController();
+//            controller.setBorderPane(borderPane);
 
         } catch (Exception e) {
             e.printStackTrace();

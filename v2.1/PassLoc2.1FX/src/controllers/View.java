@@ -4,15 +4,15 @@ import javafx.scene.layout.BorderPane;
 
 public class View {
 
-    protected BorderPane borderPane;
+    protected BorderPane _borderPane;
 
     public void setBorderPane(BorderPane borderPane) {
-        if(this.borderPane != null)
-            this.borderPane = borderPane;
+        if(this._borderPane != null)
+            this._borderPane = borderPane;
     }
 
     public BorderPane getBorderPane() {
-        return borderPane;
+        return _borderPane;
     }
 
 

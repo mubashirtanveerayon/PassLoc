@@ -4,6 +4,8 @@
  */
 package helper;
 
+import javafx.scene.layout.BorderPane;
+
 /**
  *
  * @author admin
@@ -20,4 +22,6 @@ public class State {
 
 
     public static boolean showAllNotifications = true;
+
+    public static BorderPane root;
 }

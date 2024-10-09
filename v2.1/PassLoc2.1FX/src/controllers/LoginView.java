@@ -140,9 +140,9 @@ public class LoginView extends View implements Initializable {
             if(Database.online()){
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/view/data_view.fxml"));
-                borderPane.setCenter(loader.load());
-                DataView controller = loader.getController();
-                controller.setBorderPane(borderPane);
+                State.root.setCenter(loader.load());
+//                DataView controller = loader.getController();
+//                controller.setBorderPane(borderPane);
 
 
             }

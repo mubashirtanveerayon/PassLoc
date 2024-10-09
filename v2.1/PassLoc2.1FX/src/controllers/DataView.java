@@ -135,11 +135,11 @@ public class DataView extends View implements Initializable {
     public void gotoEdit(SimpleEntry entry){
         FXMLLoader editView = new FXMLLoader(getClass().getResource("/res/view/data_modifier_view.fxml"));
         try {
-            borderPane.setCenter(editView.load());
+            State.root.setCenter(editView.load());
             DataModifierView controller = editView.getController();
-            controller.setBorderPane(borderPane);
-            if(entry!=null)
-                controller.setData(entry);
+//            controller.setBorderPane(borderPane);
+//            if(entry!=null)
+            controller.setData(entry);
         }catch(Exception ex){
             ex.printStackTrace();
         }
