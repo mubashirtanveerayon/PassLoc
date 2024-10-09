@@ -1,0 +1,19 @@
+.mfx-button{
+    -fx-background-color:transparent;
+    -fx-border-radius: 10;
+    -fx-font-size: 24px;
+    -fx-text-fill: -theme-deep-blue;
+    -fx-background-radius: 10;
+    -fx-border-width: 3px;
+
+
+    -fx-border-color: -theme-dark-blue;
+    -fx-cursor:hand;
+}
+
+.mfx-button:hover{
+
+    -fx-background-color:-theme-dark-blue;
+    -fx-text-fill:-theme-white
+
+}

@@ -1,0 +1,18 @@
+.mfx-scroll-pane{
+    -fx-background-color: transparent;
+}
+.mfx-scroll-pane .paneport{
+    -fx-background-color:transparent;
+}
+
+.mfx-scroll-pane .scroll-bar:vertical .thumb{
+    -fx-background-color:-theme-light-blue;
+}
+
+.mfx-scroll-pane .scroll-bar:vertical .thumb:hover{
+    -fx-background-color:-theme-blue;
+}
+
+.mfx-scroll-pane .scroll-bar:vertical .track{
+    -fx-background-color: -theme-grey;
+}

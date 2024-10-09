@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane styleClass="parent-container" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginView">
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="20.0" styleClass="floating-box">
+               <padding>
+                  <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label styleClass="title-label" text="Login" />
+                  <VBox alignment="CENTER" spacing="5.0" stylesheets="@../style/custom_text_field.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <MaterialIconView fill="WHITE" glyphName="STORAGE" size="24" />
+                              <Label styleClass="field-label" text="Database name" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="nameField" onAction="#onNameFieldAction">
+                           <styleClass>
+                              <String fx:value="custom-text-field" />
+                              <String fx:value="custom-border" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="40.0" layoutY="30.0" spacing="5.0" stylesheets="@../style/custom_text_field.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <MaterialIconView fill="WHITE" glyphName="FOLDER" size="24" />
+                              <Label styleClass="field-label" text="Database Location" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" styleClass="custom-border">
+                           <children>
+                              <TextField fx:id="locationField" onAction="#onLocationFieldAction" styleClass="custom-text-field" HBox.hgrow="ALWAYS" />
+                              <MaterialIconView glyphName="FOLDER_OPEN" onMouseClicked="#onOpenFolderClicked" size="32">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </MaterialIconView>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="40.0" layoutY="151.0" spacing="5.0" stylesheets="@../style/custom_text_field.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <MaterialIconView fill="WHITE" glyphName="LOCK" size="24" />
+                              <Label styleClass="field-label" text="Database Password" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" styleClass="custom-border">
+                           <children>
+                              <StackPane HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="dbPasswordTextField" onAction="#onDBPasswordAction" visible="false" />
+                                    <PasswordField fx:id="dbPasswordField" onAction="#onDBPasswordAction" />
+                                 </children>
+                              </StackPane>
+                              <MaterialIconView fx:id="dbPasswordVisibilityIcon" glyphName="VISIBILITY_OFF" onMouseClicked="#onDBPasswordToggleVisibility" size="32">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </MaterialIconView>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="40.0" layoutY="272.0" spacing="5.0" stylesheets="@../style/custom_text_field.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <MaterialIconView fill="WHITE" glyphName="VPN_KEY" size="24" />
+                              <Label styleClass="field-label" text="Master Password" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" styleClass="custom-border">
+                           <children>
+                              <StackPane HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="masterPasswordTextField" onAction="#onMasterPasswordAction" visible="false" />
+                                    <PasswordField fx:id="masterPasswordField" onAction="#onMasterPasswordAction" />
+                                 </children>
+                              </StackPane>
+                              <MaterialIconView fx:id="masterPasswordVisibilityIcon" glyphName="VISIBILITY_OFF" onMouseClicked="#onMasterPasswordToggleVisibility" size="32">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </MaterialIconView>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <MFXButton onAction="#onLoginButtonClicked" rippleAnimationSpeed="2.0" rippleColor="WHITE" stylesheets="@../style/outline-button.css" text="Login">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </MFXButton>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../style/login_view.css" />
+      <URL value="@../style/colors.css" />
+      <URL value="@../style/default_view.css" />
+   </stylesheets>
+</AnchorPane>

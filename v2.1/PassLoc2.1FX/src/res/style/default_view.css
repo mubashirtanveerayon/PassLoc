@@ -1,0 +1,23 @@
+.parent-container{
+
+    -fx-pref-height: 660px;
+
+    -fx-background-color:  -theme-white;
+}
+
+.title-label{
+    -fx-font-weight:bold;
+    -fx-font-size:32px;
+    -fx-text-fill:-theme-light-text;
+}
+
+.floating-box{
+
+
+
+    -fx-background-radius:20px;
+
+    -fx-background-color: -theme-dark-green;
+    -fx-effect: dropShadow(two-pass-box,-theme-blue,6,0,0,0);
+
+}

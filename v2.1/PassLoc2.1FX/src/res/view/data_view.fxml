@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane styleClass="parent-container" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DataView">
+   <stylesheets>
+      <URL value="@../style/colors.css" />
+      <URL value="@../style/data_view.css" />
+      <URL value="@../style/default_view.css" />
+   </stylesheets>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="20.0" styleClass="floating-box" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label styleClass="title-label" text="Passwords" />
+                  <TextField fx:id="tagField" onAction="#onTagFieldAction" promptText="Search for tags" styleClass="custom-border" stylesheets="@../style/custom_text_field.css" />
+                  <MFXScrollPane prefHeight="60.0" thumbColor="#5e9cd6" thumbHoverColor="#1e76cf" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="tagContainer" alignment="CENTER_LEFT" spacing="10.0" />
+                     </content>
+                     <stylesheets>
+                        <URL value="@../style/custom_scroll_pane.css" />
+                        <URL value="@../style/colors.css" />
+                     </stylesheets>
+                  </MFXScrollPane>
+                  <MFXScrollPane stylesheets="@../style/custom_scroll_pane.css">
+                     <content>
+                        <VBox fx:id="entryContainer" alignment="TOP_CENTER" spacing="10.0" />
+                     </content>
+                  </MFXScrollPane>
+
+
+               </children>
+            </VBox>
+            <MFXButton onAction="#onAddNewAction" rippleAnimationSpeed="2.0" rippleColor="WHITE" stylesheets="@../style/outline-button.css" text="Add new" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

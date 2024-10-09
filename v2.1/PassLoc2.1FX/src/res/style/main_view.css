@@ -1,0 +1,68 @@
+
+
+.title-card{
+    -fx-padding: 10px;
+    -fx-background-radius: 10;
+    -fx-background-color:-theme-less-dark-blue;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.5),6,0.0,0.0,0.0);
+}
+
+
+.title-label{
+    -fx-text-fill:-theme-light-text;
+}
+
+
+#nav-panel{
+    -fx-background-color: -theme-white;
+}
+
+.nav-button-ribbon{
+    -fx-background-color:-theme-green;
+}
+
+.nav-button-label{
+    -fx-text-fill:  -theme-light-text;
+}
+
+.nav-button{
+    -fx-background-color: -theme-dark-green;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.4),4,0.0,0.0,0.0);
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover{
+    -fx-background-color: -theme-dark-green;
+    -fx-border-width: 0px 0px 3px 0px;
+    -fx-border-color: -theme-white;
+}
+
+.nav-button:hover .nav-button-ribbon{
+    -fx-background-color: -theme-bright-green;
+}
+
+
+
+#lock-card{
+    -fx-background-radius: 10;
+    -fx-background-color: -theme-red;
+    -fx-cursor: hand;
+
+}
+
+
+
+#lock-card:hover {
+    -fx-background-color: -theme-bright-red;
+}
+
+#about-card{
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-background-color:-theme-blue;
+}
+
+#about-card:hover{
+    -fx-background-color:-theme-bright-blue;
+}

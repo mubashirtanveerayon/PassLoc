@@ -1,0 +1,13 @@
+#tag-container{
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-background-color: -theme-grey;
+    -fx-border-width: 3px;
+    -fx-border-color: -theme-blue;
+}
+
+.label{
+    -fx-font-size: 20px;
+    -fx-text-fill: -theme-dark-blue;
+}
+

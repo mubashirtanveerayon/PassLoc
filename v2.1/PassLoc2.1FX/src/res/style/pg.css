@@ -1,0 +1,56 @@
+#password-container{
+    -fx-background-radius: 15px 15px 0px 0px;
+    -fx-border-radius:15px 15px 0px 0px;
+    -fx-background-color:white;
+    -fx-effect: innershadow( two-pass-box , rgba(85, 85, 85, 0.53), 10 , 0.2 ,0 , 0);
+
+}
+
+
+#strength-bar{
+    -fx-background-radius: 0px;
+    -fx-pref-height: 8px;
+}
+
+
+#strength-bar:range1 .bar1 {
+    -fx-fill: red;
+}
+
+#strength-bar:range1 .track {
+    -fx-fill: derive(red, 85%)
+}
+
+#strength-bar:range2 .bar1 {
+    -fx-fill: blue;
+}
+
+#strength-bar:range2 .track {
+    -fx-fill: derive(blue, 85%)
+}
+
+#strength-bar:range3 .bar1 {
+    -fx-fill: green;
+}
+
+#strength-bar:range3 .track {
+    -fx-fill: derive(green, 85%);
+}
+.jfx-slider .thumb{
+    -fx-pref-height: 30px;
+    -fx-pref-width: 30px;
+
+}
+
+.jfx-slider .track{
+    -fx-pref-height: 5px;
+}
+
+.jfx-slider .colored-track ,.thumb{
+    -fx-background-color: #002f03;
+}
+
+.jfx-slider .slider-value{
+
+    -fx-stroke:#002f03;
+}

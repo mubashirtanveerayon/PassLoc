@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="parent-container" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DataElement">
+   <children>
+      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="usernameLabel" text="Username">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="passwordLabel" layoutX="10.0" layoutY="10.0" text="Password">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox id="action-container" alignment="CENTER" spacing="10.0">
+         <children>
+            <MaterialIconView fx:id="editIcon" fill="WHITE" glyphName="EDIT" size="26">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></MaterialIconView>
+            <MenuButton id="copy-menu" fx:id="copyMenu" mnemonicParsing="false">
+               <graphic>
+                  <MaterialIconView fill="WHITE" glyphName="CONTENT_COPY" size="26" />
+               </graphic>
+               <items>
+                  <MenuItem fx:id="copyUsernameMenuItem" mnemonicParsing="false" text="Username" />
+                  <MenuItem fx:id="copyPasswordMenuItem" mnemonicParsing="false" text="Password" />
+               </items>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <MaterialIconView fx:id="deleteIcon" fill="WHITE" glyphName="DELETE" size="26">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></MaterialIconView>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@../style/data_element.css" />
+      <URL value="@../style/colors.css" />
+   </stylesheets>
+</HBox>
