@@ -62,17 +62,20 @@
                         </Label>
                         <JFXSlider fx:id="lengthSlider" max="64.0" min="8.0" value="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                   </AnchorPane>
                   <VBox alignment="CENTER" spacing="20.0">
                      <children>
                         <AnchorPane>
                            <children>
-                              <JFXToggleButton fx:id="upperCaseToggleSwitch" selected="true" size="16.0" text="Uppercase Letters" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#4792dd" unToggleColor="#bfbfbf" unToggleLineColor="#e8f1ff" AnchorPane.leftAnchor="0.0">
+                              <JFXToggleButton fx:id="upperCaseToggleSwitch" selected="true" size="16.0" text="Uppercase Letters" textFill="#01192a" toggleColor="WHITE" toggleLineColor="#4792dd" unToggleColor="#bfbfbf" unToggleLineColor="#e8f1ff" AnchorPane.leftAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </JFXToggleButton>
-                              <JFXToggleButton fx:id="lowerCaseToggleSwitch" selected="true" size="16.0" text="Lowercase Letters" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#4792dd" unToggleColor="#bfbfbf" unToggleLineColor="#e8f1ff" AnchorPane.rightAnchor="0.0">
+                              <JFXToggleButton fx:id="lowerCaseToggleSwitch" selected="true" size="16.0" text="Lowercase Letters" textFill="#01192a" toggleColor="WHITE" toggleLineColor="#4792dd" unToggleColor="#bfbfbf" unToggleLineColor="#e8f1ff" AnchorPane.rightAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -81,12 +84,12 @@
                         </AnchorPane>
                         <AnchorPane>
                            <children>
-                              <JFXToggleButton fx:id="digitToggleSwitch" selected="true" size="16.0" text="Digits" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#4792dd" unToggleColor="#bfbfbf" unToggleLineColor="#e8f1ff" AnchorPane.leftAnchor="0.0">
+                              <JFXToggleButton fx:id="digitToggleSwitch" selected="true" size="16.0" text="Digits" textFill="#01192a" toggleColor="WHITE" toggleLineColor="#4792dd" unToggleColor="#bfbfbf" unToggleLineColor="#e8f1ff" AnchorPane.leftAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </JFXToggleButton>
-                              <JFXToggleButton fx:id="specialToggleSwitch" selected="true" size="16.0" text="Special Characters" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#4792dd" unToggleColor="#bfbfbf" unToggleLineColor="#e8f1ff" AnchorPane.rightAnchor="0.0">
+                              <JFXToggleButton fx:id="specialToggleSwitch" selected="true" size="16.0" text="Special Characters" textFill="#01192a" toggleColor="WHITE" toggleLineColor="#4792dd" unToggleColor="#bfbfbf" unToggleLineColor="#e8f1ff" AnchorPane.rightAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>

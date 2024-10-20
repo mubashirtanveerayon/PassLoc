@@ -32,7 +32,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <MaterialIconView fill="WHITE" glyphName="STORAGE" size="24" />
+                              <MaterialIconView fill="#01192a" glyphName="STORAGE" size="24" />
                               <Label styleClass="field-label" text="Database name" />
                            </children>
                         </HBox>
@@ -48,7 +48,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <MaterialIconView fill="WHITE" glyphName="FOLDER" size="24" />
+                              <MaterialIconView fill="#01192a" glyphName="FOLDER" size="24" />
                               <Label styleClass="field-label" text="Database Location" />
                            </children>
                         </HBox>
@@ -74,7 +74,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <MaterialIconView fill="WHITE" glyphName="LOCK" size="24" />
+                              <MaterialIconView fill="#01192a" glyphName="LOCK" size="24" />
                               <Label styleClass="field-label" text="Database Password" />
                            </children>
                         </HBox>
@@ -102,7 +102,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <MaterialIconView fill="WHITE" glyphName="VPN_KEY" size="24" />
+                              <MaterialIconView fill="#01192a" glyphName="VPN_KEY" size="24" />
                               <Label styleClass="field-label" text="Master Password" />
                            </children>
                         </HBox>

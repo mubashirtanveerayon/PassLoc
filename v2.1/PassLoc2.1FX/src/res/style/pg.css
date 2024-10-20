@@ -12,6 +12,9 @@
     -fx-pref-height: 8px;
 }
 
+.label{
+    -fx-text-fill:-theme-dark-blue;
+}
 
 #strength-bar:range1 .bar1 {
     -fx-fill: red;
@@ -47,10 +50,11 @@
 }
 
 .jfx-slider .colored-track ,.thumb{
-    -fx-background-color: #002f03;
+    -fx-background-color: -theme-blue;
 }
 
 .jfx-slider .slider-value{
 
-    -fx-stroke:#002f03;
+    -fx-stroke:-theme-deep-blue;
 }
+

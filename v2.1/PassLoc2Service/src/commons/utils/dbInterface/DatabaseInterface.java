@@ -13,8 +13,9 @@ public interface DatabaseInterface {
     public void setListener(DatabaseListener listener);
     public void delete(String id);
     public ArrayList<SimpleEntry> getEntries(String tag);
-    public String getTableName();
 
     public boolean checkIfIdAlreadyExists(String id);
+
+    public String getEncryptedEntries();
 
 }

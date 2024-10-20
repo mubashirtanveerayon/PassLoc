@@ -1,6 +1,7 @@
 package commons.services.model;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 public abstract class Entry {
 
@@ -67,16 +68,17 @@ public abstract class Entry {
 
     public final String encode(){
         StringBuilder builder = new StringBuilder();
+        Base64.Encoder encoder = Base64.getEncoder();
         for(int i=0;i<tags.size();i++) {
 
-            builder.append(tags.get(i));
+            builder.append(encoder.encodeToString( tags.get(i).getBytes()));
             if (i < tags.size() - 1)
                 builder.append(DATA_SEPARATOR);
         }
 
         builder.append(SEPARATOR);
         for(int i=0;i<fields.length;i++){
-            builder.append(fields[i]);
+            builder.append(encoder.encodeToString( fields[i].getBytes()));
             if(i < fields.length-1)
                 builder.append(DATA_SEPARATOR);
         }

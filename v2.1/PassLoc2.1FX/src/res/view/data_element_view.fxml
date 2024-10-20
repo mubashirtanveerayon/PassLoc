@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="parent-container" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DataElement">
+<HBox id="parent-container" alignment="CENTER" maxWidth="-Infinity" prefWidth="630.0" spacing="20.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DataElement">
    <children>
       <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
          <children>
@@ -39,6 +39,8 @@
                <items>
                   <MenuItem fx:id="copyUsernameMenuItem" mnemonicParsing="false" text="Username" />
                   <MenuItem fx:id="copyPasswordMenuItem" mnemonicParsing="false" text="Password" />
+                  <MenuItem fx:id="copyUrlMenuItem" mnemonicParsing="false" text="URL" />
+                  <MenuItem fx:id="copyNoteMenuItem" mnemonicParsing="false" text="Note" />
                </items>
                <cursor>
                   <Cursor fx:constant="HAND" />

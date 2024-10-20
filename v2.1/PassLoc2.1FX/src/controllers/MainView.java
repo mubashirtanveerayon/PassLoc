@@ -47,7 +47,6 @@ public class MainView implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        State.root = borderPane;
         topBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -70,13 +69,12 @@ public class MainView implements Initializable {
 
 
         LoginView loginView = (LoginView) setView("/res/view/login_view.fxml");
-//        loginView.setBorderPane(borderPane);
+        loginView.setBorderPane(borderPane);
 
     }
     @FXML
     void onCloseClicked(MouseEvent event) {
 
-        CommandGenerator.disconnect();
         Database.disconnect();
         System.exit(0);
 
@@ -90,17 +88,16 @@ public class MainView implements Initializable {
     @FXML
     void onLoginClicked(MouseEvent event) {
         LoginView loginView = (LoginView) setView("/res/view/login_view.fxml");
-//        loginView.setBorderPane(borderPane);
+        loginView.setBorderPane(borderPane);
 
     }
 
     @FXML
     void onLogoutClicked(MouseEvent event) {
 
-        CommandGenerator.disconnect();
         Database.disconnect();
         LoginView loginView = (LoginView) setView("/res/view/login_view.fxml");
-//        loginView.setBorderPane(borderPane);
+        loginView.setBorderPane(borderPane);
 
     }
 
@@ -115,20 +112,20 @@ public class MainView implements Initializable {
     void onPGClicked(MouseEvent event) {
 
         PasswordGeneratorView pgView = (PasswordGeneratorView) setView("/res/view/pg_view.fxml");
-//        pgView.setBorderPane(borderPane);
+        pgView.setBorderPane(borderPane);
     }
 
     @FXML
     void onSyncClicked(MouseEvent event) {
 
         SyncView syncView = (SyncView) setView("/res/view/sync_view.fxml");
-//        syncView.setBorderPane(borderPane);
+        syncView.setBorderPane(borderPane);
     }
 
     @FXML
     void onViewClicked(MouseEvent event) {
         DataView dataView = (DataView) setView("/res/view/data_view.fxml");
-//        dataView.setBorderPane(borderPane);
+        dataView.setBorderPane(borderPane);
     }
 
     @FXML

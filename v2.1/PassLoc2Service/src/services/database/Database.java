@@ -4,9 +4,9 @@ package services.database;
 import commons.services.model.SimpleEntry;
 import commons.services.sqlcomm.CommandGenerator;
 import commons.utils.HelperFunctions;
+import commons.utils.Identifier;
 import commons.utils.dbInterface.DatabaseInterface;
 import commons.utils.dbInterface.DatabaseListener;
-import commons.utils.Identifier;
 
 import java.io.File;
 import java.sql.*;
@@ -156,6 +156,8 @@ public class Database implements DatabaseInterface {
                 entry.setId(id);
                 entries.add(entry);
             }
+            rs.close();
+            statement.close();
         }catch(SQLException ex){
             ex.printStackTrace();
             e = ex;
@@ -244,9 +246,6 @@ public class Database implements DatabaseInterface {
         return filteredEntries;
     }
 
-    public String getTableName(){
-        return CommandGenerator.getInstance().getTableName();
-    }
 
 
     public boolean checkIfIdAlreadyExists(String id){
@@ -274,5 +273,38 @@ public class Database implements DatabaseInterface {
 
         return exists;
 
+    }
+
+    @Override
+    public String getEncryptedEntries() {
+        StringBuilder jsonArray = new StringBuilder("[");
+        Exception e=null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        CommandGenerator commandGenerator = CommandGenerator.getInstance();
+        try{
+            statement = sqlConnection.prepareStatement(commandGenerator.getAllData());
+            rs = statement.executeQuery();
+            while(rs.next()) {
+
+                jsonArray.append("\"").append( rs.getString(2)).append("\",");
+            }
+            jsonArray.append("]");
+            rs.close();
+            statement.close();
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            e = ex;
+        }finally{
+            if(listener != null) {
+                if (e == null)
+                    listener.onSuccess("Entries loaded");
+                else
+                    listener.onFailure(e.getMessage());
+            }
+        }
+
+        return jsonArray.toString();
     }
 }

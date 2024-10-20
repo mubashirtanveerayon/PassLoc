@@ -23,5 +23,4 @@ public class State {
 
     public static boolean showAllNotifications = true;
 
-    public static BorderPane root;
 }

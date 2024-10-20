@@ -3,16 +3,13 @@ package controllers;
 import commons.services.model.SimpleEntry;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class DataElement  {
     @FXML
-    private MenuItem copyUsernameMenuItem,copyPasswordMenuItem;
+    private MenuItem copyUsernameMenuItem,copyPasswordMenuItem,copyUrlMenuItem,copyNoteMenuItem;
 
     @FXML
     private MaterialIconView deleteIcon;
@@ -59,5 +56,13 @@ public class DataElement  {
 
     public MenuItem getCopyPasswordMenuItem() {
         return copyPasswordMenuItem;
+    }
+
+    public MenuItem getCopyUrlMenuItem() {
+        return copyUrlMenuItem;
+    }
+
+    public MenuItem getCopyNoteMenuItem() {
+        return copyNoteMenuItem;
     }
 }

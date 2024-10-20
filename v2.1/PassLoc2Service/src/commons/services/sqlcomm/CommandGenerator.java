@@ -23,7 +23,10 @@ public class CommandGenerator {
 
 
 
+
     private CommandGenerator(String databasePassword,String masterPassword) {
+
+
 
         password = HelperFunctions.derivePasswordKey(HelperFunctions.sha256(databasePassword).toCharArray(),masterPassword).toCharArray();
 
@@ -31,7 +34,8 @@ public class CommandGenerator {
 
         AES256WithPassword keyEncryptor = new AES256WithPassword(HelperFunctions.derivePasswordKey(masterPassword.toCharArray(),databasePassword));
 
-        keys.put(KEY_ID,HelperFunctions.sha256( keyEncryptor.encrypt(KEY_ENTRY)));
+        keys.put(KEY_ENTRY,HelperFunctions.sha256( keyEncryptor.encrypt(KEY_ENTRY)));
+        keys.put(KEY_ID,HelperFunctions.sha256( keyEncryptor.encrypt(KEY_ID)));
         keys.put(DATA_TABLE_NAME,HelperFunctions.sha256( keyEncryptor.encrypt(DATA_TABLE_NAME)));
 
 

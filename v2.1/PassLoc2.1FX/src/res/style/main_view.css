@@ -19,6 +19,9 @@
 
 .nav-button-ribbon{
     -fx-background-color:-theme-green;
+    -fx-background-radius: 10px 0px 0px 10px;
+    -fx-border-width: 0px;
+
 }
 
 .nav-button-label{
@@ -26,16 +29,18 @@
 }
 
 .nav-button{
-    -fx-background-color: -theme-dark-green;
+    -fx-background-color: -theme-green;
     -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.4),4,0.0,0.0,0.0);
-    -fx-background-radius: 10;
     -fx-cursor: hand;
+    -fx-border-width: 0px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
 }
 
 .nav-button:hover{
     -fx-background-color: -theme-dark-green;
-    -fx-border-width: 0px 0px 3px 0px;
-    -fx-border-color: -theme-white;
+
+
 }
 
 .nav-button:hover .nav-button-ribbon{

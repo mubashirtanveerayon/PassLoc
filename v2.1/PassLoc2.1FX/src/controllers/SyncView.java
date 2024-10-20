@@ -2,7 +2,9 @@ package controllers;
 
 import com.google.zxing.WriterException;
 import commons.services.model.SimpleEntry;
+import commons.services.secure.AES256WithSaltAndIV;
 import commons.services.sqlcomm.CommandGenerator;
+import commons.utils.HelperFunctions;
 import commons.utils.StringCompressor;
 import helper.NotificationCenter;
 import helper.State;
@@ -12,10 +14,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import org.json.JSONArray;
 import services.database.Database;
 import services.generator.qr.QRCodeGenerator;
 import services.generator.qr.QRCodeReader;
@@ -60,7 +64,7 @@ public class SyncView extends View implements Initializable {
             e.printStackTrace();
         }
 
-
+        generateButton.setText("Generate");
 
         loadImageView();
         placeFooter();
@@ -109,21 +113,22 @@ public class SyncView extends View implements Initializable {
 
             Database db = Database.getInstance();
 
-            ArrayList<SimpleEntry> entries = db.getAllData();
-
-            String json = SimpleEntry.convertToJSONString(entries);
 
 
-            String signature = db.getTableName();
+            String signature = CommandGenerator.getInstance().getTableName();
 
-            String encryptedData = CommandGenerator.getInstance().encrypt(json);
+            String entries = db.getEncryptedEntries();
 
-            byte[] compressed = StringCompressor.compress(encryptedData);
-
-
-            ArrayList<String> partitions = QRCodeGenerator.createPartitionFromData(compressed, 2000, signature);
             qrImages.clear();
+
+
             try {
+                String encryptedData = AES256WithSaltAndIV.encrypt(entries,CommandGenerator.getInstance().getTableName().toCharArray());
+
+                byte[] compressed = StringCompressor.compress(encryptedData);
+
+
+                ArrayList<String> partitions = QRCodeGenerator.createPartitionFromData(compressed, 2000, signature);
                 qrImages.addAll(QRCodeGenerator.generateQRImages(partitions, 400, 400));
                 imageIndex = 0;
 
@@ -132,7 +137,7 @@ public class SyncView extends View implements Initializable {
 
                 generateButton.setText("Export");
 
-            } catch (WriterException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }else{
@@ -143,9 +148,9 @@ public class SyncView extends View implements Initializable {
             folderChooser.setTitle("Select folder to save the QR Codes in");
             String saveDirectory = folderChooser.showDialog(null).getAbsolutePath();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddsshhmmss", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddsshhmmss");
             String time = sdf.format(new Date());
-            String tableName = Database.getInstance().getTableName();
+            String tableName = CommandGenerator.getInstance().getTableName();
             String signature = tableName.substring(tableName.length()-4);
             try {
                 for (int i = 0; i < qrImages.size(); i++)
@@ -181,23 +186,25 @@ public class SyncView extends View implements Initializable {
             ArrayList<String>partitions = QRCodeReader.createPartitionFromQRImages(imageFileList.toArray(new File[0]));
             String encryptedData = StringCompressor.decompress( QRCodeReader.loadByteArrayFromPartition(partitions));
             Database db = Database.getInstance();
-            String json = CommandGenerator.getInstance().decrypt(encryptedData);
+            String decrypted = AES256WithSaltAndIV.decrypt(encryptedData,CommandGenerator.getInstance().getTableName().toCharArray());
+            JSONArray jsonArray = new JSONArray(decrypted);
 
 
 
-            ArrayList<SimpleEntry> entries = SimpleEntry.fromJSONArray(json);
 
 
 
+            for(int i=0;i<jsonArray.length();i++)
+                db.insert(CommandGenerator.getInstance().decryptEntry(jsonArray.get(i).toString()));
 
-            for(SimpleEntry newEntry:entries)
-                db.insert(newEntry);
 
 
-            FXMLLoader dataViewLoader = new FXMLLoader(getClass().getResource("/res/view/data-view.fxml"));
-            State.root.setCenter(dataViewLoader.load());
-//            DataView controller = dataViewLoader.getController();
-//            controller.setBorderPane(borderPane);
+            FXMLLoader dataViewLoader = new FXMLLoader(getClass().getResource("/res/view/data_view.fxml"));
+            Parent root = dataViewLoader.load();
+            DataView controller = dataViewLoader.getController();
+            controller.setBorderPane(borderPane);
+
+            borderPane.setCenter(root);
 
         } catch (Exception e) {
             e.printStackTrace();

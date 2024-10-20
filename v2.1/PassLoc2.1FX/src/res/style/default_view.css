@@ -8,7 +8,7 @@
 .title-label{
     -fx-font-weight:bold;
     -fx-font-size:32px;
-    -fx-text-fill:-theme-light-text;
+    -fx-text-fill:-theme-dark-blue;
 }
 
 .floating-box{
@@ -16,8 +16,11 @@
 
 
     -fx-background-radius:20px;
+    -fx-border-radius:20px;
+    /*-fx-border-width: 1px;*/
+    /*-fx-border-color:-theme-deep-blue;*/
 
-    -fx-background-color: -theme-dark-green;
+    -fx-background-color: -theme-grey;
     -fx-effect: dropShadow(two-pass-box,-theme-blue,6,0,0,0);
 
 }

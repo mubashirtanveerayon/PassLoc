@@ -28,16 +28,23 @@
                </padding>
                <children>
                   <Label styleClass="title-label" text="Passwords" />
-                  <TextField fx:id="tagField" onAction="#onTagFieldAction" promptText="Search for tags" styleClass="custom-border" stylesheets="@../style/custom_text_field.css" />
-                  <MFXScrollPane prefHeight="60.0" thumbColor="#5e9cd6" thumbHoverColor="#1e76cf" vbarPolicy="NEVER">
-                     <content>
-                        <HBox fx:id="tagContainer" alignment="CENTER_LEFT" spacing="10.0" />
-                     </content>
-                     <stylesheets>
-                        <URL value="@../style/custom_scroll_pane.css" />
-                        <URL value="@../style/colors.css" />
-                     </stylesheets>
-                  </MFXScrollPane>
+                  <VBox alignment="CENTER" styleClass="custom-border" stylesheets="@../style/custom_text_field.css">
+                     <children>
+                        <TextField fx:id="tagField" onAction="#onTagFieldAction" promptText="Search for tags" />
+                        <MFXScrollPane prefHeight="60.0" thumbColor="#5e9cd6" thumbHoverColor="#1e76cf" vbarPolicy="NEVER">
+                           <content>
+                              <HBox fx:id="tagContainer" alignment="CENTER_LEFT" spacing="10.0" />
+                           </content>
+                           <stylesheets>
+                              <URL value="@../style/custom_scroll_pane.css" />
+                              <URL value="@../style/colors.css" />
+                           </stylesheets>
+                        </MFXScrollPane>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </VBox>
                   <MFXScrollPane stylesheets="@../style/custom_scroll_pane.css">
                      <content>
                         <VBox fx:id="entryContainer" alignment="TOP_CENTER" spacing="10.0" />

@@ -1,5 +1,6 @@
 package commons.services.model;
 
+import commons.utils.HelperFunctions;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
@@ -35,10 +36,10 @@ public class SimpleEntry extends Entry {
 
 
         super(4);
-        this.username = username == null ? "" : username;
-        this.password = password == null ? "":password;
-        this.url = url == null ? "":url;
-        this.note = note == null ? "":note;
+        this.username = HelperFunctions.isInvalidData(username) ? "Not set" : username;
+        this.password = HelperFunctions.isInvalidData(password) ? "Not set":password;
+        this.url =HelperFunctions.isInvalidData(url) ? "Not set":url;
+        this.note =HelperFunctions.isInvalidData(note)  ? "Not set":note;
 
         addField(this.username );
         addField(this.password);
@@ -46,6 +47,8 @@ public class SimpleEntry extends Entry {
         addField(this.note);
 
     }
+
+
 
 
 
@@ -129,10 +132,12 @@ public class SimpleEntry extends Entry {
 
         SimpleEntry entry;
 
-        if(fields.length != 4 && !segments[1].endsWith(separator))
+        if(fields.length != 4)
             return null;
 
-        entry = new SimpleEntry(fields[0],fields[1],fields[2],(segments[1].endsWith(separator) ?"": fields[3]));
+        Base64.Decoder decoder = Base64.getDecoder();
+
+        entry = new SimpleEntry(new String(decoder.decode( fields[0])),new String(decoder.decode( fields[1])),new String(decoder.decode( fields[2])),new String(decoder.decode( fields[3])));
 
 
 
@@ -141,7 +146,7 @@ public class SimpleEntry extends Entry {
 
 
         for(String tag : tags)
-            entry.addTag(tag);
+            entry.addTag(new String(decoder.decode( tag)));
         return entry;
     }
     public static String convertToJSONString(ArrayList<SimpleEntry> entries){

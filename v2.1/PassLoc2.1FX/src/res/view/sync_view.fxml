@@ -27,7 +27,7 @@
                   <Insets bottom="5.0" left="40.0" right="40.0" top="5.0" />
                </padding>
                <children>
-                  <Label text="Sync" textFill="WHITE">
+                  <Label styleClass="title-label" text="Sync" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="48.0" />
                      </font>
@@ -64,7 +64,7 @@
                      </children>
                   </StackPane>
                   <Pane layoutX="50.0" layoutY="115.0" VBox.vgrow="ALWAYS" />
-                  <Label fx:id="qrCounterLabel" text="1/1" textFill="WHITE">
+                  <Label fx:id="qrCounterLabel" text="1/1" textFill="#01192a">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
