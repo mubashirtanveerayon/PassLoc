@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.35" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainView">
+  <items>
+    <AnchorPane id="nav-panel">
+         <children>
+            <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="title-card">
+                     <children>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Asset%202@300x-8.png" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="title-label" text="PassLoc">
+                                 <font>
+                                    <Font name="System Bold" size="40.0" />
+                                 </font>
+                              </Label>
+                              <Label styleClass="title-label" text="Your Offline Digital ecurity">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#onLoginClicked" spacing="10.0" styleClass="nav-button">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                     <children>
+                        <Pane prefHeight="75.0" prefWidth="10.0" styleClass="nav-button-ribbon" />
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/login32.png" />
+                           </image>
+                        </ImageView>
+                        <Label styleClass="nav-button-label" text="Login">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#onViewClicked" spacing="10.0" styleClass="nav-button">
+                     <children>
+                        <Pane prefHeight="75.0" prefWidth="10.0" styleClass="nav-button-ribbon" />
+                        <MaterialIconView fill="WHITE" glyphName="STORAGE" size="32" />
+                        <Label styleClass="nav-button-label" text="View Passwords">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#onPGClicked" spacing="10.0" styleClass="nav-button">
+                     <children>
+                        <Pane prefHeight="75.0" prefWidth="10.0" styleClass="nav-button-ribbon" />
+                        <MaterialIconView fill="WHITE" glyphName="SETTINGS" size="32" />
+                        <Label styleClass="nav-button-label" text="Password  Generator">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#onSyncClicked" spacing="10.0" styleClass="nav-button">
+                     <children>
+                        <Pane prefHeight="75.0" prefWidth="10.0" styleClass="nav-button-ribbon" />
+                        <MaterialIconView fill="WHITE" glyphName="SYNC" size="32" />
+                        <Label styleClass="nav-button-label" text="Sync Passwords">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <AnchorPane>
+                     <children>
+                        <HBox id="lock-card" alignment="CENTER" onMouseClicked="#onLogoutClicked" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/lock482.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox id="about-card" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#onInfoClicked" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/about482.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets bottom="50.0" left="20.0" right="20.0" top="30.0" />
+               </padding>
+            </VBox>
+         </children></AnchorPane>
+    <AnchorPane>
+         <children>
+            <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <AnchorPane id="top-bar" fx:id="topBar" stylesheets="@../style/top_bar.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label styleClass="title" text="PassLocFX">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label styleClass="version-text" text="Version 2.1.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Label text="Notifications:    Error only">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXToggleButton fx:id="notificationToggleButton" onAction="#onNotificationToggle" selected="true" size="8.0" text="All" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#0880f3" unToggleColor="#c3d7e6">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </JFXToggleButton>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#onMinimizeClicked" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/minimize32.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#onCloseClicked" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/close.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </AnchorPane>
+               </top>
+
+
+            </BorderPane>
+         </children></AnchorPane>
+  </items>
+   <stylesheets>
+
+      <URL value="@../style/colors.css" />
+      <URL value="@../style/main_view.css" />
+   </stylesheets>
+</SplitPane>

@@ -1,0 +1,18 @@
+.button{
+
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-background-radius: 100px;
+    -fx-border-radius: 100px;
+    -fx-border-color:transparent;
+    -fx-effect: innershadow( two-pass-box , rgba(200, 200, 200, 0.53),8 , 0.2 ,0 , 0);
+    -fx-focus-traversable: false;
+    -fx-background-color: -fx-body-color;
+    -fx-background-insets: 0px;
+    -fx-padding: 0px;
+
+}
+
+.glyph-icon{
+    -fx-background-color: transparent;
+}
