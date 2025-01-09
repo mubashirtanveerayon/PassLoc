@@ -10,4 +10,3 @@
 ![image1](/screenshots3/image3.png)<br>
 ![image1](/screenshots3/image4.png)<br>
 ![image1](/screenshots3/image5.png)<br>
-![image1](/screenshots3/image6.png)<br>
