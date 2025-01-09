@@ -36,7 +36,7 @@
                                     <Font name="System Bold" size="40.0" />
                                  </font>
                               </Label>
-                              <Label styleClass="title-label" text="Your offline digital locker">
+                              <Label styleClass="title-label" text="Your Offline Digital ecurity">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
@@ -116,7 +116,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </HBox>
-                        <HBox id="about-card" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#onInfoClicked" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <HBox id="about-card" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#onInfoClicked" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -132,9 +132,6 @@
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
                   </AnchorPane>
                </children>
                <padding>

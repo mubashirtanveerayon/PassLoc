@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="root" alignment="CENTER_LEFT" fillHeight="false" maxWidth="1.7976931348623157E308" spacing="10.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.FieldContainer">
+   <children>
+      <VBox alignment="CENTER_LEFT" spacing="10.0" styleClass="text-container" stylesheets="@../style/custom-text-container.css" HBox.hgrow="ALWAYS">
+         <children>
+            <TextField fx:id="keyField" onAction="#onKeyFieldAction" promptText="Key" />
+            <AnchorPane>
+               <children>
+                  <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField fx:id="valueTextField" promptText="Value" visible="false">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </TextField>
+                        <PasswordField fx:id="valuePasswordField" promptText="Value" />
+                     </children>
+                  </StackPane>
+                  <FontAwesomeIconView fx:id="valueVisibilityIcon" glyphName="EYE_SLASH" onMouseClicked="#onValueVisibilityIconClicked" size="28" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIconView>
+               </children>
+            </AnchorPane>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
+      <FontAwesomeIconView fill="WHITE" glyphName="MINUS_CIRCLE" onMouseClicked="#onDeleteFieldClicked" size="36">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIconView>
+   </children>
+</HBox>

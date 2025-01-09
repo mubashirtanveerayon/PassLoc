@@ -1,0 +1,49 @@
+.text-field{
+    -fx-background-color: transparent;
+    -fx-font-size: 22px;
+    -fx-padding: 0px 40px 5px 5px;
+    -fx-text-fill: white;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-border-color: #777777;
+}
+
+.password-field{
+    -fx-background-color: transparent;
+    -fx-font-size: 22px;
+    -fx-padding: 0px 40px 5px 5px;
+    -fx-text-fill: white;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-border-color: #777777;
+}
+
+.text-field:focused{
+    -fx-border-color: white;
+}
+
+
+.password-field:focused{
+    -fx-border-color: white;
+}
+
+.label{
+    -fx-text-fill: white;
+}
+
+.glyph-icon{
+    -fx-fill: white;
+    -glyph-size:28;
+    -fx-cursor:hand;
+}
+.text-container{
+    -fx-background-color:rgb(100,100,100);
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 15px;
+}
+
+.glyph-icon{
+    -fx-fill: white;
+}
+
+
+

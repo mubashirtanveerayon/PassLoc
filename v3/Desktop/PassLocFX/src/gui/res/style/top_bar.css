@@ -1,0 +1,7 @@
+#top-bar{
+    -fx-background-color:  -top-bar-bg;
+}
+
+.label{
+    -fx-text-fill: white;
+}

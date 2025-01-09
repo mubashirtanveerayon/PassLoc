@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="parent-container" fx:id="root" alignment="CENTER_LEFT" spacing="20.0" stylesheets="@../style/entry-element.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EntryView">
+   <children>
+      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="usernameLabel" text="Username">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <FontAwesomeIconView fill="#5a9cff" glyphName="LINK" size="24" />
+                  <Label fx:id="urlLabel" text="google.com">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox id="action-container" alignment="CENTER" spacing="20.0">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <FontAwesomeIconView fill="WHITE" glyphName="USER" onMouseClicked="#onCopyUsernameClicked" size="32">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+            <FontAwesomeIconView fill="WHITE" glyphName="LOCK" layoutX="20.0" layoutY="44.0" onMouseClicked="#onCopyPasswordClicked" size="32">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+            <FontAwesomeIconView fill="WHITE" glyphName="LINK" layoutX="58.0" layoutY="47.0" onMouseClicked="#onCopyUrlClicked" size="32">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+            <MenuButton fx:id="copyMenuButton" mnemonicParsing="false">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="COPY" size="32" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <stylesheets>
+                  <URL value="@../style/custom-menu-button.css" />
+                  <URL value="@../style/custom-menu-item.css" />
+               </stylesheets>
+            </MenuButton>
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" layoutX="50.0" layoutY="44.0" onMouseClicked="#onEditClicked" size="32">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" layoutX="78.0" layoutY="44.0" onMouseClicked="#onDeleteClicked" size="32">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</HBox>

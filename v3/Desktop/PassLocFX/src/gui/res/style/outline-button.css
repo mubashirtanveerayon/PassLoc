@@ -1,0 +1,43 @@
+.button{
+    -fx-background-color:rgb(100,100,100);
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-text-fill: #ffffff;
+
+    -fx-effect:dropShadow(three-pass-box, black,6,0,0,0);
+    -fx-cursor:hand;
+}
+
+.button:hover{
+
+    -fx-background-color:white;
+    -fx-text-fill: black;
+
+
+}
+
+#logout-button:hover{
+    -fx-background-color: #ff4747;
+    -fx-text-fill: #ffffff;
+}
+
+#logout-button:hover .glyph-icon{
+    -fx-fill:white;
+}
+
+
+.glyph-icon{
+    -fx-fill:white;
+}
+
+.button:hover .glyph-icon{
+    -fx-fill:black;
+}
+
+.button:pressed{
+    -fx-background-color: #2e87ff;
+    -fx-text-fill: white;
+}
+.button:pressed .glyph-icon{
+    -fx-fill:white;
+}

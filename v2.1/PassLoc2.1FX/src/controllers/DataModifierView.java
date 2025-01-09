@@ -1,7 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextArea;
-import commons.services.model.SimpleEntry;
+import services.commons.model.SimpleEntry;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import helper.NotificationCenter;
 import helper.State;
@@ -147,7 +147,7 @@ public class DataModifierView extends View implements Initializable {
             return;
         }
 
-        if(!Database.online()) {
+        if(Database.offline()) {
             NotificationCenter.sendFailureNotification("Database is offline.");
             return;
         }

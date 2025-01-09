@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="PassLoc2Service">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/PassLoc2Service.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

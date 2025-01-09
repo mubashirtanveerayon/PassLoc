@@ -1,0 +1,26 @@
+.parent-container{
+
+
+    -fx-background-color:white;
+}
+
+.title-label{
+    -fx-font-weight:bold;
+    -fx-font-size:32px;
+    -fx-text-fill:black;
+}
+
+.floating-box{
+
+
+    -fx-border-width: 1px;
+    -fx-border-color:#2f3542;
+    -fx-background-radius:20px;
+    -fx-border-radius:20px;
+    -fx-effect: dropShadow(two-pass-box,-theme-blue,2,0,0,0);
+
+    -fx-background-color:#a4b0be;
+
+
+
+}

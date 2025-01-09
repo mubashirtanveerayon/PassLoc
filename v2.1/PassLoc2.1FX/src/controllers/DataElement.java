@@ -1,6 +1,6 @@
 package controllers;
 
-import commons.services.model.SimpleEntry;
+import services.commons.model.SimpleEntry;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

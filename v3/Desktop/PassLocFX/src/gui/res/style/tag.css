@@ -1,0 +1,16 @@
+
+
+.tag-container{
+
+    -fx-background-radius: 20px;
+    -fx-border-radius: 25px;
+    -fx-border-width: 2px;
+
+    -fx-background-color:rgb(50,50,50);
+    -fx-effect: innershadow( two-pass-box ,black, 4 , 0.2 ,0 , 0);;
+}
+.label{
+
+    -fx-text-fill: white;
+}
+

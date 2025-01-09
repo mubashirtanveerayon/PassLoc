@@ -1,7 +1,7 @@
 package controllers;
 
 
-import commons.services.model.SimpleEntry;
+import services.commons.model.SimpleEntry;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import helper.NotificationCenter;
 import helper.State;
@@ -10,7 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+
 import javafx.scene.Parent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -46,7 +46,7 @@ public class DataView extends View implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         State.currentState = State.AppState.VIEW;
 
-        if(!Database.online())
+        if(Database.offline())
             return;
 
         if(tags == null)
@@ -61,12 +61,12 @@ public class DataView extends View implements Initializable {
 
 
     public void showFilteredEntries(){
-        if (tags.isEmpty())
-            return;
+
 
         entryContainer.getChildren().clear();
-
-        if(!Database.online()){
+        if (tags.isEmpty())
+            return;
+        if(Database.offline()){
             NotificationCenter.sendFailureNotification("Database is offline");
             return;
         }

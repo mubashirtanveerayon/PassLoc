@@ -1,0 +1,18 @@
+.menu-item .label{
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+
+}
+.menu-item{
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+}
+
+.menu-item:hover{
+    -fx-background-color: white;
+}
+.menu-item:hover .label{
+
+    -fx-text-fill: black;
+}

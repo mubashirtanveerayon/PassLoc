@@ -1,0 +1,12 @@
+.container{
+    -fx-background-color: rgb(50,50,50);
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect:dropShadow(two-pass-box, #202020,6,0,0,0);
+    -fx-padding: 10px;
+    
+}
+
+.label{
+    -fx-text-fill: white;
+}

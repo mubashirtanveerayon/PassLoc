@@ -1,7 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
-import commons.services.sqlcomm.CommandGenerator;
+
 import helper.State;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,9 +13,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import services.commons.sqlcomm.SQLCom;
 import services.database.Database;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -76,6 +76,7 @@ public class MainView implements Initializable {
     void onCloseClicked(MouseEvent event) {
 
         Database.disconnect();
+        SQLCom.disconnect();
         System.exit(0);
 
     }

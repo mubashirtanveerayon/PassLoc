@@ -1,7 +1,7 @@
 package controllers;
 
-import commons.services.sqlcomm.CommandGenerator;
-import commons.utils.Identifier;
+import services.commons.sqlcomm.SQLCom;
+
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import helper.Info;
 import helper.State;
@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import services.database.Database;
-
+import services.commons.password.PasswordValidator;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,17 +31,12 @@ public class LoginView extends View implements Initializable {
     @FXML
     private TextField locationField;
 
-    @FXML
-    private PasswordField masterPasswordField;
-
-    @FXML
-    private TextField masterPasswordTextField;
 
     @FXML
     private TextField nameField;
 
     @FXML
-    MaterialIconView dbPasswordVisibilityIcon,masterPasswordVisibilityIcon;
+    MaterialIconView dbPasswordVisibilityIcon;
 
 
     @Override
@@ -50,43 +45,17 @@ public class LoginView extends View implements Initializable {
         nameField.setText("");
         locationField.setText(Info.DB_SAVE_LOCATION);
         dbPasswordField.setText("");
-        masterPasswordField.setText("");
-        masterPasswordTextField.setText("");
+
         dbPasswordTextField.setText("");
 
         State.currentState = State.AppState.DB_LOGIN;
         dbPasswordVisibilityIcon.setGlyphName("VISIBILITY_OFF");
-        masterPasswordVisibilityIcon.setGlyphName("VISIBILITY_OFF");
 
-        toggleMasterPasswordVisibility(true);
+
         toggleDBPasswordVisibility(true);
 
 
     }
-
-    private void toggleMasterPasswordVisibility(boolean isPasswordVisible) {
-
-        if(isPasswordVisible){
-            String password = masterPasswordTextField.getText();
-            masterPasswordTextField.setText("");
-            masterPasswordTextField.setVisible(false);
-
-            masterPasswordField.setVisible(true);
-            masterPasswordField.setText(password);
-
-            masterPasswordVisibilityIcon.setGlyphName("VISIBILITY_OFF");
-        }else{
-            String password = masterPasswordField.getText();
-            masterPasswordField.setText("");
-            masterPasswordField.setVisible(false);
-
-            masterPasswordTextField.setVisible(true);
-            masterPasswordTextField.setText(password);
-
-            masterPasswordVisibilityIcon.setGlyphName("VISIBILITY");
-        }
-    }
-
 
     private void toggleDBPasswordVisibility(boolean isPasswordVisible) {
         if(isPasswordVisible){
@@ -117,27 +86,26 @@ public class LoginView extends View implements Initializable {
         String name = nameField.getText();
         String location = locationField.getText();
         String dbPassword = dbPasswordField.isVisible() ? dbPasswordField.getText() :  dbPasswordTextField.getText();
-        String masterPassword = masterPasswordField.isVisible() ? masterPasswordField.getText() :  masterPasswordTextField.getText();
 
-        if(name.isEmpty() || location.isEmpty() || dbPassword.isEmpty() || masterPassword.isEmpty() || name.isBlank() || location.isBlank() || dbPassword.isBlank() || masterPassword.isBlank() ){
+        if(name.isEmpty() || location.isEmpty() || dbPassword.isEmpty() || name.isBlank() || location.isBlank() || dbPassword.isBlank() ){
 
             return;
 
         }
 
-        if(dbPassword.length() < Info.MIN_PASSWORD_LENGTH || masterPassword.length() < Info.MIN_PASSWORD_LENGTH){
+        if(dbPassword.length() < PasswordValidator.PASSWORD_MINIMUM_LENGTH ){
             return;
         }
 
-
-        CommandGenerator.disconnect();
-        CommandGenerator.initialize(dbPassword, masterPassword);
         Database.disconnect();
+        SQLCom.disconnect();
+        SQLCom.initialize(dbPassword);
+
 
         try {
             Database.establishConnection(name, location, dbPassword);
 
-            if(Database.online()){
+            if(!Database.offline()){
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/view/data_view.fxml"));
                 borderPane.setCenter(loader.load());
@@ -170,10 +138,7 @@ public class LoginView extends View implements Initializable {
         login();
     }
 
-    @FXML
-    void onMasterPasswordToggleVisibility(MouseEvent event) {
-         toggleMasterPasswordVisibility(masterPasswordTextField.isVisible());
-    }
+
 
     @FXML
     void onOpenFolderClicked(MouseEvent event) {
@@ -206,16 +171,9 @@ public class LoginView extends View implements Initializable {
     }
 
     public void onDBPasswordAction(ActionEvent event){
-        if(masterPasswordTextField.isVisible())
-            masterPasswordTextField.requestFocus();
-        else
-            masterPasswordField.requestFocus();
-    }
-
-    public void onMasterPasswordAction(ActionEvent event){
-
         login();
-
     }
+
+
 
 }

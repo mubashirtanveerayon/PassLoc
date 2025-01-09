@@ -1,0 +1,23 @@
+
+
+
+.text-field{
+    -fx-font-size:24px;
+    -fx-text-fill:black;
+    -fx-background-color: transparent;
+}
+
+
+.password-field{
+
+    -fx-font-size:24px;
+    -fx-text-fill:black;
+    -fx-background-color: transparent;
+}
+
+.custom-border{
+    -fx-background-color:white;
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+    -fx-effect: innershadow( two-pass-box , grey, 8 , 0.2 ,0 , 0);
+}

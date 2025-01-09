@@ -1,0 +1,24 @@
+.root{
+
+
+    -theme-light-text:white;
+    -theme-bright-blue: #0880f3;
+    -theme-deep-blue: #072645;
+    -theme-blue: #1e76cf;
+    -theme-light-blue: #5e9cd6;
+
+    -theme-less-dark-blue:  #09325a;
+    -theme-white:#ffffff;
+    -theme-grey: #c3d7e6;
+    -theme-bright-green: #32ec3c;
+    -theme-green: #1b9e59;
+    -theme-dark-green: #035714;
+
+    -theme-blue-unsused: #13497e;
+    -theme-red:#ae0034;
+    -theme-bright-red: #d60f0f;
+
+    -top-bar-bg:#2f3542;
+    -button-hover:#01192a;
+
+}

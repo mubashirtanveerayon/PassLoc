@@ -2,10 +2,10 @@ package controllers;
 
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
-import commons.services.generator.password.PasswordStrengthEvaluator;
-import commons.services.generator.password.UniquePasswordGenerator;
-import commons.services.model.PasswordElements;
-import commons.services.model.PasswordUnit;
+import services.commons.password.PasswordStrengthEvaluator;
+import services.commons.password.UniquePasswordGenerator;
+import services.commons.model.PasswordElements;
+import services.commons.model.PasswordUnit;
 import helper.NotificationCenter;
 import helper.State;
 import io.github.palexdev.materialfx.beans.NumberRange;

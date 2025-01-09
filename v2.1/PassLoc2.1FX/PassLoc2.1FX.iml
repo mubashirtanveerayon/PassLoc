@@ -9,6 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="controlsfx-11.2.1" level="project" />
     <orderEntry type="library" name="jfoenix-9.0.10" level="project" />
-    <orderEntry type="library" name="PassLoc2Service" level="project" />
+    <orderEntry type="library" name="sqlite-jdbc-3.46.1.0" level="project" />
   </component>
 </module>

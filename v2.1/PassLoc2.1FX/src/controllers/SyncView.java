@@ -1,11 +1,8 @@
 package controllers;
 
-import com.google.zxing.WriterException;
-import commons.services.model.SimpleEntry;
-import commons.services.secure.AES256WithSaltAndIV;
-import commons.services.sqlcomm.CommandGenerator;
-import commons.utils.HelperFunctions;
-import commons.utils.StringCompressor;
+import services.commons.model.SimpleEntry;
+import services.commons.secure.AES256WithSaltAndIV;
+import services.commons.sqlcomm.SQLCom;
 import helper.NotificationCenter;
 import helper.State;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -19,10 +16,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import org.json.JSONArray;
 import services.database.Database;
-import services.generator.qr.QRCodeGenerator;
-import services.generator.qr.QRCodeReader;
+import services.sync.QRCode;
+
+
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -102,7 +99,7 @@ public class SyncView extends View implements Initializable {
 
     @FXML
     void onGenerateOrSaveAction(ActionEvent event) {
-        if (!Database.online()) {
+        if (Database.offline()) {
             NotificationCenter.sendFailureNotification("Database is offline.");
             return;
         }
@@ -111,35 +108,30 @@ public class SyncView extends View implements Initializable {
 
 
 
-            Database db = Database.getInstance();
+            ArrayList<SimpleEntry>entries = Database.getInstance().getAllData();
+
+            String signature = SQLCom.getInstance().getTableName();
 
 
 
-            String signature = CommandGenerator.getInstance().getTableName();
-
-            String entries = db.getEncryptedEntries();
 
             qrImages.clear();
 
 
             try {
-                String encryptedData = AES256WithSaltAndIV.encrypt(entries,CommandGenerator.getInstance().getTableName().toCharArray());
-
-                byte[] compressed = StringCompressor.compress(encryptedData);
-
-
-                ArrayList<String> partitions = QRCodeGenerator.createPartitionFromData(compressed, 2000, signature);
-                qrImages.addAll(QRCodeGenerator.generateQRImages(partitions, 400, 400));
+                qrImages.addAll(QRCode.generateQRCodes(entries, SQLCom.getInstance(),signature));
                 imageIndex = 0;
 
                 loadImageView();
                 placeFooter();
 
                 generateButton.setText("Export");
-
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
+
+
+
         }else{
 
 
@@ -150,7 +142,7 @@ public class SyncView extends View implements Initializable {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddsshhmmss");
             String time = sdf.format(new Date());
-            String tableName = CommandGenerator.getInstance().getTableName();
+            String tableName = SQLCom.getInstance().getTableName();
             String signature = tableName.substring(tableName.length()-4);
             try {
                 for (int i = 0; i < qrImages.size(); i++)
@@ -171,7 +163,7 @@ public class SyncView extends View implements Initializable {
     @FXML
     void onImportAction(ActionEvent event) {
 
-        if(!Database.online()) {
+        if(Database.offline()) {
             NotificationCenter.sendFailureNotification("Database is offline.");
             return;
         }
@@ -183,19 +175,21 @@ public class SyncView extends View implements Initializable {
 
 
         try {
-            ArrayList<String>partitions = QRCodeReader.createPartitionFromQRImages(imageFileList.toArray(new File[0]));
-            String encryptedData = StringCompressor.decompress( QRCodeReader.loadByteArrayFromPartition(partitions));
-            Database db = Database.getInstance();
-            String decrypted = AES256WithSaltAndIV.decrypt(encryptedData,CommandGenerator.getInstance().getTableName().toCharArray());
-            JSONArray jsonArray = new JSONArray(decrypted);
 
 
 
 
+            ArrayList<BufferedImage>images = new ArrayList<>();
+            for(File file : imageFileList)
+                images.add(ImageIO.read(file));
 
 
-            for(int i=0;i<jsonArray.length();i++)
-                db.insert(CommandGenerator.getInstance().decryptEntry(jsonArray.get(i).toString()));
+            ArrayList<SimpleEntry>entries = QRCode.readEntries(images,SQLCom.getInstance());
+
+            Database instance = Database.getInstance();
+            for(SimpleEntry entry:entries)
+                instance.insert(entry);
+
 
 
 

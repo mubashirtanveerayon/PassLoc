@@ -4,14 +4,16 @@
     -fx-border-width:2px;
     -fx-border-radius: 20px;
     -fx-padding: 10px;
-    -fx-background-color: -theme-blue;
+    -fx-background-color: -theme-grey;
     -fx-border-color:-theme-deep-blue;
+
 
 
 }
 
 .label{
-    -fx-text-fill: -theme-deep-blue;
+    -fx-text-fill: -theme-dark-blue;
+
 }
 
 #action-container{
